@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Manashjyoti Barman - Portfolio
 
-## Getting Started
+A fully responsive, dark-themed, and modern portfolio website built with Next.js (App Router), TypeScript, and Tailwind CSS. The site is optimized for performance, SEO, and accessibility.
 
-First, run the development server:
+## 🚀 How to Run Locally
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
+- [Node.js](https://nodejs.org/) (version 18 or above recommended)
+- `npm` or `yarn`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Steps
+1. **Clone the repository** (if you haven't already):
+   ```bash
+   git clone <repository-url>
+   cd my_resume
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
+## 📝 Where to Update Content
 
-To learn more about Next.js, take a look at the following resources:
+The current version uses placeholder data because the specific PDF content was not accessible during generation. You can easily update all content directly in `src/app/page.tsx`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Profile Data**: Open `src/app/page.tsx`. Look at the top of the file where constants like `skills`, `toolsAndLanguages`, `experiences`, `educationList`, `certifications`, `awards`, and `publication` are defined.
+2. **Contact Info**: Search for `manashjyoti.barman07@gmail.com` in `src/app/page.tsx` to update email. Update phone and location similarly.
+3. **Images & Downloads**:
+   - Replace `public/profile.png` with your actual profile picture extracted from the PDF.
+   - Replace `public/Manashjyoti_Barman_Resume.pdf` with your actual resume PDF so the download button functions properly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ☁️ How to Deploy to Vercel
 
-## Deploy on Vercel
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Steps
+1. Push your code to a GitHub/GitLab/Bitbucket repository.
+2. Log in to [Vercel](https://vercel.com/) and click **Add New** -> **Project**.
+3. Import your Git repository.
+4. Vercel will auto-detect Next.js. Most defaults are correct.
+5. Click **Deploy**. Your site will be live and auto-updating with your `main` branch!
