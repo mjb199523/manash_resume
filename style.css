@@ -836,6 +836,24 @@ body {
     margin-right: auto;
 }
 
+.footer-center {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(138, 125, 244, 0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(138, 125, 244, 0.1);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.visitor-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--gradient-start);
+}
+
 /* --- RESPONSIVE --- */
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
