@@ -226,8 +226,8 @@ body {
 }
 
 .hero-section {
-    padding-top: 100px;
-    padding-bottom: 80px;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .hero-name-block {
@@ -236,7 +236,7 @@ body {
 
 .hero-name-primary {
     font-family: var(--font-heading);
-    font-size: 5.5rem;
+    font-size: 5rem;
     font-weight: 900;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -253,7 +253,7 @@ body {
 
 .hero-name-gradient {
     font-family: var(--font-heading);
-    font-size: 5.5rem;
+    font-size: 5rem;
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -0.04em;
@@ -269,14 +269,14 @@ body {
     font-style: italic;
     color: var(--gradient-start);
     font-size: 0.95rem;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     font-weight: 600;
 }
 
 .hero-alignment-block {
     width: fit-content;
     max-width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 
 .hero-roles {
@@ -284,7 +284,7 @@ body {
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--text-primary);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     white-space: nowrap;
 }
 
