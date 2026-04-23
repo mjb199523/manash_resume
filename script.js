@@ -157,20 +157,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!countElement) return;
 
         try {
-            // Using CounterAPI.dev - a free, public hit counter
-            // We use 'up' to increment on each visit
-            const response = await fetch('https://api.counterapi.dev/v1/mjbarman-resume/visits/up');
+            // Updated to a cleaner namespace
+            const response = await fetch('https://api.counterapi.dev/v1/manash-resume-official/visits/up');
             const data = await response.json();
             
-            if (data && data.count) {
-                // Add a realistic starting base or just use the raw count
-                const baseCount = 1200; // Starting point for professional look
-                const displayCount = (data.count + baseCount).toLocaleString();
-                countElement.innerText = displayCount;
+            if (data && typeof data.count === 'number') {
+                // Formatting the real count from zero
+                countElement.innerText = data.count.toLocaleString();
+            } else {
+                countElement.innerText = '1'; 
             }
         } catch (error) {
             console.error('Visitor count error:', error);
-            countElement.innerText = 'Highly active'; // Professional fallback
+            // Default to 1 if API fails (representing the current user)
+            countElement.innerText = '1';
         }
     }
 
