@@ -157,20 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!countElement) return;
 
         try {
-            // Updated to a cleaner namespace
-            const response = await fetch('https://api.counterapi.dev/v1/manash-resume-official/visits/up');
+            // Using a stable, unique key with a cache-buster query parameter
+            const response = await fetch(`https://api.counterapi.dev/v1/mjb-resume-official-2026/visits/up?t=${Date.now()}`);
             const data = await response.json();
             
             if (data && typeof data.count === 'number') {
-                // Formatting the real count from zero
                 countElement.innerText = data.count.toLocaleString();
             } else {
-                countElement.innerText = '1'; 
+                countElement.innerText = 'Active'; 
             }
         } catch (error) {
             console.error('Visitor count error:', error);
-            // Default to 1 if API fails (representing the current user)
-            countElement.innerText = '1';
+            countElement.innerText = 'Online';
         }
     }
 
