@@ -156,24 +156,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const countElement = document.getElementById('visitor-count-value');
         if (!countElement) return;
 
+        // Set a loading state
+        countElement.innerText = "Checking...";
+
         try {
-            // Using SeeYouFarm HITS (Highly Reliable)
-            const url = encodeURIComponent('https://manashjyoti.vercel.app');
-            const response = await fetch(`https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=${url}&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false`);
-            const svgText = await response.text();
+            // Using CounterAPI.dev - a dedicated hit counter
+            const response = await fetch('https://api.counterapi.dev/v1/manash-resume-v3/visits/up');
             
-            // Extract the second <text> tag content (which is the actual count)
-            // The SVG format is consistent: <text ...>hits</text> and then <text ...>COUNT</text>
-            const counts = svgText.match(/>(\d+)</g);
-            if (counts && counts.length > 0) {
-                const count = counts[counts.length - 1].replace(/>|</g, '');
-                countElement.innerText = parseInt(count).toLocaleString();
+            if (!response.ok) throw new Error('API unreachable');
+            
+            const data = await response.json();
+            
+            if (data && typeof data.count === 'number') {
+                countElement.innerText = data.count.toLocaleString();
             } else {
-                countElement.innerText = '1';
+                countElement.innerText = "1";
             }
         } catch (error) {
             console.error('Visitor count error:', error);
-            countElement.innerText = '1'; 
+            // If API fails, show "Active" to indicate the site is live without showing a fake "1"
+            countElement.innerText = "Active"; 
         }
     }
 
