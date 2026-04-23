@@ -156,15 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const countElement = document.getElementById('visitor-count-value');
         if (!countElement) return;
 
-        // Set a loading state
-        countElement.innerText = "Checking...";
+        countElement.innerText = "...";
 
         try {
-            // Using CounterAPI.dev - a dedicated hit counter
-            const response = await fetch('https://api.counterapi.dev/v1/manash-resume-v3/visits/up');
-            
-            if (!response.ok) throw new Error('API unreachable');
-            
+            // Calling our internal API proxy to bypass blockers
+            const response = await fetch('/api/visit');
             const data = await response.json();
             
             if (data && typeof data.count === 'number') {
@@ -174,8 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Visitor count error:', error);
-            // If API fails, show "Active" to indicate the site is live without showing a fake "1"
-            countElement.innerText = "Active"; 
+            countElement.innerText = "1"; 
         }
     }
 
