@@ -597,7 +597,7 @@ body {
 /* --- PROJECTS --- */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
 }
 
@@ -837,31 +837,43 @@ body {
 }
 
 /* --- RESPONSIVE --- */
+/* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
     .navbar {
-        padding: 20px;
+        padding: 15px 20px;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
     }
     
     .nav-menu {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 8px;
     }
 
+    .nav-item {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+    }
+    
     .nav-actions {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 15px;
+        right: 15px;
     }
 
     .hero-name-primary,
     .hero-name-gradient {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
     }
 
     .hero-roles {
         white-space: normal;
+        font-size: 1rem;
     }
 
     .hero-alignment-block {
@@ -881,5 +893,33 @@ body {
         flex-direction: column;
         gap: 16px;
         text-align: center;
+    }
+
+    .content-container {
+        padding: 0 20px 40px 20px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-name-primary,
+    .hero-name-gradient {
+        font-size: 2.6rem;
+    }
+
+    .hero-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .project-card {
+        padding: 20px;
+    }
+
+    .contact-card {
+        padding: 30px 20px;
     }
 }
