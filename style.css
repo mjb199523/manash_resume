@@ -340,8 +340,12 @@ body {
 
 /* --- SECTIONS (Shared) --- */
 .section {
-    margin-top: 100px;
-    scroll-margin-top: 110px;
+    margin-top: 80px;
+    scroll-margin-top: 100px;
+}
+
+#contact {
+    margin-top: 60px; /* Even tighter for the final section to keep footer visible */
 }
 
 .section-title {
@@ -754,7 +758,7 @@ body {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 20px;
-    padding: 60px;
+    padding: 40px 60px; /* Reduced vertical padding */
     text-align: center;
     box-shadow: 0 10px 40px rgba(0,0,0,0.02);
 }
@@ -825,9 +829,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 40px;
+    padding: 24px 40px; /* Reduced vertical padding */
     border-top: 1px solid var(--card-border);
-    margin-top: 40px;
+    margin-top: 30px; /* Reduced margin */
     margin-bottom: 20px;
     font-size: 0.9rem;
     color: var(--text-muted);
