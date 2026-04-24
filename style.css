@@ -340,12 +340,13 @@ body {
 
 /* --- SECTIONS (Shared) --- */
 .section {
-    margin-top: 80px;
-    scroll-margin-top: 100px;
+    margin-top: 60px;
+    scroll-margin-top: 80px;
 }
 
 #contact {
-    margin-top: 60px; /* Even tighter for the final section to keep footer visible */
+    margin-top: 40px;
+    scroll-margin-top: 0; /* Ensures it scrolls all the way up so footer is visible */
 }
 
 .section-title {
@@ -758,26 +759,26 @@ body {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 20px;
-    padding: 40px 60px; /* Reduced vertical padding */
+    padding: 30px 40px; /* Even more compact */
     text-align: center;
     box-shadow: 0 10px 40px rgba(0,0,0,0.02);
 }
 
 .contact-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-size: clamp(2rem, 3.5vw, 3rem); /* Smaller font */
     font-weight: 900;
-    line-height: 1.2;
+    line-height: 1.1;
     color: var(--text-primary);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     letter-spacing: -0.03em;
 }
 
 .contact-desc {
     color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 40px;
+    font-size: 0.95rem; /* Smaller desc */
+    line-height: 1.5;
+    margin-bottom: 30px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -829,18 +830,27 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 40px; /* Reduced vertical padding */
+    padding: 20px 40px;
     border-top: 1px solid var(--card-border);
-    margin-top: 30px; /* Reduced margin */
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
     color: var(--text-muted);
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
 
+.footer-left, .footer-right {
+    flex: 1;
+}
+
+.footer-right {
+    text-align: right;
+}
+
 .footer-center {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 8px;
