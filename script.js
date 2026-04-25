@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Manual click override for smooth scroll UX and Clean URLs
-    const scrollLinks = document.querySelectorAll('.nav-item, .hero-buttons .btn[href^="#"]');
+    const scrollLinks = document.querySelectorAll('.nav-item[href^="#"], .hero-buttons .btn[href^="#"]');
     scrollLinks.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
@@ -159,15 +159,26 @@ document.addEventListener('DOMContentLoaded', () => {
         countElement.innerText = "...";
 
         try {
-            // Calling our internal API proxy to bypass blockers
-            const response = await fetch('/api/visit');
-            const data = await response.json();
-            
-            if (data && typeof data.count === 'number') {
-                countElement.innerText = data.count.toLocaleString();
-            } else {
-                countElement.innerText = "1";
+            let count = 1;
+            try {
+                // Try internal API proxy first (works in production Vercel)
+                const response = await fetch('/api/visit');
+                if (!response.ok) throw new Error("Proxy response not ok");
+                const data = await response.json();
+                if (data && typeof data.count === 'number') {
+                    count = data.count;
+                } else {
+                    throw new Error("Invalid proxy data");
+                }
+            } catch (err) {
+                // Fallback for local development where /api/visit is not served as a function
+                const fallbackResponse = await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
+                const fallbackData = await fallbackResponse.json();
+                if (fallbackData && typeof fallbackData.value === 'number') {
+                    count = fallbackData.value;
+                }
             }
+            countElement.innerText = count.toLocaleString();
         } catch (error) {
             console.error('Visitor count error:', error);
             countElement.innerText = "1"; 

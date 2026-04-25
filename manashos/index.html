@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManashOS — Your Personal Operating System</title>
+    <meta name="description" content="ManashOS is a personal productivity system by Manashjyoti Barman. Blog, manage tasks, take notes — all in one place.">
+    
+    <!-- Fonts (same as portfolio) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/manashos/style.css">
+    
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <!-- Feather Icons (same as portfolio) -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.2"></script>
+    <link rel="icon" type="image/jpeg" href="profile.jpg.jpeg">
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="os-topbar">
+        <a href="/manashos" class="os-brand">
+            <div class="os-brand-avatar">
+                <img src="/profile.jpg.jpeg" alt="ManashOS Logo">
+            </div>
+            <div class="os-brand-text">
+                <span class="os-brand-name">ManashOS</span>
+                <span class="os-brand-sub">PERSONAL COMMAND CENTER</span>
+            </div>
+        </a>
+
+        <nav class="os-nav" id="os-nav">
+            <button class="os-nav-item auth-only" data-view="dashboard">Dashboard</button>
+            <button class="os-nav-item auth-only" data-view="blogs">Blogs</button>
+            <button class="os-nav-item auth-only" data-view="notes">Notes</button>
+            <button class="os-nav-item auth-only" data-view="tasks">Tasks</button>
+        </nav>
+
+        <div class="os-topbar-actions">
+            <button class="btn btn-sm btn-gradient guest-only" id="nav-login-btn" onclick="switchView('login')">
+                <i data-feather="log-in" class="btn-icon"></i> Owner Access
+            </button>
+            <div class="os-user-pill auth-only" id="user-pill" style="display:none;">
+                <span class="os-user-dot"></span>
+                <span id="user-name">User</span>
+            </div>
+            <button class="btn btn-sm btn-danger auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">
+                <i data-feather="log-out" class="btn-icon"></i> Logout
+            </button>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                <i data-feather="sun" class="icon-sm"></i>
+            </button>
+            <a href="/" class="btn btn-sm btn-secondary guest-only" style="text-decoration:none;">
+                <i data-feather="arrow-left" class="btn-icon"></i> Back to Portfolio
+            </a>
+        </div>
+    </header>
+
+    <main class="os-container">
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="view-home">
+            <!-- Hero (guest only) -->
+            <section class="os-hero guest-only">
+                <h1 class="os-hero-title">Welcome to <span class="text-gradient">ManashOS</span></h1>
+                <p class="os-hero-sub">
+                    A showcase of my projects, writings, and experiments.<br>
+                    Where ideas are built and shared.
+                </p>
+            </section>
+ 
+            <!-- Guest Tabs -->
+            <div class="guest-only" style="margin-bottom: 40px; text-align: center;">
+                <div class="os-tabs-container" id="guest-tabs">
+                    <button class="os-tab-btn active" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
+                    <button class="os-tab-btn" onclick="toggleGuestTab('blogs', this)">Published Blogs</button>
+                </div>
+            </div>
+
+            <!-- Projects Tab Content -->
+            <div id="guest-tab-projects" class="guest-only">
+                <div class="os-section-badge">WHAT I'VE BUILT</div>
+                <h2 class="os-section-title">Featured <span class="text-gradient">Projects</span></h2>
+                <div class="projects-grid">
+                    <a href="https://paath-sohayok.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
+                        <div class="project-top-row">
+                            <div class="project-title-group">
+                                <img src="/paath-logo.jpg.png" alt="Paath Sohayok Logo" class="project-logo-mini">
+                                <h3 class="project-title">Paath Sohayok</h3>
+                            </div>
+                            <span class="project-date">2026</span>
+                        </div>
+                        <div class="project-meta">GEN AI • EdTech</div>
+                        <p class="project-desc">Bilingual education portal generating lesson plans, PPTs, assessments, and classroom activities instantly via LLM integration.</p>
+                        <ul class="project-bullets">
+                            <li><i data-feather="play" class="bullet-icon"></i> Instant bilingual content generation</li>
+                            <li><i data-feather="play" class="bullet-icon"></i> Automated classroom assessments via LLM</li>
+                        </ul>
+                    </a>
+                    
+                    <a href="https://airdraw-taupe.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
+                        <div class="project-top-row">
+                            <div class="project-title-group">
+                                <img src="/air-logo.jpg.png" alt="AirDraw Logo" class="project-logo-mini">
+                                <h3 class="project-title">AirDraw</h3>
+                            </div>
+                            <span class="project-date">2026</span>
+                        </div>
+                        <div class="project-meta">Deep Learning • CV</div>
+                        <p class="project-desc">Interactive virtual painting application utilizing real-time computer vision and spatial hand gesture tracking.</p>
+                        <ul class="project-bullets">
+                            <li><i data-feather="play" class="bullet-icon"></i> Real-time computer vision integration</li>
+                            <li><i data-feather="play" class="bullet-icon"></i> Spatial hand gesture tracking</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://memorysearch.streamlit.app/" target="_blank" rel="noopener noreferrer" class="project-card">
+                        <div class="project-top-row">
+                            <div class="project-title-group">
+                                <img src="/memory-logo.jpg.png" alt="Memory Search Logo" class="project-logo-mini">
+                                <h3 class="project-title">Memory Search</h3>
+                            </div>
+                            <span class="project-date">2026</span>
+                        </div>
+                        <div class="project-meta">NLP • Backend</div>
+                        <p class="project-desc">A semantic retrieval system enabling natural language queries to discover exact documents without rigid keyword reliance.</p>
+                        <ul class="project-bullets">
+                            <li><i data-feather="play" class="bullet-icon"></i> Natural language query processing</li>
+                            <li><i data-feather="play" class="bullet-icon"></i> High-accuracy semantic retrieval</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://smartcomm.vercel.app/" target="_blank" class="project-card">
+                        <div class="project-top-row">
+                            <div class="project-title-group">
+                                <img src="/smart-logo.jpg.png" alt="SmartComm Logo" class="project-logo-mini">
+                                <h3 class="project-title">SmartComm</h3>
+                            </div>
+                            <span class="project-date">2026</span>
+                        </div>
+                        <div class="project-meta">Productivity • Core</div>
+                        <p class="project-desc">A professional utility that transforms unrefined textual thoughts into polished, contextual, executive-ready communication.</p>
+                        <ul class="project-bullets">
+                            <li><i data-feather="play" class="bullet-icon"></i> AI-powered communication refinement</li>
+                            <li><i data-feather="play" class="bullet-icon"></i> Executive-ready format conversion</li>
+                        </ul>
+                    </a>
+
+                    <a href="https://offstumpwebsite.vercel.app/" target="_blank" class="project-card">
+                        <div class="project-top-row">
+                            <div class="project-title-group">
+                                <img src="/offstump-logo.jpg.png" alt="OFFSTUMP Logo" class="project-logo-mini">
+                                <h3 class="project-title">OFFSTUMP</h3>
+                            </div>
+                            <span class="project-date">2026</span>
+                        </div>
+                        <div class="project-meta">Web Platform • Local Business</div>
+                        <p class="project-desc">Full digital presence implementation for a premium indoor sports facility, successfully mapping physical footfall from online engagement.</p>
+                        <ul class="project-bullets">
+                            <li><i data-feather="play" class="bullet-icon"></i> Conversion of online traffic to physical footfall</li>
+                            <li><i data-feather="play" class="bullet-icon"></i> Premium web presence integration</li>
+                        </ul>
+                    </a>
+                </div>
+            </div>
+
+            <div id="guest-tab-blogs" class="guest-only" style="display: none;">
+                <div class="os-section-badge">Latest Insights</div>
+                <h2 class="os-section-title">Published <span class="text-gradient">Thoughts</span></h2>
+                <div class="os-cards-grid" id="public-blogs-grid">
+                    <div class="os-loading"><div class="os-spinner"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DASHBOARD VIEW ==================== -->
+        <div id="view-dashboard" style="display:none;">
+            <div class="os-section-badge">OVERVIEW</div>
+            <h2 class="os-section-title">Dashboard</h2>
+            <div class="os-stats-grid" id="stats-grid">
+                <div class="os-stat-card">
+                    <i data-feather="edit-3" class="os-stat-icon"></i>
+                    <div class="os-stat-label">Total Blogs</div>
+                    <div class="os-stat-value" id="stat-blogs-total">0</div>
+                </div>
+                <div class="os-stat-card">
+                    <i data-feather="globe" class="os-stat-icon"></i>
+                    <div class="os-stat-label">Published</div>
+                    <div class="os-stat-value" id="stat-blogs-published">0</div>
+                </div>
+                <div class="os-stat-card">
+                    <i data-feather="check-square" class="os-stat-icon"></i>
+                    <div class="os-stat-label">Total Tasks</div>
+                    <div class="os-stat-value" id="stat-tasks-total">0</div>
+                </div>
+                <div class="os-stat-card">
+                    <i data-feather="award" class="os-stat-icon"></i>
+                    <div class="os-stat-label">Tasks Completed</div>
+                    <div class="os-stat-value" id="stat-tasks-completed">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== LOGIN VIEW ==================== -->
+        <div id="view-login" style="display:none;">
+            <div class="os-hero">
+                <h1 class="os-hero-title">Welcome <span class="text-gradient">Back</span></h1>
+                <p class="os-hero-sub">Enter your credentials to manage your OS</p>
+            </div>
+            <div class="os-login-card" style="margin-top: 0;">
+                <h3>Enter ManashOS</h3>
+                <input type="email" class="os-input" id="login-email" placeholder="Email address">
+                <input type="password" class="os-input" id="login-password" placeholder="Password">
+                <div id="login-error" style="color:#ef4444; font-size:0.8rem; margin-bottom:12px; display:none;"></div>
+                <button class="btn btn-gradient btn-full" id="login-submit-btn" onclick="handleLogin()">
+                    <span class="btn-content">
+                        <i data-feather="log-in" class="btn-icon"></i> Enter ManashOS
+                    </span>
+                    <div class="btn-loader" style="display:none;">
+                        <div class="os-spinner os-spinner-sm"></div>
+                    </div>
+                </button>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-sm btn-secondary" onclick="switchView('home')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== BLOGS VIEW ==================== -->
+        <div id="view-blogs" style="display:none;">
+            <div class="os-section-header">
+                <div>
+                    <div class="os-section-badge">CONTENT</div>
+                    <h2 class="os-section-title">My <span class="text-gradient">Blogs</span></h2>
+                </div>
+                <button class="btn btn-gradient btn-sm" onclick="openBlogModal()">
+                    <i data-feather="plus" class="btn-icon"></i> New Blog
+                </button>
+            </div>
+            <div class="os-cards-grid" id="blogs-grid">
+                <div class="os-loading"><div class="os-spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- ==================== NOTES VIEW ==================== -->
+        <div id="view-notes" style="display:none;">
+            <div class="os-section-header">
+                <div>
+                    <div class="os-section-badge">PRIVATE</div>
+                    <h2 class="os-section-title">My <span class="text-gradient">Notes</span></h2>
+                </div>
+                <button class="btn btn-gradient btn-sm" onclick="openNoteModal()">
+                    <i data-feather="plus" class="btn-icon"></i> New Note
+                </button>
+            </div>
+            <div class="os-notes-list" id="notes-list">
+                <div class="os-loading"><div class="os-spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- ==================== TASKS VIEW ==================== -->
+        <div id="view-tasks" style="display:none;">
+            <div class="os-section-header">
+                <div>
+                    <div class="os-section-badge">PRODUCTIVITY</div>
+                    <h2 class="os-section-title">My <span class="text-gradient">Tasks</span></h2>
+                </div>
+                <button class="btn btn-gradient btn-sm" onclick="openTaskModal()">
+                    <i data-feather="plus" class="btn-icon"></i> New Task
+                </button>
+            </div>
+            <div class="os-filter-bar" id="task-filters">
+                <button class="os-filter-btn active" data-filter="all">All</button>
+                <button class="os-filter-btn" data-filter="pending">Pending</button>
+                <button class="os-filter-btn" data-filter="completed">Completed</button>
+            </div>
+            <div class="os-task-list" id="tasks-list">
+                <div class="os-loading"><div class="os-spinner"></div></div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ==================== MODALS ==================== -->
+    <!-- Blog Modal -->
+    <div class="os-modal-overlay" id="blog-modal" data-no-backdrop-close="true">
+        <div class="os-modal">
+            <div class="os-modal-header">
+                <h3 class="os-modal-title" id="blog-modal-title">New Blog</h3>
+                <button class="os-modal-close" onclick="closeBlogModal()">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <input type="hidden" id="blog-edit-id">
+            <div id="blog-title-container" style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
+                <div id="blog-title-editor"></div>
+            </div>
+            <div id="blog-editor-container" style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
+                <div id="blog-editor"></div>
+            </div>
+            <select class="os-select" id="blog-status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+            </select>
+            <div class="os-modal-actions">
+                <button class="btn btn-gradient btn-full" onclick="saveBlog()">
+                    <i data-feather="save" class="btn-icon"></i> Save Blog
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Note Modal -->
+    <div class="os-modal-overlay" id="note-modal" data-no-backdrop-close="true">
+        <div class="os-modal">
+            <div class="os-modal-header">
+                <h3 class="os-modal-title" id="note-modal-title">New Note</h3>
+                <button class="os-modal-close" onclick="closeNoteModal()">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <input type="hidden" id="note-edit-id">
+            <input type="text" class="os-input" id="note-title" placeholder="Note title">
+            <textarea class="os-textarea" id="note-content" placeholder="Write your note..."></textarea>
+            <div class="os-modal-actions">
+                <button class="btn btn-gradient btn-full" onclick="saveNote()">
+                    <i data-feather="save" class="btn-icon"></i> Save Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="os-modal-overlay" id="task-modal" data-no-backdrop-close="true">
+        <div class="os-modal">
+            <div class="os-modal-header">
+                <h3 class="os-modal-title" id="task-modal-title">New Task</h3>
+                <button class="os-modal-close" onclick="closeTaskModal()">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <input type="hidden" id="task-edit-id">
+            <input type="text" class="os-input" id="task-title" placeholder="Task title">
+            <textarea class="os-textarea" id="task-desc" placeholder="Description (optional)" style="min-height:80px;"></textarea>
+            <input type="date" class="os-input" id="task-due" placeholder="Due date (optional)">
+            <div class="os-modal-actions">
+                <button class="btn btn-gradient btn-full" onclick="saveTask()">
+                    <i data-feather="save" class="btn-icon"></i> Save Task
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Viewer Modal (for guests and owners to read full content) -->
+    <div class="os-modal-overlay" id="blog-viewer-modal" data-no-backdrop-close="true">
+        <div class="os-modal blog-viewer-modal">
+            <div class="os-modal-header" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div class="viewer-meta" style="margin-bottom: 0;">
+                        <span id="viewer-date">Date</span>
+                    </div>
+                    <button class="os-modal-close" style="position: static; padding: 4px;" onclick="closeBlogViewer()"><i data-feather="x"></i></button>
+                </div>
+                <h3 id="viewer-title" style="margin: 0; padding-right: 0;">Blog Title</h3>
+            </div>
+            <div class="os-modal-body">
+                <div id="viewer-content" class="viewer-content ql-viewer">
+                    <!-- Content will be injected here -->
+                </div>
+            </div>
+            <div class="os-modal-footer">
+                <button class="btn btn-secondary btn-full" onclick="closeBlogViewer()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (Same as main portfolio) -->
+    <footer class="footer">
+        <div class="footer-left">
+            © 2026 <span class="text-gradient" style="font-weight: 700; margin-left: 4px;">Manashjyoti Barman</span>
+        </div>
+        <div class="footer-center" id="visitor-count-container">
+            <i data-feather="eye" class="visitor-icon"></i>
+            <span>Visitors: <span id="visitor-count-value">...</span></span>
+        </div>
+        <div class="footer-right">
+            Product Delivery Manager · Product. Policy. Execution
+        </div>
+    </footer>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="/manashos/app.js"></script>
+</body>
+</html>

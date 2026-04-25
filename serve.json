@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/manashos", "destination": "/manashos/index.html" },
+    { "source": "/manashos/", "destination": "/manashos/index.html" },
+    { "source": "/manashos/((?!.*\\.).*)", "destination": "/manashos/index.html" },
+    { "source": "/((?!manashos|.*\\.).*)", "destination": "/index.html" }
+  ]
+}

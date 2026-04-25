@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "serve -s . -p 3001",
-    "start": "serve -s . -p 3001"
+    "dev": "serve . -p 3001",
+    "start": "serve . -p 3001"
   },
   "dependencies": {
     "@vercel/kv": "^1.0.1",
