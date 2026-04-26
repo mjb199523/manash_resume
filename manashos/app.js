@@ -831,3 +831,108 @@ async function trackVisitor() {
         console.error('Visitor tracking error:', error);
     }
 }
+
+// ==================== EXPORT TASKS ====================
+function openExportModal() {
+    document.getElementById('export-tasks-modal').classList.add('active');
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('export-start-date').value = today;
+    document.getElementById('export-end-date').value = today;
+    document.getElementById('export-date-range').value = 'today';
+    toggleCustomDates();
+}
+
+function closeExportModal() {
+    document.getElementById('export-tasks-modal').classList.remove('active');
+}
+
+function toggleCustomDates() {
+    const range = document.getElementById('export-date-range').value;
+    document.getElementById('custom-date-fields').style.display = range === 'custom' ? 'flex' : 'none';
+}
+
+async function exportTasks(type) {
+    const range = document.getElementById('export-date-range').value;
+    let startDate = new Date();
+    let endDate = new Date();
+
+    if (range === 'today') {
+        startDate.setHours(0,0,0,0);
+        endDate.setHours(23,59,59,999);
+    } else if (range === 'month') {
+        startDate.setDate(1);
+        startDate.setHours(0,0,0,0);
+        endDate.setMonth(endDate.getMonth() + 1, 0);
+        endDate.setHours(23,59,59,999);
+    } else if (range === 'custom') {
+        const startVal = document.getElementById('export-start-date').value;
+        const endVal = document.getElementById('export-end-date').value;
+        if (!startVal || !endVal) {
+            alert("Please select both start and end dates.");
+            return;
+        }
+        startDate = new Date(startVal);
+        startDate.setHours(0,0,0,0);
+        endDate = new Date(endVal);
+        endDate.setHours(23,59,59,999);
+    }
+
+    // Filter tasks from cache
+    const filteredTasks = tasksCache.filter(t => {
+        const tDate = new Date(t.created_at || t.$createdAt);
+        return tDate >= startDate && tDate <= endDate;
+    });
+
+    if (filteredTasks.length === 0) {
+        alert("No tasks found in this date range.");
+        return;
+    }
+
+    // Prepare data
+    const rows = filteredTasks.map((t, index) => [
+        index + 1,
+        t.title || '',
+        t.description || '',
+        t.status === 'completed' ? 'Completed' : 'Pending'
+    ]);
+    const header = ['Sl. No.', 'Task Name', 'Description', 'Status'];
+
+    if (type === 'csv') {
+        const csvContent = [header, ...rows].map(e => e.map(item => `"${String(item).replace(/"/g, '""')}"`).join(",")).join("\n");
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `Tasks_Report_${range}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } else if (type === 'pdf') {
+        if (!window.jspdf) {
+            alert("PDF generation library is still loading, please try again in a moment.");
+            return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(16);
+        doc.text(`Tasks Report (${range.toUpperCase()})`, 14, 15);
+        
+        doc.setFontSize(10);
+        doc.text(`Date Range: ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`, 14, 22);
+
+        doc.autoTable({
+            startY: 28,
+            head: [header],
+            body: rows,
+            theme: 'grid',
+            headStyles: { fillColor: [138, 125, 244] },
+            styles: { fontSize: 9 }
+        });
+
+        doc.save(`Tasks_Report_${range}.pdf`);
+    }
+
+    closeExportModal();
+}

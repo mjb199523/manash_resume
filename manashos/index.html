@@ -270,9 +270,14 @@
                     <div class="os-section-badge">PRODUCTIVITY</div>
                     <h2 class="os-section-title">My <span class="text-gradient">Tasks</span></h2>
                 </div>
-                <button class="btn btn-gradient btn-sm" onclick="openTaskModal()">
-                    <i data-feather="plus" class="btn-icon"></i> New Task
-                </button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary btn-sm" onclick="openExportModal()">
+                        <i data-feather="download" class="btn-icon"></i> Export
+                    </button>
+                    <button class="btn btn-gradient btn-sm" onclick="openTaskModal()">
+                        <i data-feather="plus" class="btn-icon"></i> New Task
+                    </button>
+                </div>
             </div>
             <div class="os-filter-bar" id="task-filters">
                 <button class="os-filter-btn active" data-filter="all">All</button>
@@ -378,7 +383,43 @@
             </div>
         </div>
     </div>
-
+    <!-- Export Tasks Modal -->
+    <div class="os-modal-overlay" id="export-tasks-modal" data-no-backdrop-close="true">
+        <div class="os-modal">
+            <div class="os-modal-header">
+                <h3 class="os-modal-title">Export Tasks</h3>
+                <button class="os-modal-close" onclick="closeExportModal()">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Date Range</label>
+                <select class="os-select" id="export-date-range" onchange="toggleCustomDates()">
+                    <option value="today">Today</option>
+                    <option value="month">This Month</option>
+                    <option value="custom">Custom Date Range</option>
+                </select>
+            </div>
+            <div id="custom-date-fields" style="display: none; gap: 10px; margin-bottom: 15px;">
+                <div style="flex: 1;">
+                    <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Start Date</label>
+                    <input type="date" class="os-input" id="export-start-date">
+                </div>
+                <div style="flex: 1;">
+                    <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">End Date</label>
+                    <input type="date" class="os-input" id="export-end-date">
+                </div>
+            </div>
+            <div class="os-modal-actions" style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-secondary btn-full" onclick="exportTasks('csv')">
+                    <i data-feather="file-text" class="btn-icon"></i> Download Excel (CSV)
+                </button>
+                <button class="btn btn-gradient btn-full" onclick="exportTasks('pdf')">
+                    <i data-feather="file" class="btn-icon"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Footer (Same as main portfolio) -->
     <footer class="footer">
         <div class="footer-left">
@@ -390,6 +431,8 @@
     </footer>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="/manashos/app.js"></script>
 </body>
 </html>
