@@ -151,12 +151,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 100);
     }
-    // Visitor Count Logic (Unique Only)
+    // Visitor Count Logic (1-Hour Session Based)
     async function trackUniqueVisitor() {
-        if (localStorage.getItem('os_visitor_counted')) return;
+        const lastVisitStr = localStorage.getItem('os_visitor_timestamp');
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000;
+
+        if (lastVisitStr) {
+            const lastVisit = parseInt(lastVisitStr, 10);
+            if (now - lastVisit < oneHour) {
+                // Less than 1 hour since last counted visit
+                return;
+            }
+        }
         
         try {
-            localStorage.setItem('os_visitor_counted', 'true');
+            localStorage.setItem('os_visitor_timestamp', now.toString());
             try {
                 const response = await fetch('/api/visit');
                 if (!response.ok) throw new Error("Proxy response not ok");
@@ -165,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Visitor tracking error:', error);
-            localStorage.removeItem('os_visitor_counted'); // retry next time
+            localStorage.removeItem('os_visitor_timestamp'); // retry next time
         }
     }
 

@@ -825,10 +825,20 @@ document.addEventListener('keydown', (e) => {
 let globalVisitorCount = "...";
 
 async function trackUniqueVisitor() {
-    if (localStorage.getItem('os_visitor_counted')) return;
+    const lastVisitStr = localStorage.getItem('os_visitor_timestamp');
+    const now = Date.now();
+    const oneHour = 60 * 60 * 1000;
+
+    if (lastVisitStr) {
+        const lastVisit = parseInt(lastVisitStr, 10);
+        if (now - lastVisit < oneHour) {
+            // Less than 1 hour since last counted visit
+            return;
+        }
+    }
 
     try {
-        localStorage.setItem('os_visitor_counted', 'true');
+        localStorage.setItem('os_visitor_timestamp', now.toString());
         try {
             const response = await fetch('/api/visit');
             if (!response.ok) throw new Error("Proxy response not ok");
@@ -837,7 +847,7 @@ async function trackUniqueVisitor() {
         }
     } catch (error) {
         console.error('Visitor tracking error:', error);
-        localStorage.removeItem('os_visitor_counted');
+        localStorage.removeItem('os_visitor_timestamp');
     }
 }
 
