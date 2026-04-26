@@ -855,7 +855,7 @@ async function getVisitorCountForDashboard() {
     try {
         let count = 0;
         try {
-            const response = await fetch('/api/visit');
+            const response = await fetch('/api/visit?action=get');
             if (!response.ok) throw new Error("Proxy response not ok");
             const data = await response.json();
             if (data && typeof data.count === 'number') {
@@ -864,7 +864,9 @@ async function getVisitorCountForDashboard() {
                 throw new Error("Invalid proxy data");
             }
         } catch (err) {
-            const fallbackResponse = await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
+            const fallbackResponse = await fetch('https://abacus.jasoncameron.dev/get/mjb-resume-2026/visits', {
+                headers: { 'User-Agent': 'Mozilla/5.0' }
+            });
             const fallbackData = await fallbackResponse.json();
             if (fallbackData && typeof fallbackData.value === 'number') {
                 count = fallbackData.value;

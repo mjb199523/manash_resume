@@ -1,8 +1,16 @@
 export default async function handler(req, res) {
   try {
-    // Using Abacus API - verified stable and working
-    // This proxy ensures we bypass client-side blockers.
-    const response = await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
+    const { action } = req.query;
+    
+    // Abacus API requires a proper User-Agent to not hang
+    const headers = { 'User-Agent': 'Mozilla/5.0 (compatible; Vercel/Proxy)' };
+    
+    let url = 'https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits';
+    if (action === 'get') {
+      url = 'https://abacus.jasoncameron.dev/get/mjb-resume-2026/visits';
+    }
+
+    const response = await fetch(url, { headers });
     const data = await response.json();
     
     // Abacus returns { "value": X }
@@ -12,7 +20,6 @@ export default async function handler(req, res) {
     res.status(200).json({ count: visitorCount });
   } catch (error) {
     console.error('Visitor proxy error:', error);
-    // Return 1 as an honest fallback if the API is momentarily down
     res.status(200).json({ count: 1 });
   }
 }
