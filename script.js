@@ -153,35 +153,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Visitor Count Logic
     async function updateVisitorCount() {
-        const countElement = document.getElementById('visitor-count-value');
-        if (!countElement) return;
-
-        countElement.innerText = "...";
-
         try {
-            let count = 1;
             try {
                 // Try internal API proxy first (works in production Vercel)
                 const response = await fetch('/api/visit');
                 if (!response.ok) throw new Error("Proxy response not ok");
-                const data = await response.json();
-                if (data && typeof data.count === 'number') {
-                    count = data.count;
-                } else {
-                    throw new Error("Invalid proxy data");
-                }
             } catch (err) {
                 // Fallback for local development where /api/visit is not served as a function
-                const fallbackResponse = await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
-                const fallbackData = await fallbackResponse.json();
-                if (fallbackData && typeof fallbackData.value === 'number') {
-                    count = fallbackData.value;
-                }
+                await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
             }
-            countElement.innerText = count.toLocaleString();
         } catch (error) {
-            console.error('Visitor count error:', error);
-            countElement.innerText = "1"; 
+            console.error('Visitor tracking error:', error);
         }
     }
 

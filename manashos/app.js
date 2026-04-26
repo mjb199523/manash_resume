@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (typeof Quill !== 'undefined') {
         initQuill();
     }
-    updateVisitorCount();
+    trackVisitor();
     await checkAuth();
 });
 
@@ -294,6 +294,12 @@ async function loadDashboardStats() {
         document.getElementById('stat-blogs-published').textContent = blogs.documents.filter(b => b.status === 'published').length;
         document.getElementById('stat-tasks-total').textContent = tasks.total;
         document.getElementById('stat-tasks-completed').textContent = tasks.documents.filter(t => t.status === 'completed').length;
+        
+        // Update visitor count from global state
+        const dashCounter = document.getElementById('stat-visitors-total');
+        if (dashCounter) {
+            dashCounter.textContent = globalVisitorCount;
+        }
     } catch (err) {
         console.error('Stats error:', err);
     }
@@ -792,14 +798,10 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ==================== VISITOR LOGIC ====================
-async function updateVisitorCount() {
-    const countElement = document.getElementById('visitor-count-value');
-    if (!countElement) return;
-
-    countElement.innerText = "...";
-
+let globalVisitorCount = "...";
+async function trackVisitor() {
     try {
-        let count = 1;
+        let count = 0;
         try {
             // Try internal API proxy first (works in production Vercel)
             const response = await fetch('/api/visit');
@@ -818,9 +820,14 @@ async function updateVisitorCount() {
                 count = fallbackData.value;
             }
         }
-        countElement.innerText = count.toLocaleString();
+        globalVisitorCount = count.toLocaleString();
+        
+        // If dashboard is open, update it
+        const dashCounter = document.getElementById('stat-visitors-total');
+        if (dashCounter) {
+            dashCounter.innerText = globalVisitorCount;
+        }
     } catch (error) {
-        console.error('Visitor count error:', error);
-        countElement.innerText = "1"; 
+        console.error('Visitor tracking error:', error);
     }
 }
