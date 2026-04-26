@@ -67,6 +67,12 @@ function initQuill() {
 async function checkAuth() {
     feather.replace();
 
+    // 1. Read hash before ANY state changes
+    const hash = window.location.hash.replace('#', '');
+    
+    // 2. We use a flag to tell onLoginSuccess NOT to redirect if we are just loading
+    window.isInitialLoad = true;
+
     // Check session
     try {
         currentUser = await account.get();
@@ -75,13 +81,24 @@ async function checkAuth() {
         onLoggedOut();
     }
 
-    // Check hash for initial view
-    const hash = window.location.hash.replace('#', '');
-    if (hash && (hash === 'home' || hash === 'login' || currentUser)) {
-        switchView(hash, false);
+    // 3. Route to the correct view based on auth state and hash
+    if (currentUser) {
+        // Logged in: allow dashboard, blogs, notes, tasks
+        if (hash && ['dashboard', 'blogs', 'notes', 'tasks'].includes(hash)) {
+            switchView(hash, 'replace');
+        } else {
+            switchView('dashboard', 'replace');
+        }
     } else {
-        switchView('home', false);
+        // Logged out: allow home, login
+        if (hash && (hash === 'home' || hash === 'login')) {
+            switchView(hash, 'replace');
+        } else {
+            switchView('home', 'replace');
+        }
     }
+    
+    window.isInitialLoad = false;
 }
 
 // ==================== THEME ====================
@@ -126,7 +143,8 @@ function switchView(view, push = true) {
 
     currentView = view;
     document.querySelectorAll('[id^="view-"]').forEach(v => v.style.display = 'none');
-    document.getElementById(`view-${view}`).style.display = 'block';
+    const viewEl = document.getElementById(`view-${view}`);
+    if (viewEl) viewEl.style.display = 'block';
 
     // Update nav active state
     document.querySelectorAll('.os-nav-item').forEach(item => {
@@ -263,10 +281,12 @@ function onLoginSuccess() {
     loadPublicBlogs();
 
     // If we were on the login page, replace history so we can't go back to it
-    if (currentView === 'login') {
-        switchView('dashboard', 'replace');
-    } else {
-        switchView(currentView, 'replace');
+    if (!window.isInitialLoad) {
+        if (currentView === 'login') {
+            switchView('dashboard', 'replace');
+        } else {
+            switchView(currentView, 'replace');
+        }
     }
 }
 
