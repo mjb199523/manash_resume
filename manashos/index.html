@@ -371,8 +371,11 @@
         <div class="os-modal blog-viewer-modal">
             <div class="os-modal-header" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                    <div class="viewer-meta" style="margin-bottom: 0;">
+                    <div class="viewer-meta" style="margin-bottom: 0; display: flex; align-items: center; gap: 12px;">
                         <span id="viewer-date">Date</span>
+                        <button id="viewer-share-btn" class="btn btn-sm btn-secondary" onclick="shareBlog(currentViewingBlogId)" title="Copy share link" style="padding: 4px 10px; font-size: 0.75rem;">
+                            <i data-feather="share-2" class="btn-icon"></i> Share
+                        </button>
                     </div>
                     <button class="os-modal-close" style="position: static; padding: 4px;" onclick="closeBlogViewer()"><i data-feather="x"></i></button>
                 </div>

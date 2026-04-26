@@ -27,6 +27,7 @@ let blogsCache = [];
 let publicBlogsCache = [];
 let notesCache = [];
 let tasksCache = [];
+let currentViewingBlogId = null;
 let quill; // Quill editor instance for content
 let quillTitle; // Quill editor instance for title
 
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     trackUniqueVisitor();
     await checkAuth();
+    await checkBlogQueryParam();
 });
 
 function initQuill() {
@@ -361,6 +363,11 @@ async function loadPublicBlogs() {
                 </div>
                 <h3 class="os-card-title">${blog.title}</h3>
                 <p class="os-card-desc">${stripHtml(blog.content)}</p>
+                <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+                    <button class="btn btn-sm btn-secondary" onclick="event.stopPropagation(); shareBlog('${blog.$id}')" title="Copy share link">
+                        <i data-feather="share-2" class="btn-icon"></i> Share
+                    </button>
+                </div>
             </div>
         `).join('');
         feather.replace();
@@ -381,15 +388,53 @@ async function openBlogViewer(id, isPublic = false) {
 
     if (!blog) return;
 
+    currentViewingBlogId = id;
     document.getElementById('viewer-title').innerHTML = blog.title;
     document.getElementById('viewer-date').textContent = formatDate(blog.created_at);
     document.getElementById('viewer-content').innerHTML = blog.content;
 
     document.getElementById('blog-viewer-modal').classList.add('active');
+    feather.replace();
 }
 
 function closeBlogViewer() {
+    currentViewingBlogId = null;
     document.getElementById('blog-viewer-modal').classList.remove('active');
+}
+
+function shareBlog(blogId) {
+    const url = `${window.location.origin}/manashos?blog=${blogId}`;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('Blog link copied to clipboard!');
+    }).catch(() => {
+        // Fallback for older browsers
+        prompt('Copy this link:', url);
+    });
+}
+
+function showToast(message) {
+    let toast = document.getElementById('share-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'share-toast';
+        toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:12px 24px;border-radius:12px;font-size:0.9rem;z-index:10000;opacity:0;transition:opacity 0.3s ease;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.3);';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+}
+
+async function checkBlogQueryParam() {
+    const params = new URLSearchParams(window.location.search);
+    const blogId = params.get('blog');
+    if (!blogId) return;
+
+    // Ensure public blogs are loaded first
+    if (publicBlogsCache.length === 0) {
+        await loadPublicBlogs();
+    }
+    openBlogViewer(blogId, true);
 }
 
 // ==================== MY BLOGS (CRUD) ====================
