@@ -151,21 +151,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 100);
     }
-    // Visitor Count Logic
-    async function updateVisitorCount() {
+    // Visitor Count Logic (Unique Only)
+    async function trackUniqueVisitor() {
+        if (localStorage.getItem('has_visited_portfolio')) return;
+        
         try {
+            localStorage.setItem('has_visited_portfolio', 'true');
             try {
-                // Try internal API proxy first (works in production Vercel)
                 const response = await fetch('/api/visit');
                 if (!response.ok) throw new Error("Proxy response not ok");
             } catch (err) {
-                // Fallback for local development where /api/visit is not served as a function
                 await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
             }
         } catch (error) {
             console.error('Visitor tracking error:', error);
+            localStorage.removeItem('has_visited_portfolio'); // retry next time
         }
     }
 
-    updateVisitorCount();
+    trackUniqueVisitor();
 });

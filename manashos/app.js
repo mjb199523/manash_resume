@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (typeof Quill !== 'undefined') {
         initQuill();
     }
-    trackVisitor();
+    trackUniqueVisitor();
     await checkAuth();
 });
 
@@ -96,6 +96,13 @@ async function checkAuth() {
         } else {
             switchView('home', 'replace');
         }
+    }
+    
+    // 4. Hide the initial loader
+    const loader = document.getElementById('initial-loader');
+    if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 300);
     }
     
     window.isInitialLoad = false;
@@ -315,11 +322,8 @@ async function loadDashboardStats() {
         document.getElementById('stat-tasks-total').textContent = tasks.total;
         document.getElementById('stat-tasks-completed').textContent = tasks.documents.filter(t => t.status === 'completed').length;
         
-        // Update visitor count from global state
-        const dashCounter = document.getElementById('stat-visitors-total');
-        if (dashCounter) {
-            dashCounter.textContent = globalVisitorCount;
-        }
+        // Update visitor count
+        getVisitorCountForDashboard();
     } catch (err) {
         console.error('Stats error:', err);
     }
@@ -819,11 +823,28 @@ document.addEventListener('keydown', (e) => {
 
 // ==================== VISITOR LOGIC ====================
 let globalVisitorCount = "...";
-async function trackVisitor() {
+
+async function trackUniqueVisitor() {
+    if (localStorage.getItem('has_visited_manashos')) return;
+
+    try {
+        localStorage.setItem('has_visited_manashos', 'true');
+        try {
+            const response = await fetch('/api/visit');
+            if (!response.ok) throw new Error("Proxy response not ok");
+        } catch (err) {
+            await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
+        }
+    } catch (error) {
+        console.error('Visitor tracking error:', error);
+        localStorage.removeItem('has_visited_manashos');
+    }
+}
+
+async function getVisitorCountForDashboard() {
     try {
         let count = 0;
         try {
-            // Try internal API proxy first (works in production Vercel)
             const response = await fetch('/api/visit');
             if (!response.ok) throw new Error("Proxy response not ok");
             const data = await response.json();
@@ -833,7 +854,6 @@ async function trackVisitor() {
                 throw new Error("Invalid proxy data");
             }
         } catch (err) {
-            // Fallback for local development where /api/visit is not served as a function
             const fallbackResponse = await fetch('https://abacus.jasoncameron.dev/hit/mjb-resume-2026/visits');
             const fallbackData = await fallbackResponse.json();
             if (fallbackData && typeof fallbackData.value === 'number') {
@@ -842,13 +862,12 @@ async function trackVisitor() {
         }
         globalVisitorCount = count.toLocaleString();
         
-        // If dashboard is open, update it
         const dashCounter = document.getElementById('stat-visitors-total');
         if (dashCounter) {
-            dashCounter.innerText = globalVisitorCount;
+            dashCounter.textContent = globalVisitorCount;
         }
     } catch (error) {
-        console.error('Visitor tracking error:', error);
+        console.error('Visitor fetching error:', error);
     }
 }
 
