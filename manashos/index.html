@@ -77,13 +77,13 @@
             <!-- Guest Tabs -->
             <div class="guest-only" style="margin-bottom: 40px; text-align: center;">
                 <div class="os-tabs-container" id="guest-tabs">
-                    <button class="os-tab-btn active" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
-                    <button class="os-tab-btn" onclick="toggleGuestTab('blogs', this)">Published Blogs</button>
+                    <button class="os-tab-btn active" onclick="toggleGuestTab('blogs', this)">Published Blogs</button>
+                    <button class="os-tab-btn" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
                 </div>
             </div>
 
             <!-- Projects Tab Content -->
-            <div id="guest-tab-projects" class="guest-only">
+            <div id="guest-tab-projects" class="guest-only" style="display: none;">
                 <div class="os-section-badge">WHAT I'VE BUILT</div>
                 <h2 class="os-section-title">Featured <span class="text-gradient">Projects</span></h2>
                 <div class="projects-grid">
@@ -169,7 +169,7 @@
                 </div>
             </div>
 
-            <div id="guest-tab-blogs" class="guest-only" style="display: none;">
+            <div id="guest-tab-blogs" class="guest-only">
                 <div class="os-section-badge">Latest Insights</div>
                 <h2 class="os-section-title">Published <span class="text-gradient">Thoughts</span></h2>
                 <div class="os-cards-grid" id="public-blogs-grid">
