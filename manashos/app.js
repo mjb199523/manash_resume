@@ -825,10 +825,10 @@ document.addEventListener('keydown', (e) => {
 let globalVisitorCount = "...";
 
 async function trackUniqueVisitor() {
-    if (localStorage.getItem('has_visited_manashos')) return;
+    if (localStorage.getItem('os_visitor_counted')) return;
 
     try {
-        localStorage.setItem('has_visited_manashos', 'true');
+        localStorage.setItem('os_visitor_counted', 'true');
         try {
             const response = await fetch('/api/visit');
             if (!response.ok) throw new Error("Proxy response not ok");
@@ -837,7 +837,7 @@ async function trackUniqueVisitor() {
         }
     } catch (error) {
         console.error('Visitor tracking error:', error);
-        localStorage.removeItem('has_visited_manashos');
+        localStorage.removeItem('os_visitor_counted');
     }
 }
 
