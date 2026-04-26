@@ -430,11 +430,21 @@ async function checkBlogQueryParam() {
     const blogId = params.get('blog');
     if (!blogId) return;
 
-    // Ensure public blogs are loaded first
-    if (publicBlogsCache.length === 0) {
-        await loadPublicBlogs();
+    try {
+        // Fetch the specific blog directly by ID
+        const blog = await databases.getDocument(APPWRITE_DATABASE_ID, COLLECTION_BLOGS, blogId);
+        if (!blog) return;
+
+        // Set the blog data and open the viewer
+        currentViewingBlogId = blogId;
+        document.getElementById('viewer-title').innerHTML = blog.title;
+        document.getElementById('viewer-date').textContent = formatDate(blog.created_at);
+        document.getElementById('viewer-content').innerHTML = blog.content;
+        document.getElementById('blog-viewer-modal').classList.add('active');
+        feather.replace();
+    } catch (err) {
+        console.error('Failed to load shared blog:', err);
     }
-    openBlogViewer(blogId, true);
 }
 
 // ==================== MY BLOGS (CRUD) ====================
