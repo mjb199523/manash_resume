@@ -192,10 +192,13 @@
     background: var(--card-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--card-border);
-    padding: 4px 14px;
+    padding: 10px 24px;
     border-radius: 100px;
     margin-top: 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    animation: float-slow 4s ease-in-out infinite;
+}
+
 @keyframes float-slow {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
