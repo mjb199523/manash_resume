@@ -221,19 +221,20 @@
 /* Narrative Insights Grid */
 .journey-insights-grid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
     margin-top: 25px;
-    max-width: 1100px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .journey-insights-grid .thinking-pill {
     margin-top: 0;
-    flex: 1 1 300px;
-    max-width: 360px;
+    width: 100%;
+    max-width: 650px;
+    justify-content: flex-start;
 }
 
 .journey-insights-grid .thinking-pill.focus-pill {
