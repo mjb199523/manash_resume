@@ -71,7 +71,6 @@
     display: flex;
     flex-direction: column;
     text-align: left;
-    cursor: pointer;
 }
 
 [data-theme="dark"] .journey-step-card {
@@ -88,8 +87,7 @@
 }
 
 .journey-step-card.active:hover {
-    transform: scale(1.02) translateZ(20px);
-    box-shadow: 0 50px 120px rgba(138, 125, 244, 0.3);
+    transform: scale(1) translateZ(0);
 }
 
 .journey-step-card.active::before {
