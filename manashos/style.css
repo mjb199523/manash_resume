@@ -1586,3 +1586,184 @@ body.loaded {
 .binary-switch::after { content: \OFF\; color: var(--text-muted); font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
 .challenge-card { padding: 30px; background: var(--bg-secondary); border-radius: 12px; border-left: 4px solid var(--brand-name-color); font-size: 1.1rem; line-height: 1.6; font-style: italic; }
+
+/* --- JOURNEY MODE --- */
+.journey-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 40px auto 80px auto;
+    padding: 20px 0;
+}
+
+.journey-timeline::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+    opacity: 0.2;
+}
+
+.journey-item {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.os-view.active .journey-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered entry animations */
+.journey-item:nth-child(1) { transition-delay: 0.1s; }
+.journey-item:nth-child(2) { transition-delay: 0.2s; }
+.journey-item:nth-child(3) { transition-delay: 0.3s; }
+.journey-item:nth-child(4) { transition-delay: 0.4s; }
+
+.journey-marker {
+    position: absolute;
+    left: 11px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 3px solid var(--gradient-start);
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(138, 125, 244, 0.3);
+    transition: all 0.3s ease;
+}
+
+.journey-item:hover .journey-marker {
+    background: var(--gradient-start);
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(138, 125, 244, 0.5);
+}
+
+.journey-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.journey-card:hover {
+    transform: translateX(12px);
+    border-color: rgba(138, 125, 244, 0.4);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.journey-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.journey-text {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.journey-sub-item {
+    background: var(--bg-primary);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.journey-sub-item:hover {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    transform: translateY(-4px);
+}
+
+.journey-year {
+    display: block;
+    font-weight: 700;
+    color: var(--brand-name-color);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-family: var(--font-heading);
+}
+
+.journey-sub-item p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.journey-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+
+.journey-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.journey-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gradient-start);
+}
+
+.journey-list li strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .journey-timeline {
+        margin: 30px 15px;
+    }
+    .journey-item {
+        padding-left: 45px;
+    }
+    .journey-marker {
+        left: 11px;
+    }
+    .journey-timeline::before {
+        left: 20px;
+    }
+    .journey-card {
+        padding: 24px;
+    }
+}
+
+
+#portfolio-mode-content, #journey-mode-content {
+    transition: opacity 0.4s ease;
+}
+

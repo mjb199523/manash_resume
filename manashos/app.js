@@ -179,6 +179,12 @@ function switchView(view, push = true) {
         });
     }
 
+    // Toggle Journey Mode button visibility
+    const journeyToggle = document.getElementById('journey-mode-toggle');
+    if (journeyToggle) {
+        journeyToggle.style.display = (view === 'home' && !currentUser) ? 'inline-flex' : 'none';
+    }
+
     // Update nav active state
     document.querySelectorAll('.os-nav-item').forEach(item => {
         item.classList.toggle('active', item.getAttribute('data-view') === view);
@@ -307,6 +313,9 @@ async function handleLogout() {
 function onLoginSuccess() {
     document.body.classList.add('logged-in');
     document.getElementById('nav-login-btn').style.display = 'none';
+    if (document.getElementById('journey-mode-toggle')) {
+        document.getElementById('journey-mode-toggle').style.display = 'none';
+    }
     document.getElementById('user-pill').style.display = 'inline-flex';
     document.getElementById('logout-btn').style.display = 'inline-flex';
     document.getElementById('user-name').textContent = currentUser.name || currentUser.email.split('@')[0];
@@ -328,6 +337,9 @@ function onLoginSuccess() {
 function onLoggedOut() {
     document.body.classList.remove('logged-in');
     document.getElementById('nav-login-btn').style.display = 'inline-flex';
+    if (document.getElementById('journey-mode-toggle') && currentView === 'home') {
+        document.getElementById('journey-mode-toggle').style.display = 'inline-flex';
+    }
     document.getElementById('user-pill').style.display = 'none';
     document.getElementById('logout-btn').style.display = 'none';
     document.getElementById('login-email').value = '';
@@ -1723,3 +1735,61 @@ async function exportTasks(type) {
 
     closeExportModal();
 }
+
+// ==================== JOURNEY MODE ====================
+let isJourneyMode = false;
+
+function toggleJourneyMode() {
+    isJourneyMode = !isJourneyMode;
+    
+    const portfolioContent = document.getElementById('portfolio-mode-content');
+    const journeyContent = document.getElementById('journey-mode-content');
+    const toggleText = document.getElementById('journey-toggle-text');
+    const toggleBtn = document.getElementById('journey-mode-toggle');
+
+    if (isJourneyMode) {
+        // Switch to Journey Mode
+        portfolioContent.style.opacity = '0';
+        setTimeout(() => {
+            portfolioContent.style.display = 'none';
+            journeyContent.style.display = 'block';
+            journeyContent.style.opacity = '0';
+            requestAnimationFrame(() => {
+                journeyContent.style.opacity = '1';
+                toggleText.textContent = 'Portfolio Mode';
+                toggleBtn.classList.remove('btn-secondary');
+                toggleBtn.classList.add('btn-gradient');
+                
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-feather', 'grid');
+                    feather.replace();
+                }
+            });
+        }, 300);
+    } else {
+        // Switch back to Portfolio Mode
+        journeyContent.style.opacity = '0';
+        setTimeout(() => {
+            journeyContent.style.display = 'none';
+            portfolioContent.style.display = 'block';
+            portfolioContent.style.opacity = '0';
+            requestAnimationFrame(() => {
+                portfolioContent.style.opacity = '1';
+                toggleText.textContent = 'Journey Mode';
+                toggleBtn.classList.add('btn-secondary');
+                toggleBtn.classList.remove('btn-gradient');
+                
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-feather', 'map');
+                    feather.replace();
+                }
+            });
+        }, 300);
+    }
+    
+    // Smooth scroll to top when switching
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
