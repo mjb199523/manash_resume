@@ -82,6 +82,118 @@ body {
     overflow-x: hidden;
 }
 
+/* --- LOADER STYLES --- */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0e14; /* Deep dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.profile-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-circle-bg {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
+}
+
+.loader-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.loader-aura {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+    z-index: 1;
+    animation: aura-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes aura-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.3); opacity: 0.8; }
+}
+
+.loader-progress-container {
+    width: 280px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.loader-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    animation: progress-anim 3s infinite ease-in-out;
+}
+
+@keyframes progress-anim {
+    0% { width: 0%; left: 0; }
+    40% { width: 100%; left: 0; }
+    60% { width: 100%; left: 0; }
+    100% { width: 0%; left: 100%; }
+}
+
+.loader-text {
+    color: #64748b;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Hide loader when page is loaded */
+body.loaded #loader-wrapper {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body:not(.loaded) {
+    overflow: hidden !important;
+}
+
 /* Particles Background Container */
 #tsparticles {
     position: fixed;
@@ -121,21 +233,22 @@ body {
 }
 
 .brand-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
     position: relative;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    flex-shrink: 0;
 }
 
 .avatar-img {
-    width: 48px;
-    height: 48px;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    object-position: center top; /* Better framing for portraits */
+    object-position: center;
     display: block;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    /* Enhancing render quality */
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
+    image-rendering: auto;
     transform: translateZ(0);
 }
 
@@ -426,20 +539,83 @@ body {
 .exp-cards-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
+    position: relative;
+    padding-left: 180px;
+}
+
+/* Vertical Timeline Line */
+.exp-cards-wrapper::before {
+    content: "";
+    position: absolute;
+    left: 110px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+    opacity: 0.15;
+    border-radius: 2px;
+}
+
+.timeline-year {
+    position: absolute;
+    left: -165px;
+    top: 34px;
+    width: 80px;
+    text-align: right;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: -0.02em;
+}
+
+.exp-card:first-child .timeline-year {
+    color: var(--brand-name-color);
 }
 
 .exp-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 16px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible; 
+    position: relative;
+}
+
+/* Timeline Dot */
+.exp-card::before {
+    content: "";
+    position: absolute;
+    left: -70px;
+    top: 36px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 2px solid var(--gradient-start);
+    z-index: 5;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 4px var(--bg-primary);
+}
+
+/* Highlight Current Role Dot */
+.exp-card:first-child::before {
+    background: var(--gradient-start);
+    box-shadow: 0 0 0 4px var(--bg-primary), 0 0 12px var(--gradient-start);
+}
+
+.exp-card:hover::before {
+    transform: scale(1.25);
+    background: var(--gradient-end);
+    border-color: var(--gradient-end);
+    box-shadow: 0 0 0 4px var(--bg-primary), 0 0 15px var(--gradient-end);
 }
 
 .exp-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-    border-color: rgba(138, 125, 244, 0.3);
+    transform: translateX(5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+    border-color: rgba(138, 125, 244, 0.4);
 }
 
 .exp-card-header {
@@ -585,6 +761,14 @@ body {
 }
 
 @media (max-width: 768px) {
+    .exp-cards-wrapper {
+        padding-left: 0;
+    }
+    .exp-cards-wrapper::before,
+    .exp-card::before,
+    .timeline-year {
+        display: none;
+    }
     .exp-card-header {
         flex-direction: column;
         align-items: flex-start;

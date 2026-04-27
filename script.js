@@ -181,3 +181,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     trackUniqueVisitor();
 });
+
+// Hide Loader when everything is loaded
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader-wrapper');
+    if (loader) {
+        // Minimum display time for the loader to ensure smooth transition
+        setTimeout(() => {
+            document.body.classList.add('loaded');
+        }, 1500); 
+    }
+});

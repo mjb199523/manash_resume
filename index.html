@@ -10,15 +10,17 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://manashjyoti.vercel.app/">
     <meta property="og:title" content="Manashjyoti Barman | Product & Project Leader">
     <meta property="og:description" content="6+ years of expertise in orchestrating end-to-end product delivery and digital transformation initiatives.">
-    <meta property="og:image" content="profile.jpg.jpeg">
+    <meta property="og:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://manashjyoti.vercel.app/">
     <meta property="twitter:title" content="Manashjyoti Barman | Product & Project Leader">
     <meta property="twitter:description" content="6+ years of expertise in orchestrating end-to-end product delivery and digital transformation initiatives.">
-    <meta property="twitter:image" content="profile.jpg.jpeg">
+    <meta property="twitter:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
 
     <link rel="icon" type="image/jpeg" href="profile.jpg.jpeg">
     
@@ -48,6 +50,22 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.0.6/tsparticles.slim.bundle.min.js"></script>
 </head>
 <body>
+    <!-- Initial Loader Overlay -->
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="profile-container">
+                <div class="loader-circle-bg">
+                    <img src="profile.jpg.jpeg" alt="Manashjyoti Barman" class="loader-avatar">
+                </div>
+                <div class="loader-aura"></div>
+            </div>
+            <div class="loader-progress-container">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-text">LOADING PORTFOLIO</div>
+        </div>
+    </div>
+
     <div class="scroll-progress-bar" id="scroll-progress"></div>
     <!-- Particles Engine -->
     <div id="tsparticles"></div>
@@ -134,6 +152,7 @@
                 <div class="exp-cards-wrapper">
                     <!-- ConveGenius -->
                     <div class="exp-card">
+                        <span class="timeline-year">2026</span>
                         <div class="exp-card-header" onclick="this.parentElement.classList.toggle('expanded')">
                             <div class="exp-logo">
                                 <img src="convegenius_logo.jpg" alt="ConveGenius">
@@ -158,6 +177,7 @@
                     
                     <!-- Grant Thornton -->
                     <div class="exp-card">
+                        <span class="timeline-year">2024</span>
                         <div class="exp-card-header" onclick="this.parentElement.classList.toggle('expanded')">
                             <div class="exp-logo">
                                 <img src="grant-logo.jpg" alt="Grant Thornton">
@@ -189,6 +209,7 @@
 
                     <!-- ibentos -->
                     <div class="exp-card">
+                        <span class="timeline-year">2024</span>
                         <div class="exp-card-header" onclick="this.parentElement.classList.toggle('expanded')">
                             <div class="exp-logo">
                                 <img src="ibentos-logo.jpg.png" alt="Ibentos">
@@ -213,6 +234,7 @@
 
                     <!-- Wednesday Solutions -->
                     <div class="exp-card">
+                        <span class="timeline-year">2022</span>
                         <div class="exp-card-header" onclick="this.parentElement.classList.toggle('expanded')">
                             <div class="exp-logo">
                                 <img src="wednesday-logo.jpg" alt="Wednesday Solutions">
@@ -245,6 +267,7 @@
 
                     <!-- SoulpageIT -->
                     <div class="exp-card">
+                        <span class="timeline-year">2021</span>
                         <div class="exp-card-header" onclick="this.parentElement.classList.toggle('expanded')">
                             <div class="exp-logo">
                                 <img src="soulpage-logo.jpg.png" alt="SoulpageIT">
@@ -275,6 +298,7 @@
 
                     <!-- Govt of Assam -->
                     <div class="exp-card">
+                        <span class="timeline-year">2019</span>
                         <div class="exp-card-header" onclick="this.parentElement.classList.toggle('expanded')">
                             <div class="exp-logo">
                                 <img src="assam-logo.jpg" alt="Govt of Assam">

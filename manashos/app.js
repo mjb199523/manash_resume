@@ -31,6 +31,9 @@ let currentViewingBlogId = null;
 let quill; // Quill editor instance for content
 let quillTitle; // Quill editor instance for title
 
+// Capture blog query param early before checkAuth can strip it via history.replaceState
+let pendingBlogId = new URLSearchParams(window.location.search).get('blog');
+
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', async () => {
     feather.replace();
@@ -43,6 +46,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     trackUniqueVisitor();
     await checkAuth();
     await checkBlogQueryParam();
+    
+    // Smoothly dismiss preloader after initial load
+    setTimeout(() => {
+        const preloader = document.getElementById('os-preloader');
+        if (preloader) preloader.classList.add('fade-out');
+        document.body.classList.add('loaded');
+    }, 600);
 });
 
 function initQuill() {
@@ -100,11 +110,13 @@ async function checkAuth() {
         }
     }
     
-    // 4. Hide the initial loader
-    const loader = document.getElementById('initial-loader');
-    if (loader) {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.style.display = 'none', 300);
+    // 4. Hide the initial loader (skip if a blog deep link is pending — it will be hidden after the modal opens)
+    if (!pendingBlogId) {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 300);
+        }
     }
     
     window.isInitialLoad = false;
@@ -151,9 +163,21 @@ function switchView(view, push = true) {
     }
 
     currentView = view;
-    document.querySelectorAll('[id^="view-"]').forEach(v => v.style.display = 'none');
+    
+    // Hide all views and remove active state
+    document.querySelectorAll('.os-view').forEach(v => {
+        v.classList.remove('active');
+        v.style.display = 'none';
+    });
+    
     const viewEl = document.getElementById(`view-${view}`);
-    if (viewEl) viewEl.style.display = 'block';
+    if (viewEl) {
+        viewEl.style.display = 'block';
+        // Trigger animation next frame
+        requestAnimationFrame(() => {
+            viewEl.classList.add('active');
+        });
+    }
 
     // Update nav active state
     document.querySelectorAll('.os-nav-item').forEach(item => {
@@ -197,6 +221,8 @@ function toggleGuestTab(tab, btn) {
     // Toggle content
     document.getElementById('guest-tab-projects').style.display = tab === 'projects' ? 'block' : 'none';
     document.getElementById('guest-tab-blogs').style.display = tab === 'blogs' ? 'block' : 'none';
+    document.getElementById('guest-tab-games').style.display = tab === 'games' ? 'block' : 'none';
+    document.getElementById('guest-tab-experiments').style.display = tab === 'experiments' ? 'block' : 'none';
 
     // Precise scroll with offset for sticky header
     const tabsElem = document.getElementById('guest-tabs');
@@ -331,10 +357,45 @@ async function loadDashboardStats() {
     }
 }
 
+function updateGuestStats() {
+    const blogCount = publicBlogsCache.length;
+    // Count projects from the DOM since they are currently static
+    const projectCards = document.querySelectorAll('#guest-tab-projects .project-card');
+    const projectCount = projectCards.length;
+    const experimentCards = document.querySelectorAll('#guest-tab-experiments .os-card');
+    const experimentCount = experimentCards.length;
+
+    const blogEl = document.getElementById('guest-stat-blogs');
+    const projectEl = document.getElementById('guest-stat-projects');
+    const gameEl = document.getElementById('guest-stat-games');
+    const experimentEl = document.getElementById('guest-stat-experiments');
+
+    // Count games dynamically from the DOM
+    const gameCards = document.querySelectorAll('#guest-tab-games .os-card');
+    const gameCount = gameCards.length || 11;
+
+    if (blogEl) blogEl.textContent = blogCount;
+    if (projectEl) projectEl.textContent = projectCount;
+    if (gameEl) gameEl.textContent = gameCount;
+    if (experimentEl) experimentEl.textContent = experimentCount;
+}
+
 // ==================== PUBLIC BLOGS ====================
 async function loadPublicBlogs() {
     const grid = document.getElementById('public-blogs-grid');
-    grid.innerHTML = '<div class="os-loading"><div class="os-spinner"></div></div>';
+    
+    // Skeleton loader for better UX
+    grid.innerHTML = Array(3).fill(0).map(() => `
+        <div class="os-card">
+            <div class="skeleton skeleton-title" style="margin-bottom: 20px;"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+            <div class="os-card-footer" style="margin-top: 20px;">
+                <div class="skeleton" style="width: 80px; height: 32px;"></div>
+            </div>
+        </div>
+    `).join('');
 
     try {
         const res = await databases.listDocuments(APPWRITE_DATABASE_ID, COLLECTION_BLOGS, [
@@ -343,6 +404,7 @@ async function loadPublicBlogs() {
             Query.limit(20)
         ]);
         publicBlogsCache = res.documents;
+        updateGuestStats();
 
         if (res.documents.length === 0) {
             grid.innerHTML = `
@@ -426,9 +488,17 @@ function showToast(message) {
 }
 
 async function checkBlogQueryParam() {
-    const params = new URLSearchParams(window.location.search);
-    const blogId = params.get('blog');
-    if (!blogId) return;
+    // Use the blog ID captured before checkAuth could strip it from the URL
+    const blogId = pendingBlogId;
+    pendingBlogId = null; // Clear after use
+    if (!blogId) {
+        return;
+    }
+
+    // Ensure the home view is visible so the modal overlays it
+    if (currentView !== 'home') {
+        switchView('home', 'replace');
+    }
 
     try {
         // Fetch the specific blog directly by ID
@@ -444,6 +514,13 @@ async function checkBlogQueryParam() {
         feather.replace();
     } catch (err) {
         console.error('Failed to load shared blog:', err);
+    } finally {
+        // Now dismiss the initial loader that was kept visible during the blog fetch
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 300);
+        }
     }
 }
 
@@ -817,6 +894,610 @@ async function saveTask() {
     } catch (err) {
         alert('Error saving task: ' + err.message);
     }
+}
+
+// ==== SURPRISE ME LOGIC ====
+async function surpriseMe() {
+    const btn = document.getElementById('surprise-btn');
+    if (btn) btn.disabled = true;
+    
+    showToast('🎲 Finding something interesting...');
+    
+    // Artificial delay for effect
+    await new Promise(r => setTimeout(r, 800));
+
+    const options = [];
+    
+    // 1. Blogs
+    if (publicBlogsCache.length > 0) {
+        publicBlogsCache.forEach(b => options.push({ type: 'blog', id: b.$id }));
+    }
+    
+    // 2. Projects
+    const projects = document.querySelectorAll('#guest-tab-projects .project-card');
+    projects.forEach((p, i) => options.push({ type: 'project', index: i }));
+    
+    // 3. Games
+    const games = ['typing', 'memory', 'tictactoe', 'reaction', 'grid25', 'aim', 'pattern', 'scramble', 'decision', 'binary', 'challenge'];
+    games.forEach(g => options.push({ type: 'game', id: g }));
+    
+    // 4. Experiments
+    const experiments = document.querySelectorAll('#guest-tab-experiments .os-card');
+    experiments.forEach((e, i) => options.push({ type: 'experiment', index: i }));
+
+    if (options.length === 0) {
+        showToast('Nothing found yet!');
+        if (btn) btn.disabled = false;
+        return;
+    }
+
+    const pick = options[Math.floor(Math.random() * options.length)];
+    
+    if (pick.type === 'blog') {
+        toggleGuestTab('blogs', document.querySelector('[onclick*="toggleGuestTab(\'blogs\'"]'));
+        openBlogViewer(pick.id, true);
+    } else if (pick.type === 'game') {
+        toggleGuestTab('games', document.querySelector('[onclick*="toggleGuestTab(\'games\'"]'));
+        openGame(pick.id);
+    } else if (pick.type === 'project') {
+        toggleGuestTab('projects', document.querySelector('[onclick*="toggleGuestTab(\'projects\'"]'));
+        projects[pick.index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        projects[pick.index].style.boxShadow = '0 0 20px var(--brand-name-color)';
+        setTimeout(() => projects[pick.index].style.boxShadow = '', 2000);
+    } else if (pick.type === 'experiment') {
+        toggleGuestTab('experiments', document.querySelector('[onclick*="toggleGuestTab(\'experiments\'"]'));
+        experiments[pick.index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        experiments[pick.index].style.boxShadow = '0 0 20px var(--brand-name-color)';
+        setTimeout(() => experiments[pick.index].style.boxShadow = '', 2000);
+    }
+
+    if (btn) btn.disabled = false;
+}
+
+// ==================== MINI GAMES ====================
+let activeGame = null;
+
+function openGame(gameType) {
+    const modal = document.getElementById('game-modal');
+    const title = document.getElementById('game-modal-title');
+    const container = document.getElementById('game-container');
+    
+    container.innerHTML = '';
+    activeGame = gameType;
+
+    if (gameType === 'typing') {
+        title.textContent = 'Typing Speed Test';
+        initTypingGame(container);
+    } else if (gameType === 'memory') {
+        title.textContent = 'Memory Match';
+        initMemoryGame(container);
+    } else if (gameType === 'tictactoe') {
+        title.textContent = 'Tic Tac Toe';
+        initTTTGame(container);
+    } else if (gameType === 'reaction') {
+        title.textContent = 'Focus Click (Reaction)';
+        initReactionGame(container);
+    } else if (gameType === 'grid25') {
+        title.textContent = '1–25 Grid Challenge';
+        initGrid25Game(container);
+    } else if (gameType === 'aim') {
+        title.textContent = 'Aim Trainer';
+        initAimGame(container);
+    } else if (gameType === 'pattern') {
+        title.textContent = 'Pattern Memory';
+        initPatternGame(container);
+    } else if (gameType === 'scramble') {
+        title.textContent = 'Word Scramble';
+        initScrambleGame(container);
+    } else if (gameType === 'decision') {
+        title.textContent = 'Speed Decision';
+        initDecisionGame(container);
+    } else if (gameType === 'binary') {
+        title.textContent = 'Binary Switch Puzzle';
+        initBinaryGame(container);
+    } else if (gameType === 'challenge') {
+        title.textContent = 'Random Challenge Generator';
+        initChallengeGame(container);
+    }
+
+    modal.classList.add('active');
+}
+
+function closeGame() {
+    document.getElementById('game-modal').classList.remove('active');
+    activeGame = null;
+}
+
+// 1. Typing Game Logic
+function initTypingGame(container) {
+    const quotes = [
+        "Product Delivery Manager with experience orchestrating end-to-end product and program delivery across Agile and Waterfall environments.",
+        "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+        "The only way to do great work is to love what you do. If you haven't found it yet, keep looking.",
+        "Design is not just what it looks like and feels like. Design is how it works."
+    ];
+    let quote = quotes[Math.floor(Math.random() * quotes.length)];
+    let startTime, timerInterval;
+    
+    container.innerHTML = `
+        <div class="game-typing-container">
+            <div class="game-stats">
+                <div class="game-stat"><span class="game-stat-v" id="wpm">0</span><span class="game-stat-l">WPM</span></div>
+                <div class="game-stat"><span class="game-stat-v" id="timer">0s</span><span class="game-stat-l">Time</span></div>
+            </div>
+            <div class="game-typing-quote" id="quote-display"></div>
+            <textarea class="os-textarea game-typing-input" id="typing-input" placeholder="Start typing here..."></textarea>
+            <button class="btn btn-secondary" onclick="openGame('typing')">Reset</button>
+        </div>
+    `;
+
+    const display = document.getElementById('quote-display');
+    const input = document.getElementById('typing-input');
+    const wpmEl = document.getElementById('wpm');
+    const timerEl = document.getElementById('timer');
+
+    display.innerHTML = quote.split('').map(char => `<span>${char}</span>`).join('');
+    const characters = display.querySelectorAll('span');
+
+    input.addEventListener('input', () => {
+        if (!startTime) {
+            startTime = new Date();
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((new Date() - startTime) / 1000);
+                timerEl.textContent = elapsed + 's';
+                if (elapsed > 0) {
+                    const words = input.value.trim().split(/\s+/).length;
+                    wpmEl.textContent = Math.round((words / elapsed) * 60);
+                }
+            }, 1000);
+        }
+
+        const val = input.value.split('');
+        characters.forEach((span, i) => {
+            span.classList.remove('correct', 'incorrect', 'current');
+            if (i < val.length) {
+                span.classList.add(val[i] === span.textContent ? 'correct' : 'incorrect');
+            } else if (i === val.length) {
+                span.classList.add('current');
+            }
+        });
+
+        if (input.value === quote) {
+            clearInterval(timerInterval);
+            input.disabled = true;
+            showToast('Well done! Final WPM: ' + wpmEl.textContent);
+        }
+    });
+}
+
+// 2. Memory Game Logic
+function initMemoryGame(container) {
+    const icons = ['zap', 'star', 'award', 'heart', 'smile', 'moon', 'sun', 'cloud'];
+    let cards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+    let flipped = [], matchedCount = 0, moves = 0;
+
+    container.innerHTML = `
+        <div class="game-stat" style="margin-bottom: 15px;">
+            <span class="game-stat-v" id="moves">0</span><span class="game-stat-l">Moves</span>
+        </div>
+        <div class="memory-grid" id="memory-grid"></div>
+        <button class="btn btn-secondary" style="margin-top: 15px;" onclick="openGame('memory')">Reset</button>
+    `;
+
+    const grid = document.getElementById('memory-grid');
+    cards.forEach((icon, i) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.icon = icon;
+        card.innerHTML = `<i data-feather="${icon}"></i>`;
+        card.onclick = () => {
+            if (flipped.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
+                card.classList.add('flipped');
+                flipped.push(card);
+                if (flipped.length === 2) {
+                    moves++;
+                    document.getElementById('moves').textContent = moves;
+                    if (flipped[0].dataset.icon === flipped[1].dataset.icon) {
+                        flipped.forEach(c => c.classList.add('matched'));
+                        matchedCount += 2;
+                        flipped = [];
+                        if (matchedCount === cards.length) showToast('Congratulations! Finished in ' + moves + ' moves.');
+                    } else {
+                        setTimeout(() => {
+                            flipped.forEach(c => c.classList.remove('flipped'));
+                            flipped = [];
+                        }, 700);
+                    }
+                }
+            }
+        };
+        grid.appendChild(card);
+    });
+    feather.replace();
+}
+
+// 3. Tic Tac Toe Logic
+function initTTTGame(container) {
+    let board = Array(9).fill(null);
+    let xIsNext = true;
+
+    container.innerHTML = `
+        <div class="game-stat" style="margin-bottom: 10px;">
+            <span class="game-stat-l" id="ttt-status">Player X's Turn</span>
+        </div>
+        <div class="ttt-grid" id="ttt-grid">
+            ${board.map((_, i) => `<div class="ttt-cell" data-index="${i}"></div>`).join('')}
+        </div>
+        <button class="btn btn-secondary" style="margin-top: 10px;" onclick="openGame('tictactoe')">Reset</button>
+    `;
+
+    const cells = container.querySelectorAll('.ttt-cell');
+    const status = document.getElementById('ttt-status');
+
+    cells.forEach(cell => {
+        cell.onclick = () => {
+            const i = cell.dataset.index;
+            if (board[i] || calculateWinner(board)) return;
+            board[i] = xIsNext ? 'X' : 'O';
+            cell.textContent = board[i];
+            cell.classList.add('taken', board[i].toLowerCase());
+            xIsNext = !xIsNext;
+            
+            const winner = calculateWinner(board);
+            if (winner) {
+                status.textContent = winner === 'Draw' ? "It's a Draw!" : `Winner: ${winner}`;
+                showToast(winner === 'Draw' ? "It's a Draw!" : `Winner: ${winner}`);
+            } else {
+                status.textContent = `Player ${xIsNext ? 'X' : 'O'}'s Turn`;
+            }
+        };
+    });
+
+    function calculateWinner(squares) {
+        const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        for (let [a,b,c] of lines) {
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) return squares[a];
+        }
+        return squares.every(s => s) ? 'Draw' : null;
+    }
+}
+
+// 4. Reaction Game
+function initReactionGame(container) {
+    container.innerHTML = `
+        <p style="margin-bottom: 15px; color: var(--text-muted);">Wait for GREEN, then click instantly!</p>
+        <div id="reaction-area" class="game-reaction-area waiting">Click to Start</div>
+        <div id="reaction-result" style="margin-top: 15px; font-weight: 700; font-size: 1.2rem;"></div>
+    `;
+    const area = document.getElementById('reaction-area');
+    const res = document.getElementById('reaction-result');
+    let state = 'start'; // start, wait, ready, end
+    let startTime, timeout;
+
+    area.onclick = () => {
+        if (state === 'start' || state === 'end') {
+            state = 'wait';
+            area.textContent = 'Wait for Green...';
+            area.className = 'game-reaction-area waiting';
+            res.textContent = '';
+            timeout = setTimeout(() => {
+                state = 'ready';
+                area.textContent = 'CLICK NOW!';
+                area.className = 'game-reaction-area ready';
+                startTime = Date.now();
+            }, 1000 + Math.random() * 3000);
+        } else if (state === 'wait') {
+            clearTimeout(timeout);
+            state = 'end';
+            area.textContent = 'Too Early! Click to retry.';
+            area.className = 'game-reaction-area';
+        } else if (state === 'ready') {
+            const time = Date.now() - startTime;
+            state = 'end';
+            area.textContent = 'Done!';
+            area.className = 'game-reaction-area waiting';
+            res.textContent = `Reaction Time: ${time}ms`;
+            showToast(`Reaction Time: ${time}ms`);
+        }
+    };
+}
+
+// 5. 1-25 Grid Game
+function initGrid25Game(container) {
+    let nextNum = 1;
+    let startTime, timerInterval;
+    const nums = Array.from({length: 25}, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+
+    container.innerHTML = `
+        <div class="game-stat" style="margin-bottom: 15px;">
+            <span class="game-stat-v" id="grid-next">1</span><span class="game-stat-l">Next</span>
+            <span class="game-stat-v" id="grid-timer" style="margin-left: 20px;">0.0s</span><span class="game-stat-l">Time</span>
+        </div>
+        <div class="game-grid25" id="grid25-box">
+            ${nums.map(n => `<button class="grid25-btn" data-num="${n}">${n}</button>`).join('')}
+        </div>
+    `;
+
+    const nextEl = document.getElementById('grid-next');
+    const timerEl = document.getElementById('grid-timer');
+
+    container.querySelectorAll('.grid25-btn').forEach(btn => {
+        btn.onclick = () => {
+            const num = parseInt(btn.dataset.num);
+            if (num === nextNum) {
+                if (nextNum === 1) {
+                    startTime = Date.now();
+                    timerInterval = setInterval(() => {
+                        timerEl.textContent = ((Date.now() - startTime) / 1000).toFixed(1) + 's';
+                    }, 100);
+                }
+                btn.classList.add('clicked');
+                nextNum++;
+                if (nextNum > 25) {
+                    clearInterval(timerInterval);
+                    showToast('Finished! Time: ' + timerEl.textContent);
+                } else {
+                    nextEl.textContent = nextNum;
+                }
+            }
+        };
+    });
+}
+
+// 6. Aim Trainer
+function initAimGame(container) {
+    let score = 0, total = 0, timeLeft = 30, timerInterval;
+    container.innerHTML = `
+        <div class="game-stat" style="margin-bottom: 15px;">
+            <span class="game-stat-v" id="aim-score">0</span><span class="game-stat-l">Score</span>
+            <span class="game-stat-v" id="aim-timer" style="margin-left: 20px;">30s</span><span class="game-stat-l">Left</span>
+        </div>
+        <div class="game-aim-area" id="aim-area">
+            <p id="aim-start" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:var(--text-muted);">Click anywhere to start</p>
+        </div>
+    `;
+
+    const area = document.getElementById('aim-area');
+    const scoreEl = document.getElementById('aim-score');
+    const timerEl = document.getElementById('aim-timer');
+    const startMsg = document.getElementById('aim-start');
+
+    function spawn() {
+        if (timeLeft <= 0) return;
+        const target = document.createElement('div');
+        target.className = 'aim-target';
+        target.style.left = Math.random() * 90 + '%';
+        target.style.top = Math.random() * 90 + '%';
+        target.onclick = (e) => {
+            e.stopPropagation();
+            score++;
+            scoreEl.textContent = score;
+            target.remove();
+            spawn();
+        };
+        area.appendChild(target);
+    }
+
+    area.onclick = () => {
+        if (timerInterval) return;
+        startMsg.style.display = 'none';
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerEl.textContent = timeLeft + 's';
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                area.innerHTML = `<p style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:var(--brand-name-color); font-weight:700;">Final Score: ${score}</p>`;
+                showToast(`Game Over! Final Score: ${score}`);
+            }
+        }, 1000);
+        spawn();
+    };
+}
+
+// 7. Pattern Memory
+function initPatternGame(container) {
+    let sequence = [], userPos = 0, level = 1;
+    container.innerHTML = `
+        <div class="game-stat" style="margin-bottom: 15px;">
+            <span class="game-stat-v" id="pattern-lvl">1</span><span class="game-stat-l">Level</span>
+        </div>
+        <div class="game-pattern-grid" id="pattern-grid">
+            ${Array.from({length: 9}, (_, i) => `<div class="pattern-tile" data-idx="${i}"></div>`).join('')}
+        </div>
+        <button class="btn btn-secondary" style="margin-top: 15px;" id="pattern-start">Start Game</button>
+    `;
+
+    const tiles = container.querySelectorAll('.pattern-tile');
+    const startBtn = document.getElementById('pattern-start');
+
+    async function playSequence() {
+        startBtn.disabled = true;
+        for (let idx of sequence) {
+            await new Promise(r => setTimeout(r, 400));
+            tiles[idx].classList.add('active');
+            await new Promise(r => setTimeout(r, 400));
+            tiles[idx].classList.remove('active');
+        }
+        startBtn.disabled = false;
+        userPos = 0;
+    }
+
+    function nextLevel() {
+        sequence.push(Math.floor(Math.random() * 9));
+        document.getElementById('pattern-lvl').textContent = sequence.length;
+        playSequence();
+    }
+
+    startBtn.onclick = () => {
+        sequence = [];
+        nextLevel();
+    };
+
+    tiles.forEach(tile => {
+        tile.onclick = () => {
+            if (sequence.length === 0 || startBtn.disabled) return;
+            const idx = parseInt(tile.dataset.idx);
+            if (idx === sequence[userPos]) {
+                userPos++;
+                if (userPos === sequence.length) {
+                    showToast('Correct!');
+                    setTimeout(nextLevel, 800);
+                }
+            } else {
+                showToast('Wrong! Game Over.');
+                sequence = [];
+            }
+        };
+    });
+}
+
+// 8. Word Scramble
+function initScrambleGame(container) {
+    const words = ['PRODUCT', 'STRATEGY', 'DELIVERY', 'ANALYTICS', 'PROJECT', 'MANAGER', 'VISION', 'TEAMWORK', 'AGILE', 'ROADMAPPING'];
+    let currentWord = words[Math.floor(Math.random() * words.length)];
+    let scrambled = currentWord.split('').sort(() => Math.random() - 0.5).join('');
+
+    container.innerHTML = `
+        <p style="color: var(--text-muted);">Unscramble the professional term:</p>
+        <div class="game-scramble-word">${scrambled}</div>
+        <input type="text" id="scramble-input" class="os-input" placeholder="Type your answer..." style="text-align: center; font-size: 1.2rem;">
+        <button class="btn btn-gradient btn-full" style="margin-top: 15px;" id="scramble-check">Submit</button>
+        <button class="btn btn-secondary btn-full" style="margin-top: 10px;" onclick="openGame('scramble')">New Word</button>
+    `;
+
+    const input = document.getElementById('scramble-input');
+    const check = document.getElementById('scramble-check');
+
+    check.onclick = () => {
+        if (input.value.toUpperCase() === currentWord) {
+            showToast('Correct! Amazing vocabulary.');
+            setTimeout(() => openGame('scramble'), 1500);
+        } else {
+            showToast('Not quite, try again.');
+        }
+    };
+    input.onkeydown = (e) => { if (e.key === 'Enter') check.click(); };
+}
+
+// 9. Speed Decision
+function initDecisionGame(container) {
+    let score = 0, timeLeft = 20, timerInterval;
+    let currentTask = generateTask();
+
+    function generateTask() {
+        const ops = ['+', '-', '*'];
+        const op = ops[Math.floor(Math.random() * 3)];
+        let a = Math.floor(Math.random() * 10) + 1;
+        let b = Math.floor(Math.random() * 10) + 1;
+        let result = eval(`${a}${op}${b}`);
+        let displayResult = Math.random() > 0.5 ? result : result + (Math.random() > 0.5 ? 1 : -1);
+        return { question: `${a} ${op} ${b} = ${displayResult}`, isTrue: result === displayResult };
+    }
+
+    container.innerHTML = `
+        <div class="game-stat" style="margin-bottom: 15px;">
+            <span class="game-stat-v" id="dec-score">0</span><span class="game-stat-l">Score</span>
+            <span class="game-stat-v" id="dec-timer" style="margin-left: 20px;">20s</span><span class="game-stat-l">Time</span>
+        </div>
+        <div class="game-decision-box" id="dec-box">${currentTask.question}</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <button class="btn btn-gradient" id="dec-true">TRUE</button>
+            <button class="btn btn-danger" id="dec-false">FALSE</button>
+        </div>
+    `;
+
+    const scoreEl = document.getElementById('dec-score');
+    const timerEl = document.getElementById('dec-timer');
+    const box = document.getElementById('dec-box');
+
+    function handleAnswer(ans) {
+        if (ans === currentTask.isTrue) {
+            score++;
+            scoreEl.textContent = score;
+            currentTask = generateTask();
+            box.textContent = currentTask.question;
+        } else {
+            showToast('Wrong! -1s Penalty');
+            timeLeft -= 1;
+        }
+    }
+
+    document.getElementById('dec-true').onclick = () => handleAnswer(true);
+    document.getElementById('dec-false').onclick = () => handleAnswer(false);
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = timeLeft + 's';
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            showToast('Game Over! Final Score: ' + score);
+            box.innerHTML = `<span style="color:var(--brand-name-color)">Final Score: ${score}</span>`;
+            document.getElementById('dec-true').disabled = true;
+            document.getElementById('dec-false').disabled = true;
+        }
+    }, 1000);
+}
+
+// 10. Binary Switch
+function initBinaryGame(container) {
+    let grid = Array(9).fill(false);
+    container.innerHTML = `
+        <p style="color: var(--text-muted);">Turn all switches ON. Toggle one to affect its neighbors.</p>
+        <div class="game-binary-grid">
+            ${grid.map((_, i) => `<div class="binary-switch" data-idx="${i}"></div>`).join('')}
+        </div>
+        <button class="btn btn-secondary" style="margin-top: 15px;" onclick="openGame('binary')">Reset</button>
+    `;
+
+    const switches = container.querySelectorAll('.binary-switch');
+    function update() {
+        switches.forEach((s, i) => s.classList.toggle('on', grid[i]));
+        if (grid.every(v => v)) showToast('Puzzle Solved! Great logic.');
+    }
+
+    switches.forEach(s => {
+        s.onclick = () => {
+            const i = parseInt(s.dataset.idx);
+            const row = Math.floor(i / 3);
+            const col = i % 3;
+            // Toggle self + neighbors
+            [i, i-1, i+1, i-3, i+3].forEach(idx => {
+                if (idx >= 0 && idx < 9) {
+                    const r = Math.floor(idx/3), c = idx%3;
+                    if (Math.abs(r-row) + Math.abs(c-col) <= 1) grid[idx] = !grid[idx];
+                }
+            });
+            update();
+        };
+    });
+}
+
+// 11. Challenge Generator
+function initChallengeGame(container) {
+    const challenges = [
+        "Write a 100-word summary of your career vision without using the word 'Experience'.",
+        "Explain a complex technical concept to a 5-year-old in exactly 3 sentences.",
+        "Sketch a user flow for a 'Teleportation App' on a piece of paper.",
+        "Identify 3 inefficiencies in your current daily routine and propose fixes.",
+        "Think of a problem you solved recently. How would you solve it with 10% of the budget?",
+        "Design a logo for a company that sells 'Bottled Silence'.",
+        "Pitch your favorite project in exactly 15 words.",
+        "Imagine you are the PM for a 'Gravity-free Library'. What's the top feature?"
+    ];
+    
+    container.innerHTML = `
+        <div class="challenge-card" id="challenge-box">Click the button for a new challenge...</div>
+        <button class="btn btn-gradient btn-full" style="margin-top: 20px;" id="challenge-next">
+            <i data-feather="refresh-cw" class="btn-icon"></i> New Challenge
+        </button>
+    `;
+
+    const box = document.getElementById('challenge-box');
+    document.getElementById('challenge-next').onclick = () => {
+        box.textContent = challenges[Math.floor(Math.random() * challenges.length)];
+        feather.replace();
+    };
+    feather.replace();
 }
 
 async function deleteTask(id) {
