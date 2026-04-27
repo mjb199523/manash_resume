@@ -239,13 +239,18 @@ body:not(.loaded) {
 }
 
 .brand-avatar {
-    width: 52px;
-    height: 52px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 15px rgba(99, 102, 241, 0.25);
     flex-shrink: 0;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    border: 2.5px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .avatar-img {
@@ -255,7 +260,7 @@ body:not(.loaded) {
     object-position: center;
     display: block;
     image-rendering: auto;
-    transform: translateZ(0);
+    transform: scale(1.1); /* Ensure it fills the boundary perfectly */
 }
 
 .avatar-ph {
