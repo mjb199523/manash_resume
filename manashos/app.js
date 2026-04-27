@@ -1841,9 +1841,19 @@ function initJourneyCarousel() {
         content.style.background = `radial-gradient(circle at center, hsla(${hue}, 70%, 10%, 0.15) 0%, transparent 70%)`;
     };
 
-    window.jumpToJourneyStep = function(index) {
+    window.jumpToJourneyStep = function(index, scrollToSection = false) {
         currentJourneyIndex = index;
         updateJourneyCarousel();
+        
+        if (scrollToSection) {
+            const section = document.getElementById('journey-carousel-section');
+            if (section) {
+                // Add a small delay for smooth feel
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
     };
 
     if (prevBtn) {

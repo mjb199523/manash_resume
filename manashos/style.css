@@ -196,9 +196,6 @@
     border-radius: 100px;
     margin-top: 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    animation: float-slow 4s ease-in-out infinite;
-}
-
 @keyframes float-slow {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
@@ -206,16 +203,42 @@
 
 .thinking-label {
     font-weight: 700;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--gradient-start);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .thinking-text {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-style: italic;
     color: var(--text-secondary);
+}
+
+/* Narrative Insights Grid */
+.journey-insights-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.journey-insights-grid .thinking-pill {
+    margin-top: 0;
+    flex: 1 1 300px;
+    max-width: 360px;
+}
+
+.journey-insights-grid .thinking-pill.focus-pill {
+    border-color: rgba(72, 209, 172, 0.2);
+}
+
+.journey-insights-grid .thinking-pill.direction-pill {
+    border-color: rgba(255, 107, 107, 0.2);
 }
 
 /* Progress Stepper */
@@ -224,14 +247,19 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 5px;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+    border: 1px solid var(--card-border);
 }
 
 .step-item {
     background: none;
     border: none;
     font-family: var(--font-heading);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-muted);
     cursor: pointer;
@@ -262,14 +290,27 @@
     opacity: 0.3;
 }
 
-/* Modal and Layout Override */
+/* Carousel Section */
+.journey-carousel-section {
+    margin-top: 40px;
+    padding-bottom: 100px;
+    width: 100%;
+}
+
+.journey-carousel-container {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow: visible;
+}
+
 /* Carousel Navigation */
 .carousel-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -281,7 +322,7 @@
     cursor: pointer;
     z-index: 100;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .carousel-nav:hover:not(:disabled) {
@@ -290,42 +331,43 @@
     transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-nav.prev { left: 20px; }
-.carousel-nav.next { right: 20px; }
+.carousel-nav.prev { left: 40px; }
+.carousel-nav.next { right: 40px; }
 
 .carousel-nav:disabled {
     opacity: 0.1;
     cursor: not-allowed;
     filter: grayscale(1);
-    visibility: visible;
 }
 
 #journey-mode-content .os-container {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: calc(100vh - 120px);
+    padding-top: 100px;
+    padding-bottom: 60px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     max-width: 1400px;
 }
 
 #journey-mode-content .os-hero {
     padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 5px;
+    padding-bottom: 40px;
+    text-align: center;
 }
 
 #journey-mode-content .os-hero-title {
-    font-size: 1.6rem;
-    margin-bottom: 5px;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
 }
 
 #journey-mode-content .os-hero-sub {
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-    line-height: 1.4;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
 }
 
 .evolution-arrow {
