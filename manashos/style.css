@@ -1582,8 +1582,8 @@ body.loaded {
 .game-binary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
 .binary-switch { height: 60px; border-radius: 10px; border: 2px solid var(--card-border); background: var(--card-bg); cursor: pointer; transition: all 0.3s; position: relative; }
 .binary-switch.on { background: var(--brand-name-color); border-color: var(--brand-name-color); }
-.binary-switch.on::after { content: " ON\; color: white; font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-.binary-switch::after { content: \OFF\; color: var(--text-muted); font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.binary-switch.on::after { content: "ON"; color: white; font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.binary-switch::after { content: "OFF"; color: var(--text-muted); font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
 .challenge-card { padding: 30px; background: var(--bg-secondary); border-radius: 12px; border-left: 4px solid var(--brand-name-color); font-size: 1.1rem; line-height: 1.6; font-style: italic; }
 
