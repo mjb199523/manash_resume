@@ -294,18 +294,19 @@
 .carousel-nav.next { right: 20px; }
 
 .carousel-nav:disabled {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
+    opacity: 0.1;
+    cursor: not-allowed;
+    filter: grayscale(1);
+    visibility: visible;
 }
 
 #journey-mode-content .os-container {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    min-height: calc(100vh - 110px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: calc(100vh - 120px);
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     max-width: 1400px;
 }
