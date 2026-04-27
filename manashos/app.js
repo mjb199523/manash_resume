@@ -1754,18 +1754,19 @@ function toggleJourneyMode() {
             portfolioContent.style.display = 'none';
             journeyContent.style.display = 'block';
             journeyContent.style.opacity = '0';
-            requestAnimationFrame(() => {
-                journeyContent.style.opacity = '1';
-                toggleText.textContent = 'Portfolio Mode';
-                toggleBtn.classList.remove('btn-secondary');
-                toggleBtn.classList.add('btn-gradient');
-                
-                const icon = toggleBtn.querySelector('i');
-                if (icon) {
-                    icon.setAttribute('data-feather', 'grid');
-                    feather.replace();
-                }
-            });
+            // Trigger reflow
+            journeyContent.offsetHeight;
+            journeyContent.style.opacity = '1';
+            
+            toggleText.textContent = 'Portfolio Mode';
+            toggleBtn.classList.remove('btn-secondary');
+            toggleBtn.classList.add('btn-gradient');
+            
+            const icon = toggleBtn.querySelector('i');
+            if (icon) {
+                icon.setAttribute('data-feather', 'grid');
+                feather.replace();
+            }
         }, 300);
     } else {
         // Switch back to Portfolio Mode
@@ -1774,22 +1775,22 @@ function toggleJourneyMode() {
             journeyContent.style.display = 'none';
             portfolioContent.style.display = 'block';
             portfolioContent.style.opacity = '0';
-            requestAnimationFrame(() => {
-                portfolioContent.style.opacity = '1';
-                toggleText.textContent = 'Journey Mode';
-                toggleBtn.classList.add('btn-secondary');
-                toggleBtn.classList.remove('btn-gradient');
-                
-                const icon = toggleBtn.querySelector('i');
-                if (icon) {
-                    icon.setAttribute('data-feather', 'map');
-                    feather.replace();
-                }
-            });
+            // Trigger reflow
+            portfolioContent.offsetHeight;
+            portfolioContent.style.opacity = '1';
+            
+            toggleText.textContent = 'Journey Mode';
+            toggleBtn.classList.add('btn-secondary');
+            toggleBtn.classList.remove('btn-gradient');
+            
+            const icon = toggleBtn.querySelector('i');
+            if (icon) {
+                icon.setAttribute('data-feather', 'map');
+                feather.replace();
+            }
         }, 300);
     }
     
-    // Smooth scroll to top when switching
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
