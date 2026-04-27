@@ -1846,12 +1846,19 @@ function initJourneyCarousel() {
         updateJourneyCarousel();
         
         if (scrollToSection) {
-            const section = document.getElementById('journey-carousel-section');
-            if (section) {
-                // Add a small delay for smooth feel
-                setTimeout(() => {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
+            const stepper = document.querySelector('.journey-stepper');
+            if (stepper) {
+                // Scroll so stepper is near the top
+                const offset = 80; // Margin from top navbar
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = stepper.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
             }
         }
     };

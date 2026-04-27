@@ -251,8 +251,8 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 40px;
-    padding: 20px;
+    margin-top: 20px;
+    padding: 15px 25px;
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(10px);
     border-radius: 100px;
@@ -296,8 +296,8 @@
 
 /* Carousel Section */
 .journey-carousel-section {
-    margin-top: 40px;
-    padding-bottom: 100px;
+    margin-top: 20px;
+    padding-bottom: 40px;
     width: 100%;
 }
 
@@ -345,8 +345,8 @@
 }
 
 #journey-mode-content .os-container {
-    padding-top: 100px;
-    padding-bottom: 60px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
