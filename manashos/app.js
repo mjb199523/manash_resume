@@ -1874,7 +1874,11 @@ function initJourneyCarousel() {
 
     // Initial positioning
     window.addEventListener('resize', updateCarousel);
-    updateCarousel();
+    
+    // Use requestAnimationFrame to ensure DOM is ready for width calculations
+    requestAnimationFrame(() => {
+        updateCarousel();
+    });
 }
 
 // Initialize on load if in journey mode

@@ -36,20 +36,22 @@
 
 .journey-carousel-track-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Crucial: Start from left to allow JS centering */
     align-items: center;
     min-height: 500px;
+    width: 100%;
 }
 
 .journey-carousel-track {
     display: flex;
     transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     gap: 40px;
-    padding: 0 50px;
+    padding: 0;
+    will-change: transform;
 }
 
 .journey-step-card {
-    flex: 0 0 480px;
+    flex: 0 0 420px; /* Slightly narrower to prevent cutting */
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -207,7 +209,7 @@
 
 @media (max-width: 900px) {
     .journey-step-card {
-        flex: 0 0 320px;
+        flex: 0 0 280px; /* Even narrower for mobile */
         padding: 30px;
     }
     .journey-card-title {
