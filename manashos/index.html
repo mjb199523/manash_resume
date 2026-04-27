@@ -482,75 +482,64 @@
                     <p class="os-hero-sub">From foundation to creation — a narrative timeline</p>
                 </div>
 
-                <div class="journey-timeline">
-                    <!-- Section 1: Foundation -->
-                    <div class="journey-item left">
-                        <div class="journey-marker"></div>
-                        <div class="journey-card">
-                            <div class="os-section-badge">THE START</div>
-                            <h3 class="journey-title">Foundation</h3>
-                            <p class="journey-text">B.Tech + MBA</p>
-                            <p class="journey-text">Synthesizing structured business logic with technical execution to build a rock-solid foundation for product leadership.</p>
-                        </div>
-                    </div>
+                <div class="journey-carousel-container">
+                    <button class="carousel-nav prev" id="journey-prev" disabled><i data-feather="chevron-left"></i></button>
+                    <div class="journey-carousel-track-wrapper">
+                        <div class="journey-carousel-track" id="journey-track">
+                            <!-- Card 1: Foundation -->
+                            <div class="journey-step-card active" data-index="0">
+                                <div class="journey-card-label">THE START</div>
+                                <h3 class="journey-card-title">Foundation</h3>
+                                <p class="journey-card-identity">Built my foundation in structured thinking</p>
+                                <ul class="journey-card-points">
+                                    <li>B.Tech + MBA</li>
+                                    <li>Combined technical systems with business perspective</li>
+                                </ul>
+                            </div>
 
-                    <!-- Section 2: Exploration -->
-                    <div class="journey-item right">
-                        <div class="journey-marker"></div>
-                        <div class="journey-card">
-                            <div class="os-section-badge">THE CLIMB</div>
-                            <h3 class="journey-title">Exploration</h3>
-                            <div class="journey-grid">
-                                <div class="journey-sub-item">
-                                    <span class="journey-year">Govt of Assam</span>
-                                    <p>Architecting public sector systems.</p>
-                                </div>
-                                <div class="journey-sub-item">
-                                    <span class="journey-year">Soulpage</span>
-                                    <p>Business analysis & strategy.</p>
-                                </div>
-                                <div class="journey-sub-item">
-                                    <span class="journey-year">Wednesday</span>
-                                    <p>Optimizing Agile delivery.</p>
-                                </div>
-                                <div class="journey-sub-item">
-                                    <span class="journey-year">ibentos</span>
-                                    <p>Immersive Metaverse/AR/VR tech.</p>
-                                </div>
-                                <div class="journey-sub-item">
-                                    <span class="journey-year">Grant Thornton</span>
-                                    <p>Policy consulting & governance.</p>
-                                </div>
-                                <div class="journey-sub-item">
-                                    <span class="journey-year">ConveGenius</span>
-                                    <p>Scaling complex product delivery.</p>
-                                </div>
+                            <!-- Card 2: Exploration -->
+                            <div class="journey-step-card" data-index="1">
+                                <div class="journey-card-label">THE CLIMB</div>
+                                <h3 class="journey-card-title">Exploration</h3>
+                                <p class="journey-card-identity">Explored systems, delivery, and large-scale problem solving</p>
+                                <ul class="journey-card-points">
+                                    <li>Govt → built systems from ground up</li>
+                                    <li>Product → Agile delivery & execution</li>
+                                    <li>Consulting → policy, governance, scale</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 3: Creation -->
+                            <div class="journey-step-card" data-index="2">
+                                <div class="journey-card-label">THE SHIFT</div>
+                                <h3 class="journey-card-title">Creation</h3>
+                                <p class="journey-card-identity">Started building my own systems and products</p>
+                                <ul class="journey-card-points">
+                                    <li>ManashOS → personal system</li>
+                                    <li>AI products → PaathSohayok, AirDraw</li>
+                                    <li>Experiments → rapid prototyping</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 4: Current Focus -->
+                            <div class="journey-step-card" data-index="3">
+                                <div class="journey-card-label">THE HORIZON</div>
+                                <h3 class="journey-card-title">Current Focus</h3>
+                                <p class="journey-card-identity">Focused on building systems that combine thinking and execution</p>
+                                <ul class="journey-card-points">
+                                    <li>AI + product + real-world use</li>
+                                    <li>Fast iteration and experimentation</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Section 3: Creation -->
-                    <div class="journey-item left">
-                        <div class="journey-marker"></div>
-                        <div class="journey-card">
-                            <div class="os-section-badge">THE VENTURE</div>
-                            <h3 class="journey-title">Creation</h3>
-                            <ul class="journey-list">
-                                <li><strong>ManashOS:</strong> A next-gen personal productivity ecosystem.</li>
-                                <li><strong>AI Solutions:</strong> Tools like PaathSohayok and AirDraw.</li>
-                                <li><strong>Experiments:</strong> Pushing boundaries with interactive systems.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Section 4: Current Focus -->
-                    <div class="journey-item right">
-                        <div class="journey-marker"></div>
-                        <div class="journey-card">
-                            <div class="os-section-badge">THE HORIZON</div>
-                            <h3 class="journey-title">Current Focus</h3>
-                            <p class="journey-text">Engineered for the future — combining AI orchestration, product vision, and rapid execution to build high-impact systems.</p>
-                        </div>
+                    <button class="carousel-nav next" id="journey-next"><i data-feather="chevron-right"></i></button>
+                    
+                    <div class="carousel-dots" id="journey-dots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                        <span class="dot" data-index="3"></span>
                     </div>
                 </div>
             </div>

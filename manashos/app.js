@@ -1767,6 +1767,9 @@ function toggleJourneyMode() {
                 icon.setAttribute('data-feather', 'grid');
                 feather.replace();
             }
+            
+            // Initialize Carousel
+            initJourneyCarousel();
         }, 300);
     } else {
         // Switch back to Portfolio Mode
@@ -1793,4 +1796,91 @@ function toggleJourneyMode() {
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// ==================== JOURNEY CAROUSEL LOGIC ====================
+let currentJourneyIndex = 0;
+
+function initJourneyCarousel() {
+    const track = document.getElementById('journey-track');
+    const cards = document.querySelectorAll('.journey-step-card');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('journey-prev');
+    const nextBtn = document.getElementById('journey-next');
+    
+    if (!track || !cards.length) return;
+
+    function updateCarousel() {
+        const containerWidth = document.querySelector('.journey-carousel-track-wrapper').offsetWidth;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 40; // match CSS gap
+        
+        // Calculate offset to center the active card
+        const offset = (containerWidth / 2) - (cardWidth / 2) - (currentJourneyIndex * (cardWidth + gap));
+        
+        track.style.transform = `translateX(${offset}px)`;
+        
+        cards.forEach((card, i) => {
+            card.classList.toggle('active', i === currentJourneyIndex);
+        });
+        
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentJourneyIndex);
+        });
+        
+        if (prevBtn) prevBtn.disabled = currentJourneyIndex === 0;
+        if (nextBtn) nextBtn.disabled = currentJourneyIndex === cards.length - 1;
+    }
+
+    if (prevBtn) {
+        prevBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (currentJourneyIndex > 0) {
+                currentJourneyIndex--;
+                updateCarousel();
+            }
+        };
+    }
+
+    if (nextBtn) {
+        nextBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (currentJourneyIndex < cards.length - 1) {
+                currentJourneyIndex++;
+                updateCarousel();
+            }
+        };
+    }
+
+    dots.forEach((dot, i) => {
+        dot.onclick = () => {
+            currentJourneyIndex = i;
+            updateCarousel();
+        }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const container = document.querySelector('.journey-carousel-container');
+    if (container) {
+        container.ontouchstart = e => touchStartX = e.changedTouches[0].screenX;
+        container.ontouchend = e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextBtn?.click();
+            if (touchEndX - touchStartX > 50) prevBtn?.click();
+        };
+    }
+
+    // Initial positioning
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+}
+
+// Initialize on load if in journey mode
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof isJourneyMode !== 'undefined' && isJourneyMode) {
+        initJourneyCarousel();
+    }
+});
 
