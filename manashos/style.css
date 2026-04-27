@@ -41,7 +41,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    min-height: 480px;
+    min-height: 440px;
     width: 100%;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .journey-step-card {
-    flex: 0 0 360px;
+    flex: 0 0 320px;
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -118,7 +118,7 @@
 
 .journey-card-title {
     font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 900;
     margin-bottom: 10px;
     color: var(--text-primary);
@@ -126,10 +126,10 @@
 }
 
 .journey-card-identity {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-secondary);
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     line-height: 1.4;
 }
 
@@ -192,9 +192,9 @@
     background: var(--card-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--card-border);
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: 100px;
-    margin-top: 15px;
+    margin-top: 10px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     animation: float-slow 4s ease-in-out infinite;
 }
@@ -264,12 +264,13 @@
 
 /* Modal and Layout Override */
 #journey-mode-content .os-container {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: calc(100vh - 120px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: calc(100vh - 120px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     max-width: 1400px;
 }
 
@@ -279,8 +280,14 @@
 }
 
 #journey-mode-content .os-hero-title {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     margin-bottom: 5px;
+}
+
+#journey-mode-content .os-hero-sub {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    line-height: 1.4;
 }
 
 .evolution-arrow {
