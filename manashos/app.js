@@ -1815,7 +1815,7 @@ function initJourneyCarousel() {
         const wrapper = document.querySelector('.journey-carousel-track-wrapper');
         const containerWidth = wrapper.offsetWidth;
         const cardWidth = cards[0].offsetWidth;
-        const gap = window.innerWidth <= 900 ? 30 : 60;
+        const gap = window.innerWidth <= 900 ? 30 : 40;
         
         const offset = (containerWidth / 2) - (cardWidth / 2) - (currentJourneyIndex * (cardWidth + gap));
         track.style.transform = `translateX(${offset}px)`;
