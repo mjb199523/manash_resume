@@ -1812,7 +1812,7 @@ function initJourneyCarousel() {
     function updateCarousel() {
         const containerWidth = document.querySelector('.journey-carousel-track-wrapper').offsetWidth;
         const cardWidth = cards[0].offsetWidth;
-        const gap = window.innerWidth <= 900 ? 30 : 50;
+        const gap = window.innerWidth <= 900 ? 30 : 40;
         
         // Calculate offset to center the active card
         const offset = (containerWidth / 2) - (cardWidth / 2) - (currentJourneyIndex * (cardWidth + gap));
