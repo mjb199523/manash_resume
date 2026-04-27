@@ -232,9 +232,11 @@
 
 .journey-insights-grid .thinking-pill {
     margin-top: 0;
-    width: 100%;
-    max-width: 650px;
-    justify-content: flex-start;
+    width: auto;
+    max-width: 900px;
+    justify-content: center;
+    white-space: nowrap;
+    padding: 12px 30px;
 }
 
 .journey-insights-grid .thinking-pill.focus-pill {
