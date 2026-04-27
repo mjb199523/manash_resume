@@ -1758,7 +1758,7 @@ function toggleJourneyMode() {
             journeyContent.offsetHeight;
             journeyContent.style.opacity = '1';
             
-            toggleText.textContent = 'Portfolio Mode';
+            toggleText.textContent = 'Back to ManashOS';
             toggleBtn.classList.remove('btn-secondary');
             toggleBtn.classList.add('btn-gradient');
             
@@ -1782,7 +1782,7 @@ function toggleJourneyMode() {
             portfolioContent.offsetHeight;
             portfolioContent.style.opacity = '1';
             
-            toggleText.textContent = 'Journey Mode';
+            toggleText.textContent = 'My Journey';
             toggleBtn.classList.add('btn-secondary');
             toggleBtn.classList.remove('btn-gradient');
             
