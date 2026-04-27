@@ -1798,71 +1798,70 @@ function toggleJourneyMode() {
 }
 
 // ==================== JOURNEY CAROUSEL LOGIC ====================
+// ==================== JOURNEY CAROUSEL LOGIC ====================
 let currentJourneyIndex = 0;
 
 function initJourneyCarousel() {
     const track = document.getElementById('journey-track');
     const cards = document.querySelectorAll('.journey-step-card');
-    const dots = document.querySelectorAll('.dot');
     const prevBtn = document.getElementById('journey-prev');
     const nextBtn = document.getElementById('journey-next');
+    const container = document.querySelector('.journey-carousel-container');
+    const content = document.getElementById('journey-mode-content');
     
     if (!track || !cards.length) return;
 
-    function updateCarousel() {
-        const containerWidth = document.querySelector('.journey-carousel-track-wrapper').offsetWidth;
+    window.updateJourneyCarousel = function() {
+        const wrapper = document.querySelector('.journey-carousel-track-wrapper');
+        const containerWidth = wrapper.offsetWidth;
         const cardWidth = cards[0].offsetWidth;
-        const gap = window.innerWidth <= 900 ? 30 : 40;
+        const gap = window.innerWidth <= 900 ? 30 : 60;
         
-        // Calculate offset to center the active card
         const offset = (containerWidth / 2) - (cardWidth / 2) - (currentJourneyIndex * (cardWidth + gap));
-        
         track.style.transform = `translateX(${offset}px)`;
         
         cards.forEach((card, i) => {
             card.classList.toggle('active', i === currentJourneyIndex);
         });
         
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentJourneyIndex);
+        // Update Stepper
+        const steps = document.querySelectorAll('.step-item');
+        steps.forEach((step, i) => {
+            step.classList.toggle('active', i === currentJourneyIndex);
+            const dot = step.querySelector('.step-dot');
+            if (dot) dot.textContent = i === currentJourneyIndex ? '●' : '○';
         });
         
         if (prevBtn) prevBtn.disabled = currentJourneyIndex === 0;
         if (nextBtn) nextBtn.disabled = currentJourneyIndex === cards.length - 1;
-    }
+
+        // Background Depth Shift
+        const hue = 250 + (currentJourneyIndex * 20); 
+        content.style.background = `radial-gradient(circle at center, hsla(${hue}, 70%, 10%, 0.15) 0%, transparent 70%)`;
+    };
+
+    window.jumpToJourneyStep = function(index) {
+        currentJourneyIndex = index;
+        updateJourneyCarousel();
+    };
 
     if (prevBtn) {
         prevBtn.onclick = (e) => {
             e.stopPropagation();
-            if (currentJourneyIndex > 0) {
-                currentJourneyIndex--;
-                updateCarousel();
-            }
+            if (currentJourneyIndex > 0) jumpToJourneyStep(currentJourneyIndex - 1);
         };
     }
 
     if (nextBtn) {
         nextBtn.onclick = (e) => {
             e.stopPropagation();
-            if (currentJourneyIndex < cards.length - 1) {
-                currentJourneyIndex++;
-                updateCarousel();
-            }
+            if (currentJourneyIndex < cards.length - 1) jumpToJourneyStep(currentJourneyIndex + 1);
         };
     }
-
-    dots.forEach((dot, i) => {
-        dot.onclick = () => {
-            currentJourneyIndex = i;
-            updateCarousel();
-        }
-    });
 
     // Touch support
     let touchStartX = 0;
     let touchEndX = 0;
-    
-    const container = document.querySelector('.journey-carousel-container');
     if (container) {
         container.ontouchstart = e => touchStartX = e.changedTouches[0].screenX;
         container.ontouchend = e => {
@@ -1872,14 +1871,78 @@ function initJourneyCarousel() {
         };
     }
 
-    // Initial positioning
-    window.addEventListener('resize', updateCarousel);
-    
-    // Use requestAnimationFrame to ensure DOM is ready for width calculations
-    requestAnimationFrame(() => {
-        updateCarousel();
+    // Active Card Tilt Effect
+    cards.forEach(card => {
+        card.onmousemove = (e) => {
+            if (!card.classList.contains('active')) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (centerY - y) / 20;
+            const rotateY = (x - centerX) / 20;
+            card.style.transform = `scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+        };
+        card.onmouseleave = () => {
+            if (card.classList.contains('active')) {
+                card.style.transform = `scale(1) translateZ(0)`;
+            }
+        };
     });
+
+    window.addEventListener('resize', updateJourneyCarousel);
+    requestAnimationFrame(updateJourneyCarousel);
 }
+
+// Expand Mode Logic
+function expandJourneyCard(index) {
+    const modal = document.getElementById('journey-expand-modal');
+    const modalBody = document.getElementById('modal-body-content');
+    const cards = document.querySelectorAll('.journey-step-card');
+    const card = cards[index];
+
+    if (!modal || !modalBody || !card) return;
+
+    // Clone content for modal
+    const title = card.querySelector('.journey-card-title').textContent;
+    const identity = card.querySelector('.journey-card-identity').textContent;
+    const points = card.querySelector('.journey-card-points').innerHTML;
+    const shift = card.querySelector('.journey-card-shift').innerHTML;
+    const impact = card.querySelector('.journey-card-impact').innerHTML;
+
+    modalBody.innerHTML = `
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;" class="text-gradient">${title}</h2>
+        <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px;">${identity}</p>
+        <div class="modal-details" style="display: grid; gap: 25px;">
+            <div>
+                <h4 style="margin-bottom: 15px; color: var(--gradient-start); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.15em;">Deep Dive</h4>
+                <ul class="journey-card-points" style="margin-bottom: 0;">${points}</ul>
+            </div>
+            <div style="display: grid; gap: 15px;">
+                <div class="journey-card-shift" style="margin-top: 0; padding: 15px;">${shift}</div>
+                <div class="journey-card-impact" style="margin-top: 0; padding: 15px;">${impact}</div>
+            </div>
+        </div>
+    `;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeJourneyModal() {
+    const modal = document.getElementById('journey-expand-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal on outside click
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('journey-expand-modal');
+    if (e.target === modal) closeJourneyModal();
+});
 
 // Initialize on load if in journey mode
 document.addEventListener('DOMContentLoaded', () => {

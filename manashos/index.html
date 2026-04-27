@@ -476,18 +476,32 @@
         <!-- End of Portfolio Mode -->
 
         <!-- Journey Mode Content -->
-            <div id="journey-mode-content" style="display: none;">
-                <div class="os-hero guest-only">
+        <div id="journey-mode-content" style="display: none;">
+            <div class="os-container">
+                <!-- Upgraded Hero -->
+                <section class="os-hero">
                     <h1 class="os-hero-title">My <span class="text-gradient">Evolution</span></h1>
-                    <p class="os-hero-sub">From foundation to creation — a narrative timeline</p>
-                </div>
+                    <p class="os-hero-sub">
+                        From building systems in the public sector <span class="evolution-arrow">→</span> to designing AI-driven products and personal systems.
+                    </p>
+                    <!-- Sticky Insight -->
+                    <div class="thinking-pill">
+                        <span class="thinking-icon">🧠</span>
+                        <span class="thinking-label">Currently Thinking:</span>
+                        <span class="thinking-text">"Clarity of thought matters more than speed of execution."</span>
+                    </div>
+                </section>
 
+                <!-- Horizontal 3D Journey -->
                 <div class="journey-carousel-container">
-                    <button class="carousel-nav prev" id="journey-prev" disabled><i data-feather="chevron-left"></i></button>
+                    <button class="carousel-nav prev" id="journey-prev" disabled>
+                        <i data-feather="chevron-left"></i>
+                    </button>
+                    
                     <div class="journey-carousel-track-wrapper">
                         <div class="journey-carousel-track" id="journey-track">
                             <!-- Card 1: Foundation -->
-                            <div class="journey-step-card active" data-index="0">
+                            <div class="journey-step-card active" data-index="0" onclick="expandJourneyCard(0)">
                                 <div class="journey-card-label">THE START</div>
                                 <h3 class="journey-card-title">Foundation</h3>
                                 <p class="journey-card-identity">Built my foundation in structured thinking</p>
@@ -495,10 +509,18 @@
                                     <li>B.Tech + MBA</li>
                                     <li>Combined technical systems with business perspective</li>
                                 </ul>
+                                <div class="journey-card-shift">
+                                    <span class="shift-icon">⚡</span>
+                                    <span class="shift-text"><strong>Key Shift:</strong> Learning concepts → Systems thinking</span>
+                                </div>
+                                <div class="journey-card-impact">
+                                    <span class="impact-icon">💡</span>
+                                    <span class="impact-text">Developed structured thinking across tech and business</span>
+                                </div>
                             </div>
 
                             <!-- Card 2: Exploration -->
-                            <div class="journey-step-card" data-index="1">
+                            <div class="journey-step-card" data-index="1" onclick="expandJourneyCard(1)">
                                 <div class="journey-card-label">THE CLIMB</div>
                                 <h3 class="journey-card-title">Exploration</h3>
                                 <p class="journey-card-identity">Explored systems, delivery, and large-scale problem solving</p>
@@ -507,10 +529,18 @@
                                     <li>Product → Agile delivery & execution</li>
                                     <li>Consulting → policy, governance, scale</li>
                                 </ul>
+                                <div class="journey-card-shift">
+                                    <span class="shift-icon">⚡</span>
+                                    <span class="shift-text"><strong>Key Shift:</strong> Executing tasks → Managing complex systems</span>
+                                </div>
+                                <div class="journey-card-impact">
+                                    <span class="impact-icon">💡</span>
+                                    <span class="impact-text">Learned to operate across stakeholders, scale, and constraints</span>
+                                </div>
                             </div>
 
                             <!-- Card 3: Creation -->
-                            <div class="journey-step-card" data-index="2">
+                            <div class="journey-step-card" data-index="2" onclick="expandJourneyCard(2)">
                                 <div class="journey-card-label">THE SHIFT</div>
                                 <h3 class="journey-card-title">Creation</h3>
                                 <p class="journey-card-identity">Started building my own systems and products</p>
@@ -519,10 +549,18 @@
                                     <li>AI products → PaathSohayok, AirDraw</li>
                                     <li>Experiments → rapid prototyping</li>
                                 </ul>
+                                <div class="journey-card-shift">
+                                    <span class="shift-icon">⚡</span>
+                                    <span class="shift-text"><strong>Key Shift:</strong> Delivering solutions → Creating products</span>
+                                </div>
+                                <div class="journey-card-impact">
+                                    <span class="impact-icon">💡</span>
+                                    <span class="impact-text">Transitioned into a builder mindset</span>
+                                </div>
                             </div>
 
                             <!-- Card 4: Current Focus -->
-                            <div class="journey-step-card" data-index="3">
+                            <div class="journey-step-card" data-index="3" onclick="expandJourneyCard(3)">
                                 <div class="journey-card-label">THE HORIZON</div>
                                 <h3 class="journey-card-title">Current Focus</h3>
                                 <p class="journey-card-identity">Focused on building systems that combine thinking and execution</p>
@@ -530,19 +568,51 @@
                                     <li>AI + product + real-world use</li>
                                     <li>Fast iteration and experimentation</li>
                                 </ul>
+                                <div class="journey-card-shift">
+                                    <span class="shift-icon">⚡</span>
+                                    <span class="shift-text"><strong>Key Shift:</strong> Building products → Designing systems</span>
+                                </div>
+                                <div class="journey-card-impact">
+                                    <span class="impact-icon">💡</span>
+                                    <span class="impact-text">Creating scalable, usable, and impactful solutions</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-nav next" id="journey-next"><i data-feather="chevron-right"></i></button>
-                    
-                    <div class="carousel-dots" id="journey-dots">
-                        <span class="dot active" data-index="0"></span>
-                        <span class="dot" data-index="1"></span>
-                        <span class="dot" data-index="2"></span>
-                        <span class="dot" data-index="3"></span>
-                    </div>
+
+                    <button class="carousel-nav next" id="journey-next">
+                        <i data-feather="chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Upgraded Progress Stepper -->
+                <div class="journey-stepper">
+                    <button class="step-item active" data-index="0" onclick="jumpToJourneyStep(0)">
+                        Foundation <span class="step-dot">●</span>
+                    </button>
+                    <div class="step-line"></div>
+                    <button class="step-item" data-index="1" onclick="jumpToJourneyStep(1)">
+                        Exploration <span class="step-dot">○</span>
+                    </button>
+                    <div class="step-line"></div>
+                    <button class="step-item" data-index="2" onclick="jumpToJourneyStep(2)">
+                        Creation <span class="step-dot">○</span>
+                    </button>
+                    <div class="step-line"></div>
+                    <button class="step-item" data-index="3" onclick="jumpToJourneyStep(3)">
+                        Focus <span class="step-dot">○</span>
+                    </button>
                 </div>
             </div>
+        </div>
+
+        <!-- Expand Mode Modal -->
+        <div id="journey-expand-modal" class="os-modal">
+            <div class="os-modal-content">
+                <button class="modal-close" onclick="closeJourneyModal()">&times;</button>
+                <div id="modal-body-content"></div>
+            </div>
+        </div>
         </div>
 
         <!-- ==================== DASHBOARD VIEW ==================== -->
