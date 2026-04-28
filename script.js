@@ -189,6 +189,6 @@ window.addEventListener('load', () => {
         // Minimum display time for the loader to ensure smooth transition
         setTimeout(() => {
             document.body.classList.add('loaded');
-        }, 1500); 
+        }, 500); // Reduced from 1500ms for better performance
     }
 });
