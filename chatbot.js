@@ -79,7 +79,7 @@
 
     // 3. Session & Storage Logic
     const STORAGE_KEY = 'ask_manashos_session';
-    const WELCOME_KEY = 'chat_welcome_seen_v3';
+    const WELCOME_KEY = 'chat_welcome_seen_v4';
     const SESSION_EXPIRY = 3600000; // 1 hour
 
     function getSession() {
@@ -108,7 +108,7 @@
 
         <div id="chat-welcome-bubble">
             <div class="welcome-header">
-                <span class="welcome-text">Hi there 👋 Need help exploring this portfolio?</span>
+                <span class="welcome-text">Hi there 👋 Need help exploring Manashjyoti’s portfolio?</span>
                 <button class="welcome-close" id="welcome-close">
                     <i data-feather="x"></i>
                 </button>
@@ -181,8 +181,8 @@
             setTimeout(() => {
                 welcomeBubble.style.display = 'flex';
                 if (window.feather) feather.replace(); // Ensure X icon shows
-                // Auto-hide after 7 seconds
-                setTimeout(dismissWelcome, 7000);
+                // Auto-hide after 15 seconds
+                setTimeout(dismissWelcome, 15000);
             }, 1500); // 1.5s delay
         }
     }
