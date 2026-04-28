@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // 1. Safety & Placement
     if (window.location.pathname.includes('owner-access') || window.location.pathname.includes('admin')) {
         return;
@@ -74,7 +74,7 @@
         os_experiments: "Currently, 6 experiments are live, ranging from Web Scraping agents to AI Instagram handlers and local utility calculators.",
         os_journey: "His journey tracks his growth from building public sector systems to designing AI-driven personal ecosystems like ManashOS.",
         education: "He holds an MBA in Marketing & HR and a B.Tech in Computer Science & Engineering, both from Gauhati University.",
-        contact: "You can reach Manashjyoti at manashjyoti.barman07@gmail.com, or connect with him on LinkedIn, GitHub, or Instagram (mjb199523)."
+        contact: "You can reach Manashjyoti at manashjyoti.barman07@gmail.com, or connect with him on LinkedIn, GitHub, or Instagram (@mjb199523)."
     };
 
     // 3. Session & Storage Logic
@@ -163,7 +163,7 @@
         const menu = MENU_DATA[menuId] || MENU_DATA.main;
         menuLabel.textContent = menu.label;
         menuGrid.innerHTML = '';
-        
+
         menu.options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'menu-option';
@@ -171,19 +171,19 @@
             btn.onclick = () => handleChoice(opt.id, opt.label);
             menuGrid.appendChild(btn);
         });
-        
+
         if (window.feather) feather.replace();
     }
 
     function handleChoice(id, label) {
         // Add user bubble
         addMessageToUI(label, 'user');
-        
+
         const typingId = showTyping();
-        
+
         setTimeout(() => {
             hideTyping(typingId);
-            
+
             if (MENU_DATA[id]) {
                 // It's a submenu
                 const sub = MENU_DATA[id];
@@ -208,7 +208,7 @@
         div.textContent = text;
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
-        
+
         if (save) {
             chatHistory.push({ text, role });
             saveSession(chatHistory);
