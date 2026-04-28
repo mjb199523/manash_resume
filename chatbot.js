@@ -79,7 +79,7 @@
 
     // 3. Session & Storage Logic
     const STORAGE_KEY = 'ask_manashos_session';
-    const WELCOME_KEY = 'chat_welcome_seen';
+    const WELCOME_KEY = 'chat_welcome_seen_v3';
     const SESSION_EXPIRY = 3600000; // 1 hour
 
     function getSession() {
@@ -168,8 +168,11 @@
             renderMenu('main');
         } else {
             showInitialGreeting();
-            checkWelcome();
         }
+        
+        // Always check welcome status regardless of session, but still only once per user
+        checkWelcome();
+        
         if (window.feather) feather.replace();
     }
 
@@ -177,9 +180,10 @@
         if (!localStorage.getItem(WELCOME_KEY)) {
             setTimeout(() => {
                 welcomeBubble.style.display = 'flex';
+                if (window.feather) feather.replace(); // Ensure X icon shows
                 // Auto-hide after 7 seconds
                 setTimeout(dismissWelcome, 7000);
-            }, 2000);
+            }, 1500); // 1.5s delay
         }
     }
 
