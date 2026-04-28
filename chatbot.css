@@ -136,6 +136,7 @@ body.logged-in #chatbot-window {
     gap: 20px;
     background: var(--bg-primary);
     scroll-behavior: smooth;
+    overscroll-behavior: contain; /* Prevent background scroll */
 }
 
 .chat-message {
@@ -175,6 +176,7 @@ body.logged-in #chatbot-window {
     border-top: 1px solid var(--card-border);
     max-height: 140px; /* Reduced to prioritize conversation window */
     overflow-y: auto;
+    overscroll-behavior: contain; /* Prevent background scroll */
 }
 
 .menu-label {
@@ -188,26 +190,26 @@ body.logged-in #chatbot-window {
 }
 
 .chatbot-menu-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .menu-option {
     background: var(--bg-primary);
     border: 1px solid var(--card-border);
     color: var(--text-primary);
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 12px;
-    font-size: 0.8rem;
-    text-align: center;
+    font-size: 0.85rem;
+    text-align: left;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 44px; /* Optimized for text-only */
+    justify-content: flex-start;
+    min-height: 44px;
 }
 
 .menu-option:hover {

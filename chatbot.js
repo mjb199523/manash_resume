@@ -234,6 +234,15 @@
     // 6. Listeners
     launcher.onclick = () => windowEl.classList.toggle('active');
     closeBtn.onclick = () => windowEl.classList.remove('active');
+    
+    // Local scroll behavior: Lock body scroll when hovering chatbot
+    windowEl.addEventListener('mouseenter', () => {
+        document.body.style.overflow = 'hidden';
+    });
+    windowEl.addEventListener('mouseleave', () => {
+        document.body.style.overflow = '';
+    });
+
     resetBtn.onclick = () => {
         if (confirm('Reset conversation?')) {
             localStorage.removeItem(STORAGE_KEY);
