@@ -188,8 +188,8 @@ body.logged-in #chatbot-window {
 }
 
 .chatbot-menu-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
@@ -197,33 +197,36 @@ body.logged-in #chatbot-window {
     background: var(--bg-primary);
     border: 1px solid var(--card-border);
     color: var(--text-primary);
-    padding: 14px 18px;
+    padding: 10px 12px;
     border-radius: var(--chat-card-radius);
-    font-size: 0.9rem;
-    text-align: left;
+    font-size: 0.8rem;
+    text-align: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 6px;
+    min-height: 80px;
 }
 
 .menu-option:hover {
     border-color: var(--gradient-start);
     background: var(--card-bg);
     color: var(--brand-name-color);
-    transform: scale(1.02) translateX(4px);
+    transform: translateY(-3px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .menu-option:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
 .menu-option i {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     color: var(--gradient-start);
     opacity: 0.9;
 }

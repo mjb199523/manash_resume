@@ -10,48 +10,48 @@
             label: "Explore Options",
             message: "What would you like to explore today?",
             options: [
-                { id: 'profile', label: "Who is Manashjyoti?", icon: 'user' },
-                { id: 'experience', label: "Career Timeline", icon: 'package' },
-                { id: 'skills', label: "Skills & Capabilities", icon: 'award' },
-                { id: 'projects', label: "Featured Projects", icon: 'code' },
-                { id: 'manashos', label: "ManashOS Platform", icon: 'cpu' },
-                { id: 'education', label: "Academic Background", icon: 'book' },
-                { id: 'contact', label: "Get in Touch", icon: 'mail' }
+                { id: 'profile', label: "About Me", icon: 'user' },
+                { id: 'experience', label: "Career", icon: 'package' },
+                { id: 'skills', label: "Skills", icon: 'award' },
+                { id: 'projects', label: "Projects", icon: 'code' },
+                { id: 'manashos', label: "ManashOS", icon: 'cpu' },
+                { id: 'education', label: "Education", icon: 'book' },
+                { id: 'contact', label: "Contact", icon: 'mail' }
             ]
         },
         experience: {
             label: "Timeline Highlights",
             message: "I've organized his career by company. Which one would you like to see?",
             options: [
-                { id: 'exp_conve', label: "ConveGenius (Current)", icon: 'zap' },
+                { id: 'exp_conve', label: "ConveGenius", icon: 'zap' },
                 { id: 'exp_gt', label: "Grant Thornton", icon: 'layers' },
-                { id: 'exp_wed', label: "Wednesday Solutions", icon: 'settings' },
+                { id: 'exp_wed', label: "Wednesday", icon: 'settings' },
                 { id: 'exp_soul', label: "SoulpageIT", icon: 'users' },
-                { id: 'exp_gov', label: "Govt of Assam", icon: 'flag' },
-                { id: 'main', label: "Back to Main Menu", icon: 'arrow-left' }
+                { id: 'exp_gov', label: "Govt Assam", icon: 'flag' },
+                { id: 'main', label: "← Back", icon: 'arrow-left' }
             ]
         },
         manashos: {
             label: "ManashOS Ecosystem",
             message: "ManashOS is a full productivity environment. What interests you most?",
             options: [
-                { id: 'os_overview', label: "System Overview", icon: 'info' },
-                { id: 'os_games', label: "11 Interactive Games", icon: 'play' },
-                { id: 'os_experiments', label: "6 AI Experiments", icon: 'flask-conical' },
-                { id: 'os_journey', label: "Narrative Journey", icon: 'trending-up' },
-                { id: 'main', label: "Back to Main Menu", icon: 'arrow-left' }
+                { id: 'os_overview', label: "Overview", icon: 'info' },
+                { id: 'os_games', label: "11 Games", icon: 'play' },
+                { id: 'os_experiments', label: "6 AI Labs", icon: 'flask-conical' },
+                { id: 'os_journey', label: "Journey", icon: 'trending-up' },
+                { id: 'main', label: "← Back", icon: 'arrow-left' }
             ]
         },
         projects: {
             label: "Project Portfolio",
             message: "Here are some featured builds. Which one should we dive into?",
             options: [
-                { id: 'proj_paath', label: "Paath Sohayok", icon: 'file-text' },
+                { id: 'proj_paath', label: "PaathSohayok", icon: 'file-text' },
                 { id: 'proj_airdraw', label: "AirDraw", icon: 'edit-3' },
-                { id: 'proj_memory', label: "Memory Search", icon: 'search' },
+                { id: 'proj_memory', label: "MemorySearch", icon: 'search' },
                 { id: 'proj_smart', label: "SmartComm", icon: 'message-circle' },
                 { id: 'proj_off', label: "OFFSTUMP", icon: 'globe' },
-                { id: 'main', label: "Back to Main Menu", icon: 'arrow-left' }
+                { id: 'main', label: "← Back", icon: 'arrow-left' }
             ]
         }
     };
