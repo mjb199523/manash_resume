@@ -10,13 +10,13 @@
             label: "Explore Options",
             message: "What would you like to explore today?",
             options: [
-                { id: 'profile', label: "About Me", icon: 'user' },
-                { id: 'experience', label: "Career", icon: 'package' },
-                { id: 'skills', label: "Skills", icon: 'award' },
-                { id: 'projects', label: "Projects", icon: 'code' },
-                { id: 'manashos', label: "ManashOS", icon: 'cpu' },
-                { id: 'education', label: "Education", icon: 'book' },
-                { id: 'contact', label: "Contact", icon: 'mail' }
+                { id: 'profile', label: "Who is Manashjyoti?", icon: 'user' },
+                { id: 'experience', label: "Career Timeline", icon: 'package' },
+                { id: 'skills', label: "Skills & Capabilities", icon: 'award' },
+                { id: 'projects', label: "Featured Projects", icon: 'code' },
+                { id: 'manashos', label: "ManashOS Platform", icon: 'cpu' },
+                { id: 'education', label: "Academic Background", icon: 'book' },
+                { id: 'contact', label: "Get in Touch", icon: 'mail' }
             ]
         },
         experience: {
@@ -25,10 +25,10 @@
             options: [
                 { id: 'exp_conve', label: "ConveGenius", icon: 'zap' },
                 { id: 'exp_gt', label: "Grant Thornton", icon: 'layers' },
-                { id: 'exp_wed', label: "Wednesday", icon: 'settings' },
+                { id: 'exp_wed', label: "Wednesday Solutions", icon: 'settings' },
                 { id: 'exp_soul', label: "SoulpageIT", icon: 'users' },
-                { id: 'exp_gov', label: "Govt Assam", icon: 'flag' },
-                { id: 'main', label: "← Back", icon: 'arrow-left' }
+                { id: 'exp_gov', label: "Govt of Assam", icon: 'flag' },
+                { id: 'main', label: "← Back to Menu", icon: 'arrow-left' }
             ]
         },
         manashos: {
@@ -235,13 +235,8 @@
     launcher.onclick = () => windowEl.classList.toggle('active');
     closeBtn.onclick = () => windowEl.classList.remove('active');
     
-    // Local scroll behavior: Lock body scroll when hovering chatbot
-    windowEl.addEventListener('mouseenter', () => {
-        document.body.style.overflow = 'hidden';
-    });
-    windowEl.addEventListener('mouseleave', () => {
-        document.body.style.overflow = '';
-    });
+    // Using CSS overscroll-behavior: contain instead of body lock 
+    // to prevent "earthquake" layout shifts while keeping scroll local.
 
     resetBtn.onclick = () => {
         if (confirm('Reset conversation?')) {
