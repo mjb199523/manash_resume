@@ -33,9 +33,111 @@
     box-shadow: 0 15px 35px rgba(138, 125, 244, 0.4);
 }
 
+/* --- Welcome Bubble --- */
+#chat-welcome-bubble {
+    position: fixed;
+    bottom: 105px;
+    right: 30px;
+    width: 280px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: var(--chat-shadow);
+    z-index: 9997;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    animation: welcomeIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes welcomeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes welcomeOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(10px) scale(0.95); }
+}
+
+#chat-welcome-bubble.fade-out {
+    animation: welcomeOut 0.4s ease forwards;
+}
+
+.welcome-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.welcome-text {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.welcome-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.welcome-close:hover {
+    color: var(--text-primary);
+    background: var(--bg-primary);
+}
+
+.welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.welcome-btn {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    background: rgba(138, 125, 244, 0.1);
+    color: var(--gradient-start);
+    border: 1px solid rgba(138, 125, 244, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.welcome-btn:hover {
+    background: var(--gradient-start);
+    color: white;
+}
+
+/* Arrow pointing down to icon */
+#chat-welcome-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 24px;
+    width: 16px;
+    height: 16px;
+    background: var(--card-bg);
+    border-right: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+    transform: rotate(45deg);
+}
+
 /* Hide when logged in (Owner Access) */
 body.logged-in #chatbot-launcher,
-body.logged-in #chatbot-window {
+body.logged-in #chatbot-window,
+body.logged-in #chat-welcome-bubble {
     display: none !important;
 }
 
@@ -180,12 +282,12 @@ body.logged-in #chatbot-window {
 }
 
 .menu-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: block;
 }
 
@@ -276,6 +378,12 @@ body.logged-in #chatbot-window {
     #chatbot-launcher {
         bottom: 20px;
         right: 20px;
+    }
+
+    #chat-welcome-bubble {
+        width: calc(100% - 40px);
+        right: 20px;
+        bottom: 95px;
     }
 
     .chatbot-header {

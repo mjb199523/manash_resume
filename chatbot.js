@@ -1,4 +1,4 @@
-(function () {
+(function() {
     // 1. Safety & Placement
     if (window.location.pathname.includes('owner-access') || window.location.pathname.includes('admin')) {
         return;
@@ -39,7 +39,7 @@
                 { id: 'os_games', label: "11 Games", icon: 'play' },
                 { id: 'os_experiments', label: "6 AI Labs", icon: 'flask-conical' },
                 { id: 'os_journey', label: "Journey", icon: 'trending-up' },
-                { id: 'main', label: "← Back", icon: 'arrow-left' }
+                { id: 'main', label: "← Back to Menu", icon: 'arrow-left' }
             ]
         },
         projects: {
@@ -51,7 +51,7 @@
                 { id: 'proj_memory', label: "MemorySearch", icon: 'search' },
                 { id: 'proj_smart', label: "SmartComm", icon: 'message-circle' },
                 { id: 'proj_off', label: "OFFSTUMP", icon: 'globe' },
-                { id: 'main', label: "← Back", icon: 'arrow-left' }
+                { id: 'main', label: "← Back to Menu", icon: 'arrow-left' }
             ]
         }
     };
@@ -79,6 +79,7 @@
 
     // 3. Session & Storage Logic
     const STORAGE_KEY = 'ask_manashos_session';
+    const WELCOME_KEY = 'chat_welcome_seen';
     const SESSION_EXPIRY = 3600000; // 1 hour
 
     function getSession() {
@@ -104,6 +105,21 @@
         <button id="chatbot-launcher" aria-label="Ask ManashOS">
             <i data-feather="message-circle"></i>
         </button>
+
+        <div id="chat-welcome-bubble">
+            <div class="welcome-header">
+                <span class="welcome-text">Hi there 👋 Need help exploring this portfolio?</span>
+                <button class="welcome-close" id="welcome-close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="welcome-actions">
+                <button class="welcome-btn" data-target="projects">Projects</button>
+                <button class="welcome-btn" data-target="profile">About Me</button>
+                <button class="welcome-btn" data-target="skills">Skills</button>
+            </div>
+        </div>
+
         <div id="chatbot-window">
             <header class="chatbot-header">
                 <div class="chatbot-header-info">
@@ -132,6 +148,8 @@
     document.body.appendChild(container);
 
     const launcher = document.getElementById('chatbot-launcher');
+    const welcomeBubble = document.getElementById('chat-welcome-bubble');
+    const welcomeClose = document.getElementById('welcome-close');
     const windowEl = document.getElementById('chatbot-window');
     const closeBtn = document.getElementById('chatbot-close');
     const resetBtn = document.getElementById('chatbot-reset');
@@ -147,11 +165,32 @@
         if (session) {
             chatHistory = session.history;
             chatHistory.forEach(msg => addMessageToUI(msg.text, msg.role, false));
-            renderMenu('main'); // Always default to main menu options for selection
+            renderMenu('main');
         } else {
             showInitialGreeting();
+            checkWelcome();
         }
         if (window.feather) feather.replace();
+    }
+
+    function checkWelcome() {
+        if (!localStorage.getItem(WELCOME_KEY)) {
+            setTimeout(() => {
+                welcomeBubble.style.display = 'flex';
+                // Auto-hide after 7 seconds
+                setTimeout(dismissWelcome, 7000);
+            }, 2000);
+        }
+    }
+
+    function dismissWelcome() {
+        if (welcomeBubble.style.display === 'flex') {
+            welcomeBubble.classList.add('fade-out');
+            setTimeout(() => {
+                welcomeBubble.style.display = 'none';
+                localStorage.setItem(WELCOME_KEY, 'true');
+            }, 400);
+        }
     }
 
     function showInitialGreeting() {
@@ -163,7 +202,7 @@
         const menu = MENU_DATA[menuId] || MENU_DATA.main;
         menuLabel.textContent = menu.label;
         menuGrid.innerHTML = '';
-
+        
         menu.options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'menu-option';
@@ -171,33 +210,27 @@
             btn.onclick = () => handleChoice(opt.id, opt.label);
             menuGrid.appendChild(btn);
         });
-
+        
         if (window.feather) feather.replace();
     }
 
     function handleChoice(id, label) {
-        // Add user bubble
         addMessageToUI(label, 'user');
-
         const typingId = showTyping();
-
+        
         setTimeout(() => {
             hideTyping(typingId);
-
+            
             if (MENU_DATA[id]) {
-                // It's a submenu
                 const sub = MENU_DATA[id];
                 addMessageToUI(sub.message, 'bot');
                 renderMenu(id);
             } else if (id === 'main') {
-                // Back to start
                 addMessageToUI(MENU_DATA.main.message, 'bot');
                 renderMenu('main');
             } else {
-                // Answer
                 const answer = CONTENT_ANSWERS[id] || "I don't have that information yet.";
                 addMessageToUI(answer, 'bot');
-                // Stay in current menu (it has a back button)
             }
         }, 600);
     }
@@ -208,7 +241,7 @@
         div.textContent = text;
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
-
+        
         if (save) {
             chatHistory.push({ text, role });
             saveSession(chatHistory);
@@ -232,11 +265,32 @@
     }
 
     // 6. Listeners
-    launcher.onclick = () => windowEl.classList.toggle('active');
+    launcher.onclick = () => {
+        windowEl.classList.toggle('active');
+        dismissWelcome(); // Hide welcome if user opens chat
+    };
+    
     closeBtn.onclick = () => windowEl.classList.remove('active');
     
-    // Using CSS overscroll-behavior: contain instead of body lock 
-    // to prevent "earthquake" layout shifts while keeping scroll local.
+    welcomeClose.onclick = (e) => {
+        e.stopPropagation();
+        dismissWelcome();
+    };
+
+    document.querySelectorAll('.welcome-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            const target = btn.getAttribute('data-target');
+            windowEl.classList.add('active');
+            dismissWelcome();
+            handleChoice(target, btn.textContent);
+        };
+    });
+
+    windowEl.addEventListener('mouseenter', () => {
+        // Native overscroll-behavior handles this mostly, 
+        // but we can add more logic here if needed.
+    });
 
     resetBtn.onclick = () => {
         if (confirm('Reset conversation?')) {
@@ -244,10 +298,10 @@
             messagesEl.innerHTML = '';
             chatHistory = [];
             showInitialGreeting();
+            renderMenu('main');
         }
     };
 
-    // Auto-clear logic on focus
     window.onfocus = () => {
         if (!getSession()) {
             messagesEl.innerHTML = '';
