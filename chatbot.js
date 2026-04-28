@@ -74,7 +74,7 @@
         os_experiments: "Currently, 6 experiments are live, ranging from Web Scraping agents to AI Instagram handlers and local utility calculators.",
         os_journey: "His journey tracks his growth from building public sector systems to designing AI-driven personal ecosystems like ManashOS.",
         education: "He holds an MBA in Marketing & HR and a B.Tech in Computer Science & Engineering, both from Gauhati University.",
-        contact: "You can reach Manashjyoti at manashjyoti.barman07@gmail.com, or connect with him on LinkedIn, GitHub, or Instagram (@mjb199523)."
+        contact: "You can reach Manashjyoti at:\nPhone No.: +918753912572 \nEmail: manashjyoti.barman07@gmail.com"
     };
 
     // 3. Session & Storage Logic

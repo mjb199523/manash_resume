@@ -170,10 +170,10 @@ body.logged-in #chatbot-window {
 
 /* Action Section (Bottom Menu) */
 .chatbot-menu-container {
-    padding: 24px;
+    padding: 16px 20px;
     background: var(--card-bg);
     border-top: 1px solid var(--card-border);
-    max-height: 300px;
+    max-height: 140px; /* Reduced to prioritize conversation window */
     overflow-y: auto;
 }
 
@@ -197,9 +197,9 @@ body.logged-in #chatbot-window {
     background: var(--bg-primary);
     border: 1px solid var(--card-border);
     color: var(--text-primary);
-    padding: 10px 12px;
-    border-radius: var(--chat-card-radius);
-    font-size: 0.8rem;
+    padding: 8px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -208,8 +208,8 @@ body.logged-in #chatbot-window {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    min-height: 80px;
+    gap: 4px;
+    min-height: 60px; /* Further reduced height */
 }
 
 .menu-option:hover {
