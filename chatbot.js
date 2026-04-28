@@ -167,7 +167,7 @@
         menu.options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'menu-option';
-            btn.innerHTML = `<i data-feather="${opt.icon}"></i> ${opt.label}`;
+            btn.textContent = opt.label;
             btn.onclick = () => handleChoice(opt.id, opt.label);
             menuGrid.appendChild(btn);
         });

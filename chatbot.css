@@ -197,19 +197,17 @@ body.logged-in #chatbot-window {
     background: var(--bg-primary);
     border: 1px solid var(--card-border);
     color: var(--text-primary);
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-radius: 12px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    min-height: 60px; /* Further reduced height */
+    min-height: 44px; /* Optimized for text-only */
 }
 
 .menu-option:hover {
@@ -222,13 +220,6 @@ body.logged-in #chatbot-window {
 
 .menu-option:active {
     transform: scale(0.95);
-}
-
-.menu-option i {
-    width: 18px;
-    height: 18px;
-    color: var(--gradient-start);
-    opacity: 0.9;
 }
 
 /* Typing Indicator */
