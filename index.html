@@ -55,6 +55,13 @@
 <body>
     <!-- Initial Loader Overlay -->
     <div id="loader-wrapper">
+        <script>
+            // Check if coming from ManashOS to skip the intensive loader
+            if (document.referrer.includes('/manashos')) {
+                document.getElementById('loader-wrapper').style.display = 'none';
+                document.body.classList.add('loaded');
+            }
+        </script>
         <div class="loader-content">
             <div class="profile-container">
                 <div class="loader-circle-bg">
