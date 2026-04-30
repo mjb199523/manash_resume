@@ -74,29 +74,25 @@
         <div class="os-topbar-actions">
             <!-- Journey Mode Toggle -->
             <button class="btn btn-sm btn-secondary guest-only" id="journey-mode-toggle" onclick="toggleJourneyMode()">
-                <i data-feather="map" class="btn-icon"></i> <span id="journey-toggle-text">My Journey</span>
+                <span id="journey-toggle-text">My Journey</span>
             </button>
             <button class="btn btn-sm btn-gradient guest-only" id="nav-login-btn" onclick="switchView('login')">
-                <i data-feather="log-in" class="btn-icon"></i> Owner Access
+                Owner Access
             </button>
             <div class="os-user-pill auth-only" id="user-pill" style="display:none;">
                 <span class="os-user-dot"></span>
                 <span id="user-name">User</span>
             </div>
             <button class="btn btn-sm btn-danger auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">
-                <i data-feather="log-out" class="btn-icon"></i> Logout
+                Logout
             </button>
             
-            <button id="os-command-toggle" class="theme-btn" aria-label="Command Menu">
-                <i data-feather="command" class="icon-sm"></i>
-            </button>
-
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
                 <i data-feather="sun" class="icon-sm"></i>
             </button>
 
             <a href="/" class="btn btn-sm btn-secondary guest-only os-back-btn" style="text-decoration:none;">
-                <i data-feather="arrow-left" class="btn-icon"></i> Back to Portfolio
+                Back to Portfolio
             </a>
         </div>
     </header>

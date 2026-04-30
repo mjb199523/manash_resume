@@ -1797,12 +1797,6 @@ function toggleJourneyMode() {
             toggleBtn.classList.remove('btn-secondary');
             toggleBtn.classList.add('btn-gradient');
             
-            const icon = toggleBtn.querySelector('i');
-            if (icon) {
-                icon.setAttribute('data-feather', 'grid');
-                feather.replace();
-            }
-            
             // Initialize Carousel
             initJourneyCarousel();
         }, 300);
@@ -1820,12 +1814,6 @@ function toggleJourneyMode() {
             toggleText.textContent = 'My Journey';
             toggleBtn.classList.add('btn-secondary');
             toggleBtn.classList.remove('btn-gradient');
-            
-            const icon = toggleBtn.querySelector('i');
-            if (icon) {
-                icon.setAttribute('data-feather', 'map');
-                feather.replace();
-            }
         }, 300);
     }
     
