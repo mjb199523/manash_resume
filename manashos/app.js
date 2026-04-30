@@ -221,9 +221,9 @@ function switchView(view, push = true) {
     }
 
     // Hide Login/Back buttons on login page
-    const loginBtn = document.getElementById('nav-login-btn');
+    const navLoginBtn = document.getElementById('nav-login-btn');
     const backBtn = document.querySelector('.os-back-btn');
-    if (loginBtn) loginBtn.style.display = (view === 'login') ? 'none' : '';
+    if (navLoginBtn) navLoginBtn.style.display = (view === 'login') ? 'none' : '';
     if (backBtn) backBtn.style.display = (view === 'login') ? 'none' : '';
 
     // Update nav active state
