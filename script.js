@@ -63,16 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateActiveNav = () => {
         let current = '';
+        const scrollPos = window.scrollY || document.documentElement.scrollTop;
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (scrollY >= sectionTop - 150) {
+            const sectionHeight = section.offsetHeight;
+            if (scrollPos >= sectionTop - 160 && scrollPos < sectionTop + sectionHeight - 160) {
                 current = section.getAttribute('id');
             }
         });
 
         navItems.forEach(item => {
             item.classList.remove('active');
-            if (item.getAttribute('href').includes(current)) {
+            const href = item.getAttribute('href');
+            if (href.includes(current) && current !== '') {
                 item.classList.add('active');
             }
         });
@@ -82,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateActiveNav();
         
         // Scroll Progress Bar logic
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercentage = Math.min((scrollTop / scrollHeight) * 100, 100);
+        const scrollPercentage = (scrollTop / scrollHeight) * 100;
         const progressBar = document.getElementById('scroll-progress');
         if (progressBar) {
             progressBar.style.width = scrollPercentage + '%';

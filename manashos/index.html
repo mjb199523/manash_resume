@@ -47,6 +47,10 @@
 
     <!-- Top Bar -->
     <header class="os-topbar">
+        <button id="os-menu-toggle" class="os-menu-btn" aria-label="Toggle Menu">
+            <i data-feather="menu"></i>
+        </button>
+
         <a href="/manashos" class="os-brand">
             <div class="os-brand-avatar">
                 <img src="/profile.jpg.jpeg" alt="ManashOS Logo">
@@ -62,6 +66,9 @@
             <button class="os-nav-item auth-only" data-view="blogs">Blogs</button>
             <button class="os-nav-item auth-only" data-view="notes">Notes</button>
             <button class="os-nav-item auth-only" data-view="tasks">Tasks</button>
+            <button class="os-nav-item guest-only" onclick="toggleJourneyMode()">My Journey</button>
+            <button class="os-nav-item guest-only" onclick="switchView('login')">Owner Access</button>
+            <a href="/" class="os-nav-item guest-only" style="text-decoration:none;">Back to Portfolio</a>
         </nav>
 
         <div class="os-topbar-actions">
@@ -79,10 +86,16 @@
             <button class="btn btn-sm btn-danger auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">
                 <i data-feather="log-out" class="btn-icon"></i> Logout
             </button>
+            
+            <button id="os-command-toggle" class="theme-btn" aria-label="Command Menu">
+                <i data-feather="command" class="icon-sm"></i>
+            </button>
+
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
                 <i data-feather="sun" class="icon-sm"></i>
             </button>
-            <a href="/" class="btn btn-sm btn-secondary guest-only" style="text-decoration:none;">
+
+            <a href="/" class="btn btn-sm btn-secondary guest-only os-back-btn" style="text-decoration:none;">
                 <i data-feather="arrow-left" class="btn-icon"></i> Back to Portfolio
             </a>
         </div>

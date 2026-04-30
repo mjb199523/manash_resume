@@ -632,7 +632,9 @@ body.loaded {
     display: inline-block;
 }
 
-/* --- TOP BAR --- */
+.os-menu-btn {
+    display: none;
+}
 .os-topbar {
     display: flex;
     justify-content: space-between;
@@ -1595,19 +1597,82 @@ body.loaded {
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .os-topbar {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 12px;
+        padding: 12px 20px;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    .os-menu-btn {
+        display: flex;
+        border: none;
+        background: transparent;
+        padding: 8px;
+        color: var(--text-primary);
+        cursor: pointer;
+    }
+
+    .os-brand {
+        display: none;
     }
 
     .os-nav {
-        flex-wrap: wrap;
-        justify-content: center;
+        position: fixed;
+        top: 70px;
+        left: 20px;
+        right: 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        flex-direction: column;
+        padding: 15px;
+        gap: 8px;
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        z-index: 1000;
+    }
+
+    .os-nav.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 
     .os-nav-item {
-        padding: 4px 12px;
-        font-size: 0.8rem;
+        width: 100%;
+        padding: 14px 20px;
+        text-align: left;
+        background: transparent;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        border: none;
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        font-weight: 500;
+    }
+
+    .os-nav-item:hover {
+        background: var(--nav-item-active);
+    }
+
+    .os-topbar-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .os-topbar-actions .btn, .os-back-btn {
+        display: none; /* Hide large buttons on mobile header */
+    }
+
+    .theme-btn {
+        width: 42px;
+        height: 42px;
+        padding: 10px;
+        border-radius: 12px;
     }
 
     .os-hero-title {
