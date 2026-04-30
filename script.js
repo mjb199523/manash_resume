@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scheduleBtn) {
         scheduleBtn.addEventListener('click', () => {
             Cal("modal", {
-                calLink: "manashjyoti-barman-bgywvt/15min",
+                calLink: "manashjyoti-barman-bgywvt",
                 config: { "layout": "month_view" }
             });
         });

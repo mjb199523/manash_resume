@@ -302,7 +302,7 @@ function initCalInline() {
     if (window.Cal) {
         Cal("inline", {
             elementOrSelector: "#cal-inline-container",
-            calLink: "manashjyoti-barman-bgywvt/15min",
+            calLink: "manashjyoti-barman-bgywvt",
             layout: "month_view"
         });
     }
