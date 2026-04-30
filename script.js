@@ -240,6 +240,16 @@ document.addEventListener('DOMContentLoaded', () => {
         d.head.appendChild(d.createElement("script")).src = A;
         C.Cal("init", { origin: L });
         C.Cal("ui", { "styles": { "branding": { "brandColor": "#6366f1" } }, "hideEventTypeDetails": false, "layout": "month_view" });
+        
+        // Manual trigger for the button
+        C.Cal("on", {
+            action: "elementClick",
+            options: {
+                calLink: "manashjyoti-barman-bgywvt",
+                elementOrSelector: "[data-cal-link]",
+                config: { "layout": "month_view" }
+            }
+        });
     }(window, "https://app.cal.com/embed/embed.js", "https://app.cal.com"));
 });
 
