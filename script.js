@@ -29,6 +29,34 @@ document.addEventListener('DOMContentLoaded', () => {
         applyTheme();
     });
 
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('open');
+            // Change icon
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('open')) {
+                icon.setAttribute('data-feather', 'x');
+            } else {
+                icon.setAttribute('data-feather', 'menu');
+            }
+            feather.replace();
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && e.target !== menuToggle) {
+                navMenu.classList.remove('open');
+                menuToggle.querySelector('i').setAttribute('data-feather', 'menu');
+                feather.replace();
+            }
+        });
+    }
+
     // Nav active state logic based on scroll position
     const navItems = document.querySelectorAll('.nav-item');
     const sections = document.querySelectorAll('.section, .hero-section');
@@ -73,6 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.getElementById(targetId);
             
             if (targetElement) {
+                // Close mobile menu if open
+                if (navMenu && navMenu.classList.contains('open')) {
+                    navMenu.classList.remove('open');
+                    menuToggle.querySelector('i').setAttribute('data-feather', 'menu');
+                    feather.replace();
+                }
+
                 // Scroll to section
                 window.scrollTo({
                     top: targetElement.offsetTop - 100, // Account for sticky header

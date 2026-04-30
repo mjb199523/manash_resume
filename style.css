@@ -320,7 +320,7 @@ body:not(.loaded) {
     color: var(--text-primary);
 }
 
-.theme-btn {
+.theme-btn, .menu-btn {
     background: var(--theme-btn-bg);
     border: 1px solid var(--theme-btn-border);
     padding: 10px;
@@ -333,8 +333,17 @@ body:not(.loaded) {
     transition: all 0.3s;
 }
 
-.theme-btn:hover {
+.theme-btn:hover, .menu-btn:hover {
     opacity: 0.8;
+}
+
+.menu-btn {
+    display: none; /* Hidden on desktop */
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
 }
 
 .icon-sm {
@@ -1071,26 +1080,74 @@ body:not(.loaded) {
     }
 
     .navbar {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
+        padding: 12px 20px;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0;
     }
     
+    .menu-btn {
+        display: flex;
+        border: none;
+        background: transparent;
+        padding: 8px;
+        color: var(--text-primary);
+    }
+
+    .nav-brand {
+        display: none;
+    }
+
     .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
+        position: fixed;
+        top: 70px;
+        left: 20px;
+        right: 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        flex-direction: column;
+        padding: 15px;
         gap: 8px;
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        z-index: 1000;
+    }
+
+    .nav-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 
     .nav-item {
-        padding: 4px 12px;
-        font-size: 0.8rem;
+        width: 100%;
+        padding: 14px 20px;
+        text-align: left;
+        background: transparent;
+        border-radius: 12px;
+        font-size: 0.95rem;
+    }
+
+    .nav-item.active {
+        background: var(--nav-item-active);
     }
     
     .nav-actions {
-        position: absolute;
-        top: 15px;
-        right: 15px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .theme-btn {
+        background: var(--theme-btn-bg);
+        border: 1px solid var(--theme-btn-border);
+        padding: 10px;
+        border-radius: 12px;
+        width: 42px;
+        height: 42px;
     }
 
     .hero-name-primary,
