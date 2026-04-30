@@ -99,8 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollLinks = document.querySelectorAll('.nav-item[href^="#"], .hero-buttons .btn[href^="#"]');
     scrollLinks.forEach(item => {
         item.addEventListener('click', function(e) {
-            e.preventDefault();
             const href = this.getAttribute('href');
+            if (!href.startsWith('#')) return; // Handle non-anchor links if any
+
+            e.preventDefault();
             const targetId = href.replace('#', '');
             const targetElement = document.getElementById(targetId);
             
@@ -108,21 +110,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Close mobile menu if open
                 if (navMenu && navMenu.classList.contains('open')) {
                     navMenu.classList.remove('open');
-                    menuToggle.querySelector('i').setAttribute('data-feather', 'menu');
+                    const toggleIcon = menuToggle.querySelector('i');
+                    if (toggleIcon) toggleIcon.setAttribute('data-feather', 'menu');
                     feather.replace();
                 }
 
-                // Scroll to section
+                // Scroll to section accurately
+                const offset = 100;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = targetElement.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
                 window.scrollTo({
-                    top: targetElement.offsetTop - 100, // Account for sticky header
+                    top: offsetPosition,
                     behavior: 'smooth'
                 });
 
-                // Update URL cleanly without the hash (SPA feel)
+                // Update URL cleanly
                 const cleanPath = targetId === 'home' ? '/' : `/${targetId}`;
                 history.pushState(null, null, cleanPath);
                 
-                // Update active state in nav
+                // Update active state
                 navItems.forEach(n => n.classList.remove('active'));
                 const correspondingNav = document.querySelector(`.nav-item[href="#${targetId}"]`);
                 if (correspondingNav) correspondingNav.classList.add('active');

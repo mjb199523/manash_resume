@@ -1664,7 +1664,7 @@ body.loaded {
         align-items: center;
     }
 
-    .os-topbar-actions .btn, .os-back-btn {
+    .os-topbar-actions > .btn {
         display: none; /* Hide large buttons on mobile header */
     }
 
