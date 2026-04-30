@@ -220,6 +220,12 @@ function switchView(view, push = true) {
         journeyToggle.style.display = (view === 'home' && !currentUser) ? 'inline-flex' : 'none';
     }
 
+    // Hide Login/Back buttons on login page
+    const loginBtn = document.getElementById('nav-login-btn');
+    const backBtn = document.querySelector('.os-back-btn');
+    if (loginBtn) loginBtn.style.display = (view === 'login') ? 'none' : '';
+    if (backBtn) backBtn.style.display = (view === 'login') ? 'none' : '';
+
     // Update nav active state
     document.querySelectorAll('.os-nav-item').forEach(item => {
         item.classList.toggle('active', item.getAttribute('data-view') === view);
