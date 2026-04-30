@@ -228,19 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     trackUniqueVisitor();
-
-    // --- CAL.COM SCHEDULER ---
-    (function (C, A, L) {
-        let p = function (a, ar) { a.q.push(ar); };
-        let d = C.document; C.Cal = C.Cal || function () {
-            let cal = C.Cal; let ar = arguments;
-            if (!cal.loaded) { cal.q = cal.q || []; cal.loaded = true; }
-            d.head.appendChild(d.createElement("script")).src = A; p(cal, ar);
-        };
-        d.head.appendChild(d.createElement("script")).src = A;
-        C.Cal("init", { origin: L });
-        C.Cal("ui", { "styles": { "branding": { "brandColor": "#6366f1" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-    }(window, "https://app.cal.com/embed/embed.js", "https://app.cal.com"));
 });
 
 // Hide Loader when everything is loaded

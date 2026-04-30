@@ -270,11 +270,6 @@ function toggleGuestTab(tab, btn) {
     document.getElementById('guest-tab-blogs').style.display = tab === 'blogs' ? 'block' : 'none';
     document.getElementById('guest-tab-games').style.display = tab === 'games' ? 'block' : 'none';
     document.getElementById('guest-tab-experiments').style.display = tab === 'experiments' ? 'block' : 'none';
-    document.getElementById('guest-tab-schedule').style.display = tab === 'schedule' ? 'block' : 'none';
-
-    if (tab === 'schedule') {
-        initCalInline();
-    }
 
     // Precise scroll with offset for sticky header
     const tabsElem = document.getElementById('guest-tabs');
@@ -292,21 +287,6 @@ function toggleGuestTab(tab, btn) {
     // If switching to blogs, ensure they are loaded
     if (tab === 'blogs') {
         loadPublicBlogs();
-    }
-}
-
-function initCalInline() {
-    const container = document.getElementById('cal-inline-container');
-    if (!container) return;
-    
-    if (window.Cal) {
-        setTimeout(() => {
-            Cal("inline", {
-                elementOrSelector: "#cal-inline-container",
-                calLink: "manashjyoti-barman-bgywvt",
-                layout: "month_view"
-            });
-        }, 100);
     }
 }
 

@@ -149,7 +149,6 @@
                         <button class="os-tab-btn" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
                         <button class="os-tab-btn" onclick="toggleGuestTab('games', this)">Play Games</button>
                         <button class="os-tab-btn" onclick="toggleGuestTab('experiments', this)">Experiments</button>
-                        <button class="os-tab-btn" onclick="toggleGuestTab('schedule', this)">Schedule a Call</button>
                     </div>
                 </div>
 
@@ -518,13 +517,6 @@
                     </div>
                 </div>
 
-                <!-- Schedule Tab Content -->
-                <div id="guest-tab-schedule" class="guest-only" style="display: none;">
-                    <div class="os-section-badge">BOOK A SLOT</div>
-                    <h2 class="os-section-title">Schedule a <span class="text-gradient">Meeting</span></h2>
-                    <div id="cal-inline-container" style="width:100%; height: 700px; border-radius: 12px; background: var(--bg-secondary); overflow: hidden;">
-                        <div class="os-loading" style="height: 100%;"><div class="os-spinner"></div></div>
-                    </div>
                 </div>
             </div>
             <!-- End of Portfolio Mode -->
@@ -987,10 +979,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"
         defer></script>
-    <!-- Cal.com embed code -->
-    <script type="text/javascript">
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.q = cal.q || []; cal.loaded = true; } d.head.appendChild(d.createElement("script")).src = A; p(cal, ar); }; d.head.appendChild(d.createElement("script")).src = A; C.Cal("init", {origin:L}); C.Cal("ui", {"styles":{"branding":{"brandColor":"#6366f1"}},"hideEventTypeDetails":false,"layout":"month_view"}); }(window, "https://app.cal.com/embed/embed.js", "https://app.cal.com"));
-    </script>
     <script src="/manashos/app.js" defer></script>
 </body>
 
