@@ -66,34 +66,22 @@
             <button class="os-nav-item auth-only" data-view="blogs">Blogs</button>
             <button class="os-nav-item auth-only" data-view="notes">Notes</button>
             <button class="os-nav-item auth-only" data-view="tasks">Tasks</button>
-            <button class="os-nav-item guest-only" onclick="toggleJourneyMode()">My Journey</button>
-            <button class="os-nav-item guest-only" onclick="switchView('login')">Owner Access</button>
-            <a href="/" class="os-nav-item guest-only" style="text-decoration:none;">Back to Portfolio</a>
-        </nav>
-
-        <div class="os-topbar-actions">
-            <!-- Journey Mode Toggle -->
-            <button class="btn btn-sm btn-secondary guest-only" id="journey-mode-toggle" onclick="toggleJourneyMode()">
+            <button class="os-nav-item guest-only" id="journey-mode-toggle" onclick="toggleJourneyMode()">
                 <span id="journey-toggle-text">My Journey</span>
             </button>
-            <button class="btn btn-sm btn-gradient guest-only" id="nav-login-btn" onclick="switchView('login')">
-                Owner Access
-            </button>
+            <button class="os-nav-item guest-only" id="nav-login-btn" onclick="switchView('login')">Owner Access</button>
             <div class="os-user-pill auth-only" id="user-pill" style="display:none;">
                 <span class="os-user-dot"></span>
                 <span id="user-name">User</span>
             </div>
-            <button class="btn btn-sm btn-danger auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">
-                Logout
-            </button>
-            
+            <button class="os-nav-item auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">Logout</button>
+            <a href="/" class="os-nav-item guest-only os-back-btn" style="text-decoration:none;">Back to Portfolio</a>
+        </nav>
+
+        <div class="os-topbar-actions">
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
                 <i data-feather="sun" class="icon-sm"></i>
             </button>
-
-            <a href="/" class="btn btn-sm btn-secondary guest-only os-back-btn" style="text-decoration:none;">
-                Back to Portfolio
-            </a>
         </div>
     </header>
 

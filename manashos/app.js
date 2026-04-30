@@ -1794,8 +1794,10 @@ function toggleJourneyMode() {
             journeyContent.style.opacity = '1';
             
             toggleText.textContent = 'Back to ManashOS';
-            toggleBtn.classList.remove('btn-secondary');
-            toggleBtn.classList.add('btn-gradient');
+            if (toggleBtn.classList.contains('btn')) {
+                toggleBtn.classList.remove('btn-secondary');
+                toggleBtn.classList.add('btn-gradient');
+            }
             
             // Initialize Carousel
             initJourneyCarousel();
@@ -1812,8 +1814,10 @@ function toggleJourneyMode() {
             portfolioContent.style.opacity = '1';
             
             toggleText.textContent = 'My Journey';
-            toggleBtn.classList.add('btn-secondary');
-            toggleBtn.classList.remove('btn-gradient');
+            if (toggleBtn.classList.contains('btn')) {
+                toggleBtn.classList.add('btn-secondary');
+                toggleBtn.classList.remove('btn-gradient');
+            }
         }, 300);
     }
     
