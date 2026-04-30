@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ManashOS — Your Personal Operating System</title>
-    <meta name="description" content="ManashOS is a personal productivity system by Manashjyoti Barman. Blog, manage tasks, take notes — all in one place.">
-    
+    <meta name="description"
+        content="ManashOS is a personal productivity system by Manashjyoti Barman. Blog, manage tasks, take notes — all in one place.">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manashjyoti.vercel.app/manashos">
     <meta property="og:title" content="ManashOS — Your Personal Operating System">
-    <meta property="og:description" content="A personal productivity system for blogging, task management, and note-taking. Built by Manashjyoti Barman.">
+    <meta property="og:description"
+        content="A personal productivity system for blogging, task management, and note-taking. Built by Manashjyoti Barman.">
     <meta property="og:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://manashjyoti.vercel.app/manashos">
-    <meta property="twitter:title" content="ManashOS — Your Personal Operating System">
-    <meta property="twitter:description" content="A personal productivity system for blogging, task management, and note-taking. Built by Manashjyoti Barman.">
+    <meta property="twitter:title" content="ManashOS - Your Personal Operating System">
+    <meta property="twitter:description"
+        content="A personal productivity system for blogging, task management, and note-taking. Built by Manashjyoti Barman.">
     <meta property="twitter:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
-    
+
     <!-- Fonts (same as portfolio) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/manashos/style.css?v=1.1">
     <link rel="stylesheet" href="/chatbot.css">
-    
+
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <!-- Feather Icons (same as portfolio) -->
     <script src="https://unpkg.com/feather-icons" defer></script>
@@ -33,6 +39,7 @@
     <script src="/chatbot.js" defer></script>
     <link rel="icon" type="image/jpeg" href="profile.jpg.jpeg">
 </head>
+
 <body class="loading">
     <!-- Sophisticated Preloader -->
     <div id="os-preloader" class="os-preloader">
@@ -42,7 +49,9 @@
         <div class="os-loader-bar">
             <div class="os-loader-progress"></div>
         </div>
-        <p style="margin-top: 15px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted);">INITIALIZING SYSTEM</p>
+        <p
+            style="margin-top: 15px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted);">
+            INITIALIZING SYSTEM</p>
     </div>
 
     <!-- Top Bar -->
@@ -69,13 +78,17 @@
             <button class="os-nav-item guest-only" id="journey-mode-toggle" onclick="toggleJourneyMode()">
                 <span id="journey-toggle-text">My Journey</span>
             </button>
-            <button class="os-nav-item guest-only" id="nav-login-btn" onclick="switchView('login')">Owner Access</button>
+            <button class="os-nav-item guest-only" id="nav-login-btn" onclick="switchView('login')">Owner
+                Access</button>
             <div class="os-user-pill auth-only" id="user-pill" style="display:none;">
                 <span class="os-user-dot"></span>
                 <span id="user-name">User</span>
             </div>
-            <button class="os-nav-item auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">Logout</button>
-            <a href="/" class="os-nav-item guest-only os-back-btn" style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); color: white; font-weight: 600; text-decoration: none;">Back to Portfolio</a>
+            <button class="os-nav-item auth-only" id="logout-btn" style="display:none;"
+                onclick="handleLogout()">Logout</button>
+            <a href="/" class="os-nav-item guest-only os-back-btn"
+                style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); color: white; font-weight: 600; text-decoration: none;">Back
+                to Portfolio</a>
         </nav>
 
         <div class="os-topbar-actions">
@@ -92,531 +105,576 @@
             <div id="portfolio-mode-content">
                 <!-- Hero (guest only) -->
                 <section class="os-hero guest-only">
-                <h1 class="os-hero-title">Welcome to <span class="text-gradient">ManashOS</span></h1>
-                <p class="os-hero-sub">
-                    A showcase of my projects, writings, and experiments.<br>
-                    Where ideas are built and shared.
-                </p>
-
-                <!-- Guest Stats Dashboard -->
-                <div class="os-guest-stats" id="guest-stats-dashboard">
-                    <div class="os-guest-stat-item">
-                        <span class="os-guest-stat-value" id="guest-stat-blogs">0</span>
-                        <span class="os-guest-stat-label">Blogs Published</span>
-                    </div>
-                    <div class="os-guest-stat-item">
-                        <span class="os-guest-stat-value" id="guest-stat-projects">0</span>
-                        <span class="os-guest-stat-label">Projects Built</span>
-                    </div>
-                    <div class="os-guest-stat-item">
-                        <span class="os-guest-stat-value" id="guest-stat-games">11</span>
-                        <span class="os-guest-stat-label">Games Available</span>
-                    </div>
-                    <div class="os-guest-stat-item">
-                        <span class="os-guest-stat-value" id="guest-stat-experiments">6</span>
-                        <span class="os-guest-stat-label">Experiments</span>
-                    </div>
-                </div>
-
-                <!-- Surprise Me CTA -->
-                <div style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                    <button class="btn btn-gradient btn-pill" id="surprise-btn" onclick="surpriseMe()">
-                        <i data-feather="shuffle" class="btn-icon"></i> 🎲 Surprise Me
-                    </button>
-                    <span class="surprise-label">Discover something random from my system</span>
-                </div>
-            </section>
- 
-            <!-- Guest Tabs -->
-            <div class="guest-only" style="margin-bottom: 40px; text-align: center;">
-                <div class="os-tabs-container" id="guest-tabs">
-                    <button class="os-tab-btn active" onclick="toggleGuestTab('blogs', this)">Published Blogs</button>
-                    <button class="os-tab-btn" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
-                    <button class="os-tab-btn" onclick="toggleGuestTab('games', this)">Play Games</button>
-                    <button class="os-tab-btn" onclick="toggleGuestTab('experiments', this)">Experiments</button>
-                </div>
-            </div>
-
-            <!-- Projects Tab Content -->
-            <div id="guest-tab-projects" class="guest-only" style="display: none;">
-                <div class="os-section-badge">WHAT I'VE BUILT</div>
-                <h2 class="os-section-title">Featured <span class="text-gradient">Projects</span></h2>
-                <div class="projects-grid">
-                    <a href="https://paath-sohayok.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <div class="project-top-row">
-                            <div class="project-title-group">
-                                <img src="/paath-logo.jpg.png" alt="Paath Sohayok Logo" class="project-logo-mini">
-                                <h3 class="project-title">Paath Sohayok</h3>
-                            </div>
-                            <span class="project-date">2026</span>
-                        </div>
-                        <div class="project-meta">GEN AI • EdTech</div>
-                        <p class="project-desc">Bilingual education portal generating lesson plans, PPTs, assessments, and classroom activities instantly via LLM integration.</p>
-                        <ul class="project-bullets">
-                            <li><i data-feather="play" class="bullet-icon"></i> Instant bilingual content generation</li>
-                            <li><i data-feather="play" class="bullet-icon"></i> Automated classroom assessments via LLM</li>
-                        </ul>
-                    </a>
-                    
-                    <a href="https://airdraw-taupe.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <div class="project-top-row">
-                            <div class="project-title-group">
-                                <img src="/air-logo.jpg.png" alt="AirDraw Logo" class="project-logo-mini">
-                                <h3 class="project-title">AirDraw</h3>
-                            </div>
-                            <span class="project-date">2026</span>
-                        </div>
-                        <div class="project-meta">Deep Learning • CV</div>
-                        <p class="project-desc">Interactive virtual painting application utilizing real-time computer vision and spatial hand gesture tracking.</p>
-                        <ul class="project-bullets">
-                            <li><i data-feather="play" class="bullet-icon"></i> Real-time computer vision integration</li>
-                            <li><i data-feather="play" class="bullet-icon"></i> Spatial hand gesture tracking</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://memorysearch.streamlit.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <div class="project-top-row">
-                            <div class="project-title-group">
-                                <img src="/memory-logo.jpg.png" alt="Memory Search Logo" class="project-logo-mini">
-                                <h3 class="project-title">Memory Search</h3>
-                            </div>
-                            <span class="project-date">2026</span>
-                        </div>
-                        <div class="project-meta">NLP • Backend</div>
-                        <p class="project-desc">A semantic retrieval system enabling natural language queries to discover exact documents without rigid keyword reliance.</p>
-                        <ul class="project-bullets">
-                            <li><i data-feather="play" class="bullet-icon"></i> Natural language query processing</li>
-                            <li><i data-feather="play" class="bullet-icon"></i> High-accuracy semantic retrieval</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://smartcomm.vercel.app/" target="_blank" class="project-card">
-                        <div class="project-top-row">
-                            <div class="project-title-group">
-                                <img src="/smart-logo.jpg.png" alt="SmartComm Logo" class="project-logo-mini">
-                                <h3 class="project-title">SmartComm</h3>
-                            </div>
-                            <span class="project-date">2026</span>
-                        </div>
-                        <div class="project-meta">Productivity • Core</div>
-                        <p class="project-desc">A professional utility that transforms unrefined textual thoughts into polished, contextual, executive-ready communication.</p>
-                        <ul class="project-bullets">
-                            <li><i data-feather="play" class="bullet-icon"></i> AI-powered communication refinement</li>
-                            <li><i data-feather="play" class="bullet-icon"></i> Executive-ready format conversion</li>
-                        </ul>
-                    </a>
-
-                    <a href="https://offstumpwebsite.vercel.app/" target="_blank" class="project-card">
-                        <div class="project-top-row">
-                            <div class="project-title-group">
-                                <img src="/offstump-logo.jpg.png" alt="OFFSTUMP Logo" class="project-logo-mini">
-                                <h3 class="project-title">OFFSTUMP</h3>
-                            </div>
-                            <span class="project-date">2026</span>
-                        </div>
-                        <div class="project-meta">Web Platform • Local Business</div>
-                        <p class="project-desc">Full digital presence implementation for a premium indoor sports facility, successfully mapping physical footfall from online engagement.</p>
-                        <ul class="project-bullets">
-                            <li><i data-feather="play" class="bullet-icon"></i> Conversion of online traffic to physical footfall</li>
-                            <li><i data-feather="play" class="bullet-icon"></i> Premium web presence integration</li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
-
-            <div id="guest-tab-blogs" class="guest-only">
-                <div class="os-section-badge">Latest Insights</div>
-                <h2 class="os-section-title">Published <span class="text-gradient">Thoughts</span></h2>
-                <div class="os-cards-grid" id="public-blogs-grid">
-                    <div class="os-loading"><div class="os-spinner"></div></div>
-                </div>
-            </div>
-
-            <!-- Games Tab Content -->
-            <div id="guest-tab-games" class="guest-only" style="display: none;">
-                <div class="os-section-badge">COGNITIVE PLAYGROUND</div>
-                <h2 class="os-section-title">Micro <span class="text-gradient">Challenges</span></h2>
-                <div class="os-cards-grid">
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">Classic</span>
-                            <span>Skill Test</span>
-                        </div>
-                        <h3 class="os-card-title">Typing Speed Test</h3>
-                        <p class="os-card-desc">Test your typing speed and accuracy with random professional quotes.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('typing')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">Classic</span>
-                            <span>Memory</span>
-                        </div>
-                        <h3 class="os-card-title">Memory Match</h3>
-                        <p class="os-card-desc">Flip and match pairs of icons to test your short-term memory.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('memory')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">Classic</span>
-                            <span>Strategy</span>
-                        </div>
-                        <h3 class="os-card-title">Tic Tac Toe</h3>
-                        <p class="os-card-desc">The classic game of X and O. Play against a friend locally.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('tictactoe')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Reaction</span>
-                        </div>
-                        <h3 class="os-card-title">Focus Click</h3>
-                        <p class="os-card-desc">Wait for the screen to turn green and click as fast as you can.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('reaction')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Speed</span>
-                        </div>
-                        <h3 class="os-card-title">1–25 Grid</h3>
-                        <p class="os-card-desc">Click numbers 1 to 25 in order as fast as possible.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('grid25')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Accuracy</span>
-                        </div>
-                        <h3 class="os-card-title">Aim Trainer</h3>
-                        <p class="os-card-desc">Click randomly appearing targets to test your precision.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('aim')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Pattern</span>
-                        </div>
-                        <h3 class="os-card-title">Pattern Memory</h3>
-                        <p class="os-card-desc">Watch a sequence of tiles light up and repeat it correctly.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('pattern')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Language</span>
-                        </div>
-                        <h3 class="os-card-title">Word Scramble</h3>
-                        <p class="os-card-desc">Unscramble the letters to find the hidden professional word.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('scramble')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Logic</span>
-                        </div>
-                        <h3 class="os-card-title">Speed Decision</h3>
-                        <p class="os-card-desc">Rapidly decide if simple math/logic statements are true or false.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('decision')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Puzzle</span>
-                        </div>
-                        <h3 class="os-card-title">Binary Switch</h3>
-                        <p class="os-card-desc">Toggle switches to turn all of them ON. Simple yet tricky.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('binary')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="os-card">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-published">New</span>
-                            <span>Prompt</span>
-                        </div>
-                        <h3 class="os-card-title">Challenge Gen</h3>
-                        <p class="os-card-desc">Get a random creative or professional challenge to think about.</p>
-                        <div class="os-card-footer">
-                            <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('challenge')">
-                                <i data-feather="play" class="btn-icon"></i> Play Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Experiments Tab Content -->
-            <div id="guest-tab-experiments" class="guest-only" style="display: none;">
-                <div class="os-section-badge">LABS & IDEAS</div>
-                <h2 class="os-section-title">Active <span class="text-gradient">Experiments</span></h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px; font-style: italic;">Ideas currently being explored and built</p>
-                <div class="os-cards-grid">
-                    <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-pending">In Progress</span>
-                            <span>Exp #01</span>
-                        </div>
-                        <h3 class="os-card-title">3D Resume Builder</h3>
-                        <p class="os-card-desc">Interactive resume experience in 3D using Three.js.</p>
-                        <div class="os-card-footer">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock" style="width:12px; height:12px;"></i> Work in progress</span>
-                        </div>
-                    </div>
-
-                    <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-pending">In Progress</span>
-                            <span>Exp #02</span>
-                        </div>
-                        <h3 class="os-card-title">AI Agent Instagram Handler</h3>
-                        <p class="os-card-desc">Automating Instagram interactions using AI agents.</p>
-                        <div class="os-card-footer">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock" style="width:12px; height:12px;"></i> Work in progress</span>
-                        </div>
-                    </div>
-
-                    <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-pending">In Progress</span>
-                            <span>Exp #03</span>
-                        </div>
-                        <h3 class="os-card-title">Assam Scheme Finder</h3>
-                        <p class="os-card-desc">Find relevant government schemes based on user needs.</p>
-                        <div class="os-card-footer">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock" style="width:12px; height:12px;"></i> Work in progress</span>
-                        </div>
-                    </div>
-
-                    <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-pending">In Progress</span>
-                            <span>Exp #04</span>
-                        </div>
-                        <h3 class="os-card-title">Electricity Calculator</h3>
-                        <p class="os-card-desc">Estimate electricity usage and cost for household appliances.</p>
-                        <div class="os-card-footer">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock" style="width:12px; height:12px;"></i> Work in progress</span>
-                        </div>
-                    </div>
-
-                    <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-pending">In Progress</span>
-                            <span>Exp #05</span>
-                        </div>
-                        <h3 class="os-card-title">CRM Tool</h3>
-                        <p class="os-card-desc">Lightweight system to manage leads and professional interactions.</p>
-                        <div class="os-card-footer">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock" style="width:12px; height:12px;"></i> Work in progress</span>
-                        </div>
-                    </div>
-
-                    <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                        <div class="os-card-meta">
-                            <span class="os-badge os-badge-pending">In Progress</span>
-                            <span>Exp #06</span>
-                        </div>
-                        <h3 class="os-card-title">BMI Calculator</h3>
-                        <p class="os-card-desc">Simple health metric calculator with personalized feedback.</p>
-                        <div class="os-card-footer">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock" style="width:12px; height:12px;"></i> Work in progress</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End of Portfolio Mode -->
-
-        <!-- Journey Mode Content -->
-        <div id="journey-mode-content" style="display: none;">
-            <div class="os-container">
-                <!-- Upgraded Hero (ManashOS Size) -->
-                <section class="os-hero">
-                    <h1 class="os-hero-title">My <span class="text-gradient">Evolution</span></h1>
+                    <h1 class="os-hero-title">Welcome to <span class="text-gradient">ManashOS!</span></h1>
                     <p class="os-hero-sub">
-                        From building systems in the public sector <span class="evolution-arrow">→</span> to designing AI-driven products and personal systems.
+                        A showcase of my projects, writings, and experiments.<br>
+                        Where ideas are built and shared.
                     </p>
-                    
-                    <!-- Narrative Insights Grid -->
-                    <div class="journey-insights-grid">
-                        <div class="thinking-pill">
-                            <span class="thinking-label">🧠 Currently Thinking</span>
-                            <span class="thinking-text">"Clarity of thought matters more than speed of execution."</span>
+
+                    <!-- Guest Stats Dashboard -->
+                    <div class="os-guest-stats" id="guest-stats-dashboard">
+                        <div class="os-guest-stat-item">
+                            <span class="os-guest-stat-value" id="guest-stat-blogs">0</span>
+                            <span class="os-guest-stat-label">Blogs Published</span>
                         </div>
-                        <div class="thinking-pill focus-pill">
-                            <span class="thinking-label">🎯 Focused On</span>
-                            <span class="thinking-text">Building AI-driven systems • Rapid experimentation • Product-led thinking</span>
+                        <div class="os-guest-stat-item">
+                            <span class="os-guest-stat-value" id="guest-stat-projects">0</span>
+                            <span class="os-guest-stat-label">Projects Built</span>
                         </div>
-                        <div class="thinking-pill direction-pill">
-                            <span class="thinking-label">⚡ Current Direction</span>
-                            <span class="thinking-text">Designing systems that reduce friction between idea and execution</span>
+                        <div class="os-guest-stat-item">
+                            <span class="os-guest-stat-value" id="guest-stat-games">11</span>
+                            <span class="os-guest-stat-label">Games Available</span>
                         </div>
+                        <div class="os-guest-stat-item">
+                            <span class="os-guest-stat-value" id="guest-stat-experiments">6</span>
+                            <span class="os-guest-stat-label">Experiments</span>
+                        </div>
+                    </div>
+
+                    <!-- Surprise Me CTA -->
+                    <div
+                        style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                        <button class="btn btn-gradient btn-pill" id="surprise-btn" onclick="surpriseMe()">
+                            <i data-feather="shuffle" class="btn-icon"></i> 🎲 Surprise Me
+                        </button>
+                        <span class="surprise-label">Discover something random from my system</span>
                     </div>
                 </section>
 
-                <!-- Upgraded Progress Stepper (Navigation Bridge) -->
-                <div class="journey-stepper">
-                    <button class="step-item active" data-index="0" onclick="jumpToJourneyStep(0, true)">
-                        Foundation <span class="step-dot">●</span>
-                    </button>
-                    <div class="step-line"></div>
-                    <button class="step-item" data-index="1" onclick="jumpToJourneyStep(1, true)">
-                        Exploration <span class="step-dot">○</span>
-                    </button>
-                    <div class="step-line"></div>
-                    <button class="step-item" data-index="2" onclick="jumpToJourneyStep(2, true)">
-                        Creation <span class="step-dot">○</span>
-                    </button>
-                    <div class="step-line"></div>
-                    <button class="step-item" data-index="3" onclick="jumpToJourneyStep(3, true)">
-                        Focus <span class="step-dot">○</span>
-                    </button>
+                <!-- Guest Tabs -->
+                <div class="guest-only" style="margin-bottom: 40px; text-align: center;">
+                    <div class="os-tabs-container" id="guest-tabs">
+                        <button class="os-tab-btn active" onclick="toggleGuestTab('blogs', this)">Published
+                            Blogs</button>
+                        <button class="os-tab-btn" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
+                        <button class="os-tab-btn" onclick="toggleGuestTab('games', this)">Play Games</button>
+                        <button class="os-tab-btn" onclick="toggleGuestTab('experiments', this)">Experiments</button>
+                    </div>
                 </div>
 
-                <!-- Horizontal 3D Journey Carousel -->
-                <div class="journey-carousel-section" id="journey-carousel-section">
-                    <div class="journey-carousel-container">
-                        <button class="carousel-nav prev" id="journey-prev">
-                            <i data-feather="chevron-left"></i>
-                        </button>
-                        
-                        <div class="journey-carousel-track-wrapper">
-                            <div class="journey-carousel-track" id="journey-track">
-                                <!-- Card 1: Foundation -->
-                                <div class="journey-step-card active" data-index="0">
-                                    <div class="journey-card-label">THE START</div>
-                                    <h3 class="journey-card-title">Foundation</h3>
-                                    <p class="journey-card-identity">Built my foundation in structured thinking</p>
-                                    <ul class="journey-card-points">
-                                        <li>B.Tech + MBA</li>
-                                        <li>Combined technical systems with business perspective</li>
-                                    </ul>
-                                    <div class="journey-card-shift">
-                                        <span class="shift-icon">⚡</span>
-                                        <span class="shift-text"><strong>Key Shift:</strong> Learning concepts → Systems thinking</span>
-                                    </div>
-                                    <div class="journey-card-impact">
-                                        <span class="impact-icon">💡</span>
-                                        <span class="impact-text">Developed structured thinking across tech and business</span>
-                                    </div>
+                <!-- Projects Tab Content -->
+                <div id="guest-tab-projects" class="guest-only" style="display: none;">
+                    <div class="os-section-badge">WHAT I'VE BUILT</div>
+                    <h2 class="os-section-title">Featured <span class="text-gradient">Projects</span></h2>
+                    <div class="projects-grid">
+                        <a href="https://paath-sohayok.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="project-card">
+                            <div class="project-top-row">
+                                <div class="project-title-group">
+                                    <img src="/paath-logo.jpg.png" alt="Paath Sohayok Logo" class="project-logo-mini">
+                                    <h3 class="project-title">Paath Sohayok</h3>
                                 </div>
+                                <span class="project-date">2026</span>
+                            </div>
+                            <div class="project-meta">GEN AI • EdTech</div>
+                            <p class="project-desc">Bilingual education portal generating lesson plans, PPTs,
+                                assessments, and classroom activities instantly via LLM integration.</p>
+                            <ul class="project-bullets">
+                                <li><i data-feather="play" class="bullet-icon"></i> Instant bilingual content generation
+                                </li>
+                                <li><i data-feather="play" class="bullet-icon"></i> Automated classroom assessments via
+                                    LLM</li>
+                            </ul>
+                        </a>
 
-                                <!-- Card 2: Exploration -->
-                                <div class="journey-step-card" data-index="1">
-                                    <div class="journey-card-label">THE CLIMB</div>
-                                    <h3 class="journey-card-title">Exploration</h3>
-                                    <p class="journey-card-identity">Explored systems, delivery, and large-scale problem solving</p>
-                                    <ul class="journey-card-points">
-                                        <li>Govt → built systems from ground up</li>
-                                        <li>Product → Agile delivery & execution</li>
-                                        <li>Consulting → policy, governance, scale</li>
-                                    </ul>
-                                    <div class="journey-card-shift">
-                                        <span class="shift-icon">⚡</span>
-                                        <span class="shift-text"><strong>Key Shift:</strong> Executing tasks → Managing complex systems</span>
-                                    </div>
-                                    <div class="journey-card-impact">
-                                        <span class="impact-icon">💡</span>
-                                        <span class="impact-text">Learned to operate across stakeholders, scale, and constraints</span>
-                                    </div>
+                        <a href="https://airdraw-taupe.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="project-card">
+                            <div class="project-top-row">
+                                <div class="project-title-group">
+                                    <img src="/air-logo.jpg.png" alt="AirDraw Logo" class="project-logo-mini">
+                                    <h3 class="project-title">AirDraw</h3>
                                 </div>
+                                <span class="project-date">2026</span>
+                            </div>
+                            <div class="project-meta">Deep Learning • CV</div>
+                            <p class="project-desc">Interactive virtual painting application utilizing real-time
+                                computer vision and spatial hand gesture tracking.</p>
+                            <ul class="project-bullets">
+                                <li><i data-feather="play" class="bullet-icon"></i> Real-time computer vision
+                                    integration</li>
+                                <li><i data-feather="play" class="bullet-icon"></i> Spatial hand gesture tracking</li>
+                            </ul>
+                        </a>
 
-                                <!-- Card 3: Creation -->
-                                <div class="journey-step-card" data-index="2">
-                                    <div class="journey-card-label">THE SHIFT</div>
-                                    <h3 class="journey-card-title">Creation</h3>
-                                    <p class="journey-card-identity">Started building my own systems and products</p>
-                                    <ul class="journey-card-points">
-                                        <li>ManashOS → personal system</li>
-                                        <li>AI products → PaathSohayok, AirDraw</li>
-                                        <li>Experiments → rapid prototyping</li>
-                                    </ul>
-                                    <div class="journey-card-shift">
-                                        <span class="shift-icon">⚡</span>
-                                        <span class="shift-text"><strong>Key Shift:</strong> Delivering solutions → Creating products</span>
-                                    </div>
-                                    <div class="journey-card-impact">
-                                        <span class="impact-icon">💡</span>
-                                        <span class="impact-text">Transitioned into a builder mindset</span>
-                                    </div>
+                        <a href="https://memorysearch.streamlit.app/" target="_blank" rel="noopener noreferrer"
+                            class="project-card">
+                            <div class="project-top-row">
+                                <div class="project-title-group">
+                                    <img src="/memory-logo.jpg.png" alt="Memory Search Logo" class="project-logo-mini">
+                                    <h3 class="project-title">Memory Search</h3>
                                 </div>
+                                <span class="project-date">2026</span>
+                            </div>
+                            <div class="project-meta">NLP • Backend</div>
+                            <p class="project-desc">A semantic retrieval system enabling natural language queries to
+                                discover exact documents without rigid keyword reliance.</p>
+                            <ul class="project-bullets">
+                                <li><i data-feather="play" class="bullet-icon"></i> Natural language query processing
+                                </li>
+                                <li><i data-feather="play" class="bullet-icon"></i> High-accuracy semantic retrieval
+                                </li>
+                            </ul>
+                        </a>
 
-                                <!-- Card 4: Current Focus -->
-                                <div class="journey-step-card" data-index="3">
-                                    <div class="journey-card-label">THE HORIZON</div>
-                                    <h3 class="journey-card-title">Current Focus</h3>
-                                    <p class="journey-card-identity">Focused on building systems that combine thinking and execution</p>
-                                    <ul class="journey-card-points">
-                                        <li>AI + product + real-world use</li>
-                                        <li>Fast iteration and experimentation</li>
-                                    </ul>
-                                    <div class="journey-card-shift">
-                                        <span class="shift-icon">⚡</span>
-                                        <span class="shift-text"><strong>Key Shift:</strong> Building products → Designing systems</span>
-                                    </div>
-                                    <div class="journey-card-impact">
-                                        <span class="impact-icon">💡</span>
-                                        <span class="impact-text">Creating scalable, usable, and impactful solutions</span>
-                                    </div>
+                        <a href="https://smartcomm.vercel.app/" target="_blank" class="project-card">
+                            <div class="project-top-row">
+                                <div class="project-title-group">
+                                    <img src="/smart-logo.jpg.png" alt="SmartComm Logo" class="project-logo-mini">
+                                    <h3 class="project-title">SmartComm</h3>
                                 </div>
+                                <span class="project-date">2026</span>
+                            </div>
+                            <div class="project-meta">Productivity • Core</div>
+                            <p class="project-desc">A professional utility that transforms unrefined textual thoughts
+                                into polished, contextual, executive-ready communication.</p>
+                            <ul class="project-bullets">
+                                <li><i data-feather="play" class="bullet-icon"></i> AI-powered communication refinement
+                                </li>
+                                <li><i data-feather="play" class="bullet-icon"></i> Executive-ready format conversion
+                                </li>
+                            </ul>
+                        </a>
+
+                        <a href="https://offstumpwebsite.vercel.app/" target="_blank" class="project-card">
+                            <div class="project-top-row">
+                                <div class="project-title-group">
+                                    <img src="/offstump-logo.jpg.png" alt="OFFSTUMP Logo" class="project-logo-mini">
+                                    <h3 class="project-title">OFFSTUMP</h3>
+                                </div>
+                                <span class="project-date">2026</span>
+                            </div>
+                            <div class="project-meta">Web Platform • Local Business</div>
+                            <p class="project-desc">Full digital presence implementation for a premium indoor sports
+                                facility, successfully mapping physical footfall from online engagement.</p>
+                            <ul class="project-bullets">
+                                <li><i data-feather="play" class="bullet-icon"></i> Conversion of online traffic to
+                                    physical footfall</li>
+                                <li><i data-feather="play" class="bullet-icon"></i> Premium web presence integration
+                                </li>
+                            </ul>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="guest-tab-blogs" class="guest-only">
+                    <div class="os-section-badge">Latest Insights</div>
+                    <h2 class="os-section-title">Published <span class="text-gradient">Thoughts</span></h2>
+                    <div class="os-cards-grid" id="public-blogs-grid">
+                        <div class="os-loading">
+                            <div class="os-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Games Tab Content -->
+                <div id="guest-tab-games" class="guest-only" style="display: none;">
+                    <div class="os-section-badge">COGNITIVE PLAYGROUND</div>
+                    <h2 class="os-section-title">Micro <span class="text-gradient">Challenges</span></h2>
+                    <div class="os-cards-grid">
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">Classic</span>
+                                <span>Skill Test</span>
+                            </div>
+                            <h3 class="os-card-title">Typing Speed Test</h3>
+                            <p class="os-card-desc">Test your typing speed and accuracy with random professional quotes.
+                            </p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('typing')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
                             </div>
                         </div>
 
-                        <button class="carousel-nav next" id="journey-next">
-                            <i data-feather="chevron-right"></i>
-                        </button>
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">Classic</span>
+                                <span>Memory</span>
+                            </div>
+                            <h3 class="os-card-title">Memory Match</h3>
+                            <p class="os-card-desc">Flip and match pairs of icons to test your short-term memory.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('memory')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">Classic</span>
+                                <span>Strategy</span>
+                            </div>
+                            <h3 class="os-card-title">Tic Tac Toe</h3>
+                            <p class="os-card-desc">The classic game of X and O. Play against a friend locally.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('tictactoe')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Reaction</span>
+                            </div>
+                            <h3 class="os-card-title">Focus Click</h3>
+                            <p class="os-card-desc">Wait for the screen to turn green and click as fast as you can.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('reaction')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Speed</span>
+                            </div>
+                            <h3 class="os-card-title">1–25 Grid</h3>
+                            <p class="os-card-desc">Click numbers 1 to 25 in order as fast as possible.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('grid25')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Accuracy</span>
+                            </div>
+                            <h3 class="os-card-title">Aim Trainer</h3>
+                            <p class="os-card-desc">Click randomly appearing targets to test your precision.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('aim')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Pattern</span>
+                            </div>
+                            <h3 class="os-card-title">Pattern Memory</h3>
+                            <p class="os-card-desc">Watch a sequence of tiles light up and repeat it correctly.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('pattern')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Language</span>
+                            </div>
+                            <h3 class="os-card-title">Word Scramble</h3>
+                            <p class="os-card-desc">Unscramble the letters to find the hidden professional word.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('scramble')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Logic</span>
+                            </div>
+                            <h3 class="os-card-title">Speed Decision</h3>
+                            <p class="os-card-desc">Rapidly decide if simple math/logic statements are true or false.
+                            </p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('decision')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Puzzle</span>
+                            </div>
+                            <h3 class="os-card-title">Binary Switch</h3>
+                            <p class="os-card-desc">Toggle switches to turn all of them ON. Simple yet tricky.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('binary')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="os-card">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-published">New</span>
+                                <span>Prompt</span>
+                            </div>
+                            <h3 class="os-card-title">Challenge Gen</h3>
+                            <p class="os-card-desc">Get a random creative or professional challenge to think about.</p>
+                            <div class="os-card-footer">
+                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('challenge')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiments Tab Content -->
+                <div id="guest-tab-experiments" class="guest-only" style="display: none;">
+                    <div class="os-section-badge">LABS & IDEAS</div>
+                    <h2 class="os-section-title">Active <span class="text-gradient">Experiments</span></h2>
+                    <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px; font-style: italic;">
+                        Ideas currently being explored and built</p>
+                    <div class="os-cards-grid">
+                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-pending">In Progress</span>
+                                <span>Exp #01</span>
+                            </div>
+                            <h3 class="os-card-title">3D Resume Builder</h3>
+                            <p class="os-card-desc">Interactive resume experience in 3D using Three.js.</p>
+                            <div class="os-card-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
+                                        style="width:12px; height:12px;"></i> Work in progress</span>
+                            </div>
+                        </div>
+
+                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-pending">In Progress</span>
+                                <span>Exp #02</span>
+                            </div>
+                            <h3 class="os-card-title">AI Agent Instagram Handler</h3>
+                            <p class="os-card-desc">Automating Instagram interactions using AI agents.</p>
+                            <div class="os-card-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
+                                        style="width:12px; height:12px;"></i> Work in progress</span>
+                            </div>
+                        </div>
+
+                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-pending">In Progress</span>
+                                <span>Exp #03</span>
+                            </div>
+                            <h3 class="os-card-title">Assam Scheme Finder</h3>
+                            <p class="os-card-desc">Find relevant government schemes based on user needs.</p>
+                            <div class="os-card-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
+                                        style="width:12px; height:12px;"></i> Work in progress</span>
+                            </div>
+                        </div>
+
+                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-pending">In Progress</span>
+                                <span>Exp #04</span>
+                            </div>
+                            <h3 class="os-card-title">Electricity Calculator</h3>
+                            <p class="os-card-desc">Estimate electricity usage and cost for household appliances.</p>
+                            <div class="os-card-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
+                                        style="width:12px; height:12px;"></i> Work in progress</span>
+                            </div>
+                        </div>
+
+                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-pending">In Progress</span>
+                                <span>Exp #05</span>
+                            </div>
+                            <h3 class="os-card-title">CRM Tool</h3>
+                            <p class="os-card-desc">Lightweight system to manage leads and professional interactions.
+                            </p>
+                            <div class="os-card-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
+                                        style="width:12px; height:12px;"></i> Work in progress</span>
+                            </div>
+                        </div>
+
+                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
+                            <div class="os-card-meta">
+                                <span class="os-badge os-badge-pending">In Progress</span>
+                                <span>Exp #06</span>
+                            </div>
+                            <h3 class="os-card-title">BMI Calculator</h3>
+                            <p class="os-card-desc">Simple health metric calculator with personalized feedback.</p>
+                            <div class="os-card-footer">
+                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
+                                        style="width:12px; height:12px;"></i> Work in progress</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- End of Portfolio Mode -->
+
+            <!-- Journey Mode Content -->
+            <div id="journey-mode-content" style="display: none;">
+                <div class="os-container">
+                    <!-- Upgraded Hero (ManashOS Size) -->
+                    <section class="os-hero">
+                        <h1 class="os-hero-title">My <span class="text-gradient">Evolution</span></h1>
+                        <p class="os-hero-sub">
+                            From building systems in the public sector <span class="evolution-arrow">→</span> to
+                            designing AI-driven products and personal systems.
+                        </p>
+
+                        <!-- Narrative Insights Grid -->
+                        <div class="journey-insights-grid">
+                            <div class="thinking-pill">
+                                <span class="thinking-label">🧠 Currently Thinking</span>
+                                <span class="thinking-text">"Clarity of thought matters more than speed of
+                                    execution."</span>
+                            </div>
+                            <div class="thinking-pill focus-pill">
+                                <span class="thinking-label">🎯 Focused On</span>
+                                <span class="thinking-text">Building AI-driven systems • Rapid experimentation •
+                                    Product-led thinking</span>
+                            </div>
+                            <div class="thinking-pill direction-pill">
+                                <span class="thinking-label">⚡ Current Direction</span>
+                                <span class="thinking-text">Designing systems that reduce friction between idea and
+                                    execution</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Upgraded Progress Stepper (Navigation Bridge) -->
+                    <div class="journey-stepper">
+                        <button class="step-item active" data-index="0" onclick="jumpToJourneyStep(0, true)">
+                            Foundation <span class="step-dot">●</span>
+                        </button>
+                        <div class="step-line"></div>
+                        <button class="step-item" data-index="1" onclick="jumpToJourneyStep(1, true)">
+                            Exploration <span class="step-dot">○</span>
+                        </button>
+                        <div class="step-line"></div>
+                        <button class="step-item" data-index="2" onclick="jumpToJourneyStep(2, true)">
+                            Creation <span class="step-dot">○</span>
+                        </button>
+                        <div class="step-line"></div>
+                        <button class="step-item" data-index="3" onclick="jumpToJourneyStep(3, true)">
+                            Focus <span class="step-dot">○</span>
+                        </button>
+                    </div>
+
+                    <!-- Horizontal 3D Journey Carousel -->
+                    <div class="journey-carousel-section" id="journey-carousel-section">
+                        <div class="journey-carousel-container">
+                            <button class="carousel-nav prev" id="journey-prev">
+                                <i data-feather="chevron-left"></i>
+                            </button>
+
+                            <div class="journey-carousel-track-wrapper">
+                                <div class="journey-carousel-track" id="journey-track">
+                                    <!-- Card 1: Foundation -->
+                                    <div class="journey-step-card active" data-index="0">
+                                        <div class="journey-card-label">THE START</div>
+                                        <h3 class="journey-card-title">Foundation</h3>
+                                        <p class="journey-card-identity">Built my foundation in structured thinking</p>
+                                        <ul class="journey-card-points">
+                                            <li>B.Tech + MBA</li>
+                                            <li>Combined technical systems with business perspective</li>
+                                        </ul>
+                                        <div class="journey-card-shift">
+                                            <span class="shift-icon">⚡</span>
+                                            <span class="shift-text"><strong>Key Shift:</strong> Learning concepts →
+                                                Systems thinking</span>
+                                        </div>
+                                        <div class="journey-card-impact">
+                                            <span class="impact-icon">💡</span>
+                                            <span class="impact-text">Developed structured thinking across tech and
+                                                business</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2: Exploration -->
+                                    <div class="journey-step-card" data-index="1">
+                                        <div class="journey-card-label">THE CLIMB</div>
+                                        <h3 class="journey-card-title">Exploration</h3>
+                                        <p class="journey-card-identity">Explored systems, delivery, and large-scale
+                                            problem solving</p>
+                                        <ul class="journey-card-points">
+                                            <li>Govt → built systems from ground up</li>
+                                            <li>Product → Agile delivery & execution</li>
+                                            <li>Consulting → policy, governance, scale</li>
+                                        </ul>
+                                        <div class="journey-card-shift">
+                                            <span class="shift-icon">⚡</span>
+                                            <span class="shift-text"><strong>Key Shift:</strong> Executing tasks →
+                                                Managing complex systems</span>
+                                        </div>
+                                        <div class="journey-card-impact">
+                                            <span class="impact-icon">💡</span>
+                                            <span class="impact-text">Learned to operate across stakeholders, scale, and
+                                                constraints</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 3: Creation -->
+                                    <div class="journey-step-card" data-index="2">
+                                        <div class="journey-card-label">THE SHIFT</div>
+                                        <h3 class="journey-card-title">Creation</h3>
+                                        <p class="journey-card-identity">Started building my own systems and products
+                                        </p>
+                                        <ul class="journey-card-points">
+                                            <li>ManashOS → personal system</li>
+                                            <li>AI products → PaathSohayok, AirDraw</li>
+                                            <li>Experiments → rapid prototyping</li>
+                                        </ul>
+                                        <div class="journey-card-shift">
+                                            <span class="shift-icon">⚡</span>
+                                            <span class="shift-text"><strong>Key Shift:</strong> Delivering solutions →
+                                                Creating products</span>
+                                        </div>
+                                        <div class="journey-card-impact">
+                                            <span class="impact-icon">💡</span>
+                                            <span class="impact-text">Transitioned into a builder mindset</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 4: Current Focus -->
+                                    <div class="journey-step-card" data-index="3">
+                                        <div class="journey-card-label">THE HORIZON</div>
+                                        <h3 class="journey-card-title">Current Focus</h3>
+                                        <p class="journey-card-identity">Focused on building systems that combine
+                                            thinking and execution</p>
+                                        <ul class="journey-card-points">
+                                            <li>AI + product + real-world use</li>
+                                            <li>Fast iteration and experimentation</li>
+                                        </ul>
+                                        <div class="journey-card-shift">
+                                            <span class="shift-icon">⚡</span>
+                                            <span class="shift-text"><strong>Key Shift:</strong> Building products →
+                                                Designing systems</span>
+                                        </div>
+                                        <div class="journey-card-impact">
+                                            <span class="impact-icon">💡</span>
+                                            <span class="impact-text">Creating scalable, usable, and impactful
+                                                solutions</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="carousel-nav next" id="journey-next">
+                                <i data-feather="chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -690,7 +748,9 @@
                 </button>
             </div>
             <div class="os-cards-grid" id="blogs-grid">
-                <div class="os-loading"><div class="os-spinner"></div></div>
+                <div class="os-loading">
+                    <div class="os-spinner"></div>
+                </div>
             </div>
         </div>
 
@@ -706,7 +766,9 @@
                 </button>
             </div>
             <div class="os-notes-list" id="notes-list">
-                <div class="os-loading"><div class="os-spinner"></div></div>
+                <div class="os-loading">
+                    <div class="os-spinner"></div>
+                </div>
             </div>
         </div>
 
@@ -732,7 +794,9 @@
                 <button class="os-filter-btn" data-filter="completed">Completed</button>
             </div>
             <div class="os-task-list" id="tasks-list">
-                <div class="os-loading"><div class="os-spinner"></div></div>
+                <div class="os-loading">
+                    <div class="os-spinner"></div>
+                </div>
             </div>
         </div>
     </main>
@@ -749,10 +813,12 @@
                 </button>
             </div>
             <input type="hidden" id="blog-edit-id">
-            <div id="blog-title-container" style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
+            <div id="blog-title-container"
+                style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
                 <div id="blog-title-editor"></div>
             </div>
-            <div id="blog-editor-container" style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
+            <div id="blog-editor-container"
+                style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
                 <div id="blog-editor"></div>
             </div>
             <select class="os-select" id="blog-status">
@@ -798,7 +864,8 @@
             </div>
             <input type="hidden" id="task-edit-id">
             <input type="text" class="os-input" id="task-title" placeholder="Task title">
-            <textarea class="os-textarea" id="task-desc" placeholder="Description (optional)" style="min-height:80px;"></textarea>
+            <textarea class="os-textarea" id="task-desc" placeholder="Description (optional)"
+                style="min-height:80px;"></textarea>
             <input type="date" class="os-input" id="task-due" placeholder="Due date (optional)">
             <div class="os-modal-actions">
                 <button class="btn btn-gradient btn-full" onclick="saveTask()">
@@ -815,11 +882,14 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                     <div class="viewer-meta" style="margin-bottom: 0; display: flex; align-items: center; gap: 12px;">
                         <span id="viewer-date">Date</span>
-                        <button id="viewer-share-btn" class="btn btn-sm btn-secondary" onclick="shareBlog(currentViewingBlogId)" title="Copy share link" style="padding: 4px 10px; font-size: 0.75rem;">
+                        <button id="viewer-share-btn" class="btn btn-sm btn-secondary"
+                            onclick="shareBlog(currentViewingBlogId)" title="Copy share link"
+                            style="padding: 4px 10px; font-size: 0.75rem;">
                             <i data-feather="share-2" class="btn-icon"></i> Share
                         </button>
                     </div>
-                    <button class="os-modal-close" style="position: static; padding: 4px;" onclick="closeBlogViewer()"><i data-feather="x"></i></button>
+                    <button class="os-modal-close" style="position: static; padding: 4px;"
+                        onclick="closeBlogViewer()"><i data-feather="x"></i></button>
                 </div>
                 <h3 id="viewer-title" style="margin: 0; padding-right: 0;">Blog Title</h3>
             </div>
@@ -843,7 +913,8 @@
                 </button>
             </div>
             <div style="margin-bottom: 15px;">
-                <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Date Range</label>
+                <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Date
+                    Range</label>
                 <select class="os-select" id="export-date-range" onchange="toggleCustomDates()">
                     <option value="today">Today</option>
                     <option value="month">This Month</option>
@@ -852,11 +923,15 @@
             </div>
             <div id="custom-date-fields" style="display: none; gap: 10px; margin-bottom: 15px;">
                 <div style="flex: 1;">
-                    <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Start Date</label>
+                    <label
+                        style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Start
+                        Date</label>
                     <input type="date" class="os-input" id="export-start-date">
                 </div>
                 <div style="flex: 1;">
-                    <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">End Date</label>
+                    <label
+                        style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">End
+                        Date</label>
                     <input type="date" class="os-input" id="export-end-date">
                 </div>
             </div>
@@ -900,7 +975,9 @@
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"
+        defer></script>
     <script src="/manashos/app.js" defer></script>
 </body>
+
 </html>

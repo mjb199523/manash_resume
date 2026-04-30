@@ -228,6 +228,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     trackUniqueVisitor();
+
+    // --- CAL.COM SCHEDULER ---
+    (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document; C.Cal = C.Cal || function () {
+            let cal = C.Cal; let ar = arguments;
+            if (!cal.loaded) { cal.q = cal.q || []; cal.loaded = true; }
+            d.head.appendChild(d.createElement("script")).src = A; p(cal, ar);
+        };
+        d.head.appendChild(d.createElement("script")).src = A;
+        C.Cal("init", { origin: L });
+        C.Cal("ui", { "styles": { "branding": { "brandColor": "#6366f1" } }, "hideEventTypeDetails": false, "layout": "month_view" });
+    }(window, "https://app.cal.com/embed/embed.js", "https://app.cal.com"));
+
+    const scheduleBtn = document.getElementById('schedule-call-btn');
+    if (scheduleBtn) {
+        scheduleBtn.addEventListener('click', () => {
+            Cal("modal", {
+                calLink: "manash-barman/15min", // Note: User should update this to their actual Cal.com link
+                config: { "layout": "month_view" }
+            });
+        });
+    }
 });
 
 // Hide Loader when everything is loaded
