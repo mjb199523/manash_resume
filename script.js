@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scheduleBtn) {
         scheduleBtn.addEventListener('click', () => {
             Cal("modal", {
-                calLink: "manash-barman/15min", // Note: User should update this to their actual Cal.com link
+                calLink: "manashjyoti-barman/15min", // Note: User should update this to their actual Cal.com link
                 config: { "layout": "month_view" }
             });
         });
