@@ -241,16 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
         C.Cal("init", { origin: L });
         C.Cal("ui", { "styles": { "branding": { "brandColor": "#6366f1" } }, "hideEventTypeDetails": false, "layout": "month_view" });
     }(window, "https://app.cal.com/embed/embed.js", "https://app.cal.com"));
-
-    const scheduleBtn = document.getElementById('schedule-call-btn');
-    if (scheduleBtn) {
-        scheduleBtn.addEventListener('click', () => {
-            Cal("modal", {
-                calLink: "manashjyoti-barman-bgywvt",
-                config: { "layout": "month_view" }
-            });
-        });
-    }
 });
 
 // Hide Loader when everything is loaded

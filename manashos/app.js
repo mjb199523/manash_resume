@@ -300,11 +300,13 @@ function initCalInline() {
     if (!container) return;
     
     if (window.Cal) {
-        Cal("inline", {
-            elementOrSelector: "#cal-inline-container",
-            calLink: "manashjyoti-barman-bgywvt",
-            layout: "month_view"
-        });
+        setTimeout(() => {
+            Cal("inline", {
+                elementOrSelector: "#cal-inline-container",
+                calLink: "manashjyoti-barman-bgywvt",
+                layout: "month_view"
+            });
+        }, 100);
     }
 }
 
