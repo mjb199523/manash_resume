@@ -228,6 +228,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     trackUniqueVisitor();
+
+    // Dynamic Role Duration Calculation (Start: Jan 1, 2026)
+    const durationElement = document.getElementById('convegenius-duration');
+    if (durationElement) {
+        const startYear = 2026;
+        const startMonth = 0; // January (0-indexed)
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+        
+        let totalMonths = (currentYear - startYear) * 12 + (currentMonth - startMonth) + 1;
+        totalMonths = Math.max(1, totalMonths);
+        
+        if (totalMonths < 12) {
+            durationElement.textContent = totalMonths === 1 ? '1 month' : `${totalMonths} months`;
+        } else {
+            durationElement.textContent = `${(totalMonths / 12).toFixed(1)} years`;
+        }
+    }
 });
 
 // Hide Loader when everything is loaded
