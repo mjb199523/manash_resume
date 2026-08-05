@@ -1207,3 +1207,244 @@ body:not(.loaded) {
         padding: 30px 20px;
     }
 }
+
+/* ============================================
+   21 Days Challenge Banner (Homepage)
+   ============================================ */
+.challenge-banner {
+    display: block;
+    text-decoration: none;
+    max-width: 1200px;
+    margin: 16px auto 0;
+    padding: 0 40px;
+    position: relative;
+    cursor: pointer;
+}
+
+.challenge-banner-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 28px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1;
+}
+
+/* Animated gradient border */
+.challenge-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 40px;
+    right: 40px;
+    bottom: 0;
+    border-radius: 17px;
+    padding: 1.5px;
+    background: linear-gradient(
+        var(--banner-border-angle, 0deg),
+        var(--gradient-start),
+        var(--gradient-end),
+        var(--gradient-start)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: banner-border-rotate 4s linear infinite;
+    z-index: 0;
+}
+
+@property --banner-border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes banner-border-rotate {
+    to {
+        --banner-border-angle: 360deg;
+    }
+}
+
+/* Subtle glow behind banner */
+.challenge-banner-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 120%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(138, 125, 244, 0.06) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.challenge-banner:hover .challenge-banner-content {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(138, 125, 244, 0.12), 0 0 24px rgba(138, 125, 244, 0.06);
+}
+
+/* Banner Left */
+.challenge-banner-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.challenge-banner-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.challenge-banner-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+}
+
+.challenge-banner-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    white-space: nowrap;
+}
+
+.challenge-banner-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* Banner Right */
+.challenge-banner-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.challenge-banner-progress-wrapper {
+    width: 180px;
+}
+
+.challenge-banner-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.challenge-banner-progress-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.challenge-banner-progress-percent {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.challenge-banner-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--btn-secondary-bg);
+    border-radius: 100px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+}
+
+.challenge-banner-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    border-radius: 100px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.challenge-banner-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+
+.challenge-banner:hover .challenge-banner-cta {
+    box-shadow: 0 4px 16px rgba(138, 125, 244, 0.35);
+    transform: translateX(2px);
+}
+
+/* Banner Responsive */
+@media (max-width: 768px) {
+    .challenge-banner {
+        padding: 0 20px;
+    }
+
+    .challenge-banner-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 18px 20px;
+    }
+
+    .challenge-banner::before {
+        left: 20px;
+        right: 20px;
+    }
+
+    .challenge-banner-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .challenge-banner-progress-wrapper {
+        width: 100%;
+    }
+
+    .challenge-banner-cta {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .challenge-banner-title {
+        font-size: 0.95rem;
+    }
+}
+

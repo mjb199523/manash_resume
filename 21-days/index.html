@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21 Days • 21 Games Challenge | Manashjyoti Barman</title>
+    <meta name="description"
+        content="A personal 21-day challenge by Manashjyoti Barman to build one game every day using HTML, CSS & JavaScript. Play completed games and follow the journey.">
+    <meta name="keywords"
+        content="21 Days 21 Games, Game Development Challenge, JavaScript Games, HTML5 Games, Manashjyoti Barman, Canvas Games, Web Games">
+    <meta name="author" content="Manashjyoti Barman">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://manashjyoti.vercel.app/21-days">
+    <meta property="og:title" content="21 Days • 21 Games Challenge | Manashjyoti Barman">
+    <meta property="og:description"
+        content="Building one game every day for 21 days using HTML, CSS & JavaScript. Play completed games live!">
+    <meta property="og:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="21 Days • 21 Games Challenge | Manashjyoti Barman">
+    <meta property="twitter:description"
+        content="Building one game every day for 21 days using HTML, CSS & JavaScript.">
+
+    <link rel="icon" type="image/jpeg" href="/profile.jpg.jpeg">
+
+    <!-- Fonts (same as main site) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Shared base styles -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Challenge-specific styles -->
+    <link rel="stylesheet" href="/21-days/challenge.css">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons" defer></script>
+    <!-- tsParticles for background -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.0.6/tsparticles.slim.bundle.min.js" defer></script>
+</head>
+
+<body class="loaded">
+    <!-- Particles Engine (same as main site) -->
+    <div id="tsparticles"></div>
+
+    <div class="challenge-page-wrapper">
+        <!-- Navigation -->
+        <nav class="challenge-nav">
+            <a href="/" class="btn btn-gradient">
+                <i data-feather="arrow-left" class="btn-icon"></i> Back to Portfolio
+            </a>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-feather="sun" class="icon-sm"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Header -->
+        <section class="challenge-hero">
+            <span class="challenge-emoji">🎮</span>
+            <h1 class="challenge-hero-title">21 Days • 21 Games Challenge</h1>
+            <p class="challenge-hero-desc">
+                A personal challenge to build one game every day while improving my JavaScript, Canvas, UI/UX, and game
+                development skills.
+            </p>
+        </section>
+
+        <!-- Progress Bar -->
+        <div class="challenge-progress-section">
+            <div class="challenge-progress-header">
+                <span class="challenge-progress-label" id="challenge-progress-label">0/21 Completed</span>
+                <span class="challenge-progress-percent" id="challenge-progress-percent">0%</span>
+            </div>
+            <div class="challenge-progress-track">
+                <div class="challenge-progress-fill" id="challenge-progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Game Cards Grid -->
+        <div class="challenge-grid-container">
+            <div class="challenge-grid" id="challenge-grid">
+                <!-- Cards rendered dynamically by challenge.js -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="challenge-footer">
+            © 2026 <span class="text-gradient" style="font-weight: 700; margin-left: 4px;">Manashjyoti Barman</span>
+            <span style="margin-left: 8px;">• 21 Days • 21 Games Challenge</span>
+        </footer>
+    </div>
+
+    <!-- Challenge Script -->
+    <script src="/21-days/challenge.js" defer></script>
+
+    <!-- tsParticles Init (same config as main site) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof tsParticles !== 'undefined') {
+                tsParticles.load("tsparticles", {
+                    fpsLimit: 60,
+                    particles: {
+                        color: { value: "#8a7df4" },
+                        links: {
+                            color: "#8a7df4",
+                            distance: 120,
+                            enable: true,
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 0.8,
+                            direction: "none",
+                            random: false,
+                            straight: false,
+                            outModes: "out"
+                        },
+                        number: {
+                            density: { enable: true, area: 800 },
+                            value: 30
+                        },
+                        opacity: { value: 0.2 },
+                        shape: { type: "circle" },
+                        size: { value: { min: 1, max: 2 } }
+                    },
+                    detectRetina: true
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

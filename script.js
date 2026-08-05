@@ -258,4 +258,12 @@ window.addEventListener('load', () => {
             document.body.classList.add('loaded');
         }, 500); // Reduced from 1500ms for better performance
     }
+
+    // Animate the challenge banner progress bar fill
+    const bannerFill = document.getElementById('banner-progress-fill');
+    if (bannerFill) {
+        setTimeout(() => {
+            bannerFill.style.width = '38%';
+        }, 800);
+    }
 });

@@ -1,0 +1,410 @@
+/* ============================================
+   21 Days • 21 Games Challenge Page Styles
+   ============================================ */
+
+/* --- PAGE LAYOUT --- */
+.challenge-page-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+.challenge-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.challenge-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 10px;
+    background: var(--btn-secondary-bg);
+    border: 1px solid var(--btn-secondary-border);
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.challenge-back-link:hover {
+    color: var(--text-primary);
+    transform: translateX(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.challenge-back-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- HERO HEADER --- */
+.challenge-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 40px 20px;
+    text-align: center;
+}
+
+.challenge-emoji {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    display: block;
+    animation: challenge-float 3s ease-in-out infinite;
+}
+
+@keyframes challenge-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.challenge-hero-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, var(--gradient-start) 10%, var(--gradient-end) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.challenge-hero-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto 40px;
+}
+
+/* --- PROGRESS SECTION --- */
+.challenge-progress-section {
+    max-width: 600px;
+    margin: 0 auto 50px;
+    padding: 0 40px;
+}
+
+.challenge-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.challenge-progress-label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.challenge-progress-percent {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.challenge-progress-track {
+    width: 100%;
+    height: 10px;
+    background: var(--btn-secondary-bg);
+    border-radius: 100px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--card-border);
+}
+
+.challenge-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    border-radius: 100px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.challenge-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: challenge-shimmer 2s infinite;
+    border-radius: 100px;
+}
+
+@keyframes challenge-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* --- GAME CARDS GRID --- */
+.challenge-grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+}
+
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+/* --- GAME CARD --- */
+.game-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(138, 125, 244, 0.12), 0 0 20px rgba(138, 125, 244, 0.05);
+    border-color: rgba(138, 125, 244, 0.4);
+}
+
+.game-card:hover::before {
+    opacity: 1;
+}
+
+.game-card.coming-soon {
+    opacity: 0.65;
+}
+
+.game-card.coming-soon:hover {
+    opacity: 0.8;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+}
+
+/* Card Header */
+.game-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.game-day-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--brand-name-color);
+    background: rgba(138, 125, 244, 0.08);
+    border: 1px solid rgba(138, 125, 244, 0.15);
+    letter-spacing: 0.02em;
+}
+
+.game-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.game-status-badge.completed {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.game-status-badge.coming-soon-badge {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Card Body */
+.game-card-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+/* Card Actions */
+.game-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.game-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: var(--font-body);
+    border: none;
+    flex: 1;
+}
+
+.game-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+.game-btn-play {
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+}
+
+.game-btn-play:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(138, 125, 244, 0.35);
+}
+
+.game-btn-github {
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+    border: 1px solid var(--btn-secondary-border);
+}
+
+.game-btn-github:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: var(--gradient-start);
+}
+
+.game-btn-disabled {
+    background: var(--btn-secondary-bg);
+    color: var(--text-muted);
+    border: 1px solid var(--card-border);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.game-btn-disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* --- CHALLENGE PAGE FOOTER --- */
+.challenge-footer {
+    display: flex;
+    justify-content: center;
+    padding: 20px 40px;
+    border-top: 1px solid var(--card-border);
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .challenge-nav {
+        padding: 12px 20px;
+    }
+
+    .challenge-hero {
+        padding: 30px 20px 10px;
+    }
+
+    .challenge-hero-title {
+        font-size: 2rem;
+    }
+
+    .challenge-hero-desc {
+        font-size: 0.95rem;
+    }
+
+    .challenge-progress-section {
+        padding: 0 20px;
+    }
+
+    .challenge-grid-container {
+        padding: 0 20px 40px;
+    }
+
+    .challenge-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .game-card {
+        padding: 22px;
+    }
+
+    .challenge-emoji {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .challenge-hero-title {
+        font-size: 1.7rem;
+    }
+
+    .game-card-actions {
+        flex-direction: column;
+    }
+
+    .game-btn {
+        width: 100%;
+    }
+}

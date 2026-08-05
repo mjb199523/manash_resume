@@ -1,8 +1,10 @@
 {
   "rewrites": [
+    { "source": "/21-days", "destination": "/21-days/index.html" },
+    { "source": "/21-days/", "destination": "/21-days/index.html" },
     { "source": "/manashos", "destination": "/manashos/index.html" },
     { "source": "/manashos/", "destination": "/manashos/index.html" },
     { "source": "/manashos/((?!.*\\.).*)", "destination": "/manashos/index.html" },
-    { "source": "/((?!manashos|.*\\.).*)", "destination": "/index.html" }
+    { "source": "/((?!manashos|21-days|.*\\.).*)", "destination": "/index.html" }
   ]
 }

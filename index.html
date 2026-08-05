@@ -64,8 +64,8 @@
     <!-- Initial Loader Overlay -->
     <div id="loader-wrapper">
         <script>
-            // Check if coming from ManashOS to skip the intensive loader
-            if (document.referrer.includes('/manashos')) {
+            // Check if coming from ManashOS or 21-days to skip the intensive loader
+            if (document.referrer.includes('/manashos') || document.referrer.includes('/21-days')) {
                 document.getElementById('loader-wrapper').style.display = 'none';
                 document.body.classList.add('loaded');
             }
@@ -123,6 +123,35 @@
                 </button>
             </div>
         </header>
+
+        <!-- 21 Days Challenge Banner -->
+        <a href="/21-days" class="challenge-banner" id="challenge-banner">
+            <div class="challenge-banner-glow"></div>
+            <div class="challenge-banner-content">
+                <div class="challenge-banner-left">
+                    <div class="challenge-banner-title-row">
+                        <h2 class="challenge-banner-title">🎮 21 Days • 21 Games Challenge</h2>
+                        <span class="challenge-banner-live-badge">
+                            <span class="pulse-dot"></span>
+                            8 Games Live
+                        </span>
+                    </div>
+                    <p class="challenge-banner-subtitle">Building one game every day using HTML, CSS & JavaScript.</p>
+                </div>
+                <div class="challenge-banner-right">
+                    <div class="challenge-banner-progress-wrapper">
+                        <div class="challenge-banner-progress-info">
+                            <span class="challenge-banner-progress-text">8 of 21 completed</span>
+                            <span class="challenge-banner-progress-percent">38%</span>
+                        </div>
+                        <div class="challenge-banner-progress-track">
+                            <div class="challenge-banner-progress-fill" id="banner-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="challenge-banner-cta">Explore Challenge →</span>
+                </div>
+            </div>
+        </a>
 
         <!-- Main Content -->
         <main class="content-container">
@@ -451,9 +480,17 @@
                     <div class="project-card">
                         <i data-feather="award" class="award-icon"
                             style="margin-bottom: 24px; width: 32px; height: 32px; color: var(--brand-name-color);"></i>
+                        <h3 class="project-title" style="font-size: 1.1rem; margin-bottom: 8px;">Employee of the Q2 & Q3 Quarter
+                        </h3>
+                        <div class="project-meta" style="margin-bottom: 20px;">Spot Award</div>
+                        <p class="project-desc" style="font-size: 0.9rem; margin-bottom: 0;">(Q2–Q3 2025) at Grant Thornton Bharat LLP</p>
+                    </div>
+                    <div class="project-card">
+                        <i data-feather="award" class="award-icon"
+                            style="margin-bottom: 24px; width: 32px; height: 32px; color: var(--brand-name-color);"></i>
                         <h3 class="project-title" style="font-size: 1.1rem; margin-bottom: 8px;">Employee of the Month
                         </h3>
-                        <div class="project-meta" style="margin-bottom: 20px;">Odin’s Torchholder</div>
+                        <div class="project-meta" style="margin-bottom: 20px;">Odin's Torchholder</div>
                         <p class="project-desc" style="font-size: 0.9rem; margin-bottom: 0;">(Q1–Q3 2023) at Wednesday
                             Solutions</p>
                     </div>
