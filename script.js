@@ -263,7 +263,7 @@ window.addEventListener('load', () => {
     const bannerFill = document.getElementById('banner-progress-fill');
     if (bannerFill) {
         setTimeout(() => {
-            bannerFill.style.width = '38%';
+            bannerFill.style.width = '43%';
         }, 800);
     }
 });

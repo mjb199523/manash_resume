@@ -63,7 +63,13 @@ const GAMES = [
         playUrl: 'https://mjb199523.github.io/galaxy_defender/',
         repoUrl: 'https://github.com/mjb199523/galaxy_defender'
     },
-    { day: 9, name: 'Coming Soon', status: 'coming-soon' },
+    {
+        day: 9,
+        name: 'Sling Shot',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/sling_shot/',
+        repoUrl: 'https://github.com/mjb199523/sling_shot'
+    },
     { day: 10, name: 'Coming Soon', status: 'coming-soon' },
     { day: 11, name: 'Coming Soon', status: 'coming-soon' },
     { day: 12, name: 'Coming Soon', status: 'coming-soon' },
