@@ -70,7 +70,13 @@ const GAMES = [
         playUrl: 'https://mjb199523.github.io/sling_shot/',
         repoUrl: 'https://github.com/mjb199523/sling_shot'
     },
-    { day: 10, name: 'Coming Soon', status: 'coming-soon' },
+    {
+        day: 10,
+        name: 'Kingdom Defense',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/kingdom_defense/',
+        repoUrl: 'https://github.com/mjb199523/Kingdom_Defense'
+    },
     { day: 11, name: 'Coming Soon', status: 'coming-soon' },
     { day: 12, name: 'Coming Soon', status: 'coming-soon' },
     { day: 13, name: 'Coming Soon', status: 'coming-soon' },
