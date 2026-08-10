@@ -77,8 +77,20 @@ const GAMES = [
         playUrl: 'https://mjb199523.github.io/kingdom_defense/',
         repoUrl: 'https://github.com/mjb199523/Kingdom_Defense'
     },
-    { day: 11, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 12, name: 'Coming Soon', status: 'coming-soon' },
+    {
+        day: 11,
+        name: 'Parking Master',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/parking_master/',
+        repoUrl: 'https://github.com/mjb199523/parking_master'
+    },
+    {
+        day: 12,
+        name: 'Burger Rush',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/burger_rush/',
+        repoUrl: 'https://github.com/mjb199523/burger_rush'
+    },
     { day: 13, name: 'Coming Soon', status: 'coming-soon' },
     { day: 14, name: 'Coming Soon', status: 'coming-soon' },
     { day: 15, name: 'Coming Soon', status: 'coming-soon' },
