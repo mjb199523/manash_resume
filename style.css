@@ -770,6 +770,7 @@ body:not(.loaded) {
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.6;
+    text-align: justify;
 }
 
 .exp-bullet-list li::before {
