@@ -91,15 +91,69 @@ const GAMES = [
         playUrl: 'https://mjb199523.github.io/burger_rush/',
         repoUrl: 'https://github.com/mjb199523/burger_rush'
     },
-    { day: 13, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 14, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 15, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 16, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 17, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 18, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 19, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 20, name: 'Coming Soon', status: 'coming-soon' },
-    { day: 21, name: 'Coming Soon', status: 'coming-soon' }
+    {
+        day: 13,
+        name: 'Pocket Golf',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/pocket_golf/',
+        repoUrl: 'https://github.com/mjb199523/pocket_golf'
+    },
+    {
+        day: 14,
+        name: 'Beat Drop',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/beat_drop/',
+        repoUrl: 'https://github.com/mjb199523/beat_drop'
+    },
+    {
+        day: 15,
+        name: 'Tiny City',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/tiny_city/',
+        repoUrl: 'https://github.com/mjb199523/tiny_city'
+    },
+    {
+        day: 16,
+        name: 'Neon Runner',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/neon_runner/',
+        repoUrl: 'https://github.com/mjb199523/neon_runner'
+    },
+    {
+        day: 17,
+        name: 'Card Quest',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/card_quest/',
+        repoUrl: 'https://github.com/mjb199523/card_quest'
+    },
+    {
+        day: 18,
+        name: 'Traffic Rush',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/traffic_rush/',
+        repoUrl: 'https://github.com/mjb199523/traffic_rush'
+    },
+    {
+        day: 19,
+        name: 'Last Clue',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/last_clue/',
+        repoUrl: 'https://github.com/mjb199523/last_clue'
+    },
+    {
+        day: 20,
+        name: 'Mind Grid',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/mind_grid/',
+        repoUrl: 'https://github.com/mjb199523/mind_grid'
+    },
+    {
+        day: 21,
+        name: 'Final Game',
+        status: 'completed',
+        playUrl: 'https://mjb199523.github.io/final_game/',
+        repoUrl: 'https://github.com/mjb199523/final_game'
+    }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {

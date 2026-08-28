@@ -425,7 +425,7 @@ function updateGuestStats() {
 
     // Count games dynamically from the DOM
     const gameCards = document.querySelectorAll('#guest-tab-games .os-card');
-    const gameCount = gameCards.length || 11;
+    const gameCount = 31; // 10 micro games + 21 day challenge games
 
     if (blogEl) blogEl.textContent = blogCount;
     if (projectEl) projectEl.textContent = projectCount;
