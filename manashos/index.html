@@ -114,12 +114,12 @@
                     <!-- Guest Stats Dashboard -->
                     <div class="os-guest-stats" id="guest-stats-dashboard">
                         <div class="os-guest-stat-item">
-                            <span class="os-guest-stat-value" id="guest-stat-blogs">0</span>
-                            <span class="os-guest-stat-label">Blogs Published</span>
-                        </div>
-                        <div class="os-guest-stat-item">
                             <span class="os-guest-stat-value" id="guest-stat-projects">0</span>
                             <span class="os-guest-stat-label">Projects Built</span>
+                        </div>
+                        <div class="os-guest-stat-item">
+                            <span class="os-guest-stat-value" id="guest-stat-blogs">0</span>
+                            <span class="os-guest-stat-label">Blogs Published</span>
                         </div>
                         <div class="os-guest-stat-item">
                             <span class="os-guest-stat-value" id="guest-stat-games">31</span>
@@ -144,19 +144,35 @@
                 <!-- Guest Tabs -->
                 <div class="guest-only" style="margin-bottom: 40px; text-align: center;">
                     <div class="os-tabs-container" id="guest-tabs">
-                        <button class="os-tab-btn active" onclick="toggleGuestTab('blogs', this)">Published
+                        <button class="os-tab-btn active" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
+                        <button class="os-tab-btn" onclick="toggleGuestTab('blogs', this)">Published
                             Blogs</button>
-                        <button class="os-tab-btn" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
                         <button class="os-tab-btn" onclick="toggleGuestTab('games', this)">Play Games</button>
                         <button class="os-tab-btn" onclick="toggleGuestTab('experiments', this)">Experiments</button>
                     </div>
                 </div>
 
                 <!-- Projects Tab Content -->
-                <div id="guest-tab-projects" class="guest-only" style="display: none;">
+                <div id="guest-tab-projects" class="guest-only">
                     <div class="os-section-badge">WHAT I'VE BUILT</div>
                     <h2 class="os-section-title">Featured <span class="text-gradient">Projects</span></h2>
                     <div class="projects-grid">
+                        <a href="https://githubprofile1.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
+                            <div class="project-top-row">
+                                <div class="project-title-group">
+                                    <img src="https://githubprofile1.vercel.app/icon.jpg" alt="README Studio Logo" class="project-logo-mini" style="border-radius:6px;">
+                                    <h3 class="project-title">README Studio</h3>
+                                </div>
+                                <span class="project-date">2026</span>
+                            </div>
+                            <div class="project-meta">Developer Tool • Utility</div>
+                            <p class="project-desc">Build a GitHub Profile That Looks Like You Built It.</p>
+                            <ul class="project-bullets">
+                                <li><i data-feather="play" class="bullet-icon"></i> Customizable profile generator</li>
+                                <li><i data-feather="play" class="bullet-icon"></i> Live preview capabilities</li>
+                            </ul>
+                        </a>
+
                         <a href="https://sheetpulse1.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
                             <div class="project-top-row">
                                 <div class="project-title-group">
@@ -288,7 +304,7 @@
                     </div>
                 </div>
 
-                <div id="guest-tab-blogs" class="guest-only">
+                <div id="guest-tab-blogs" class="guest-only" style="display: none;">
                     <div class="os-section-badge">Latest Insights</div>
                     <h2 class="os-section-title">Published <span class="text-gradient">Thoughts</span></h2>
                     <div class="os-cards-grid" id="public-blogs-grid">
@@ -555,7 +571,6 @@
                 </div>
 
                 </div>
-            </div>
             <!-- End of Portfolio Mode -->
 
             <!-- Journey Mode Content -->

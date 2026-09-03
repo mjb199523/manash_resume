@@ -79,8 +79,13 @@ function initQuill() {
 async function checkAuth() {
     feather.replace();
 
-    // 1. Read hash before ANY state changes
-    const hash = window.location.hash.replace('#', '');
+    // 1. Read route before ANY state changes
+    let route = window.location.hash.replace('#', '');
+    const pathParts = window.location.pathname.split('/');
+    if (pathParts.length > 2 && pathParts[1] === 'manashos') {
+        route = pathParts[2];
+    }
+    const targetRoute = route || 'home';
     
     // 2. We use a flag to tell onLoginSuccess NOT to redirect if we are just loading
     window.isInitialLoad = true;
@@ -93,18 +98,18 @@ async function checkAuth() {
         onLoggedOut();
     }
 
-    // 3. Route to the correct view based on auth state and hash
+    // 3. Route to the correct view based on auth state and route
     if (currentUser) {
         // Logged in: allow dashboard, blogs, notes, tasks
-        if (hash && ['dashboard', 'blogs', 'notes', 'tasks'].includes(hash)) {
-            switchView(hash, 'replace');
+        if (targetRoute && ['dashboard', 'blogs', 'notes', 'tasks'].includes(targetRoute)) {
+            switchView(targetRoute, 'replace');
         } else {
             switchView('dashboard', 'replace');
         }
     } else {
         // Logged out: allow home, login
-        if (hash && (hash === 'home' || hash === 'login')) {
-            switchView(hash, 'replace');
+        if (targetRoute && (targetRoute === 'home' || targetRoute === 'login')) {
+            switchView(targetRoute, 'replace');
         } else {
             switchView('home', 'replace');
         }
@@ -233,11 +238,11 @@ function switchView(view, push = true) {
 
     // Update browser history
     if (push) {
-        const urlHash = view === 'home' ? window.location.pathname : `#${view}`;
+        const urlPath = view === 'home' ? '/manashos' : `/manashos/${view}`;
         if (push === 'replace') {
-            history.replaceState({ view }, "", urlHash);
+            history.replaceState({ view }, "", urlPath);
         } else {
-            history.pushState({ view }, "", urlHash);
+            history.pushState({ view }, "", urlPath);
         }
     }
 
@@ -296,12 +301,15 @@ window.onpopstate = function(event) {
         switchView(event.state.view, false);
     } else {
         // Default to home if no state
-        const hash = window.location.hash.replace('#', '');
-        if (hash) {
-            switchView(hash, false);
+        const pathParts = window.location.pathname.split('/');
+        let route = 'home';
+        if (pathParts.length > 2 && pathParts[1] === 'manashos') {
+            route = pathParts[2] || 'home';
         } else {
-            switchView('home', false);
+            const hash = window.location.hash.replace('#', '');
+            if (hash) route = hash;
         }
+        switchView(route, false);
     }
 };
 
