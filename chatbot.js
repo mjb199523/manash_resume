@@ -46,6 +46,7 @@
             label: "Project Portfolio",
             message: "Here are some featured builds. Which one should we dive into?",
             options: [
+                { id: 'proj_seo', label: "SEO Forensics", icon: 'search' },
                 { id: 'proj_readme', label: "README Studio", icon: 'star' },
                 { id: 'proj_sheet', label: "SheetPulse", icon: 'bar-chart' },
                 { id: 'proj_qb', label: "Question Bank Parser", icon: 'file-text' },
@@ -67,6 +68,7 @@
         exp_soul: "At SoulpageIT, he focused on requirement engineering and wireframing, ensuring that product discovery aligned perfectly with user needs.",
         exp_gov: "His role with the Govt of Assam involved setting up specialized institutions, where he scaled operational capacity and integrated government welfare schemes.",
         skills: "He specializes in Product Discovery (MVP to Scale), Agile Delivery (Scrum), Requirements Engineering (PRD/SRS), and Stakeholder Governance. He's also adept with tools like Jira, SQL, and Balsamiq.",
+        proj_seo: "SEO Forensics is a powerful tool for analyzing and forensically examining website SEO.",
         proj_readme: "README Studio is a developer tool to build polished GitHub Profile READMEs with customizable story, tech stack, and live preview capabilities.",
         proj_sheet: "SheetPulse is a smart dashboard and utility tool for real-time spreadsheet analytics and management.",
         proj_qb: "Question Bank Parser is an intelligent parsing engine that extracts, categorizes, and formats unstructured question banks.",
