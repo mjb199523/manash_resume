@@ -2048,16 +2048,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ==================== PROJECT LAB FILTERING ====================
 function filterProjects(category, btn) {
-    const filterButtons = document.querySelectorAll('#project-filters .os-pill-btn');
+    // 1. Highlight only the selected button
+    const filterButtons = document.querySelectorAll('#project-filter-pills .os-pill-btn, .os-filter-pills .os-pill-btn');
     if (filterButtons.length) {
         filterButtons.forEach(b => b.classList.remove('active'));
     }
-    if (btn) btn.classList.add('active');
+    if (btn) {
+        btn.classList.add('active');
+    }
 
+    // 2. Filter projects catalog cards so only the selected category is displayed
     const cards = document.querySelectorAll('#projects-catalog-grid .os-card');
     cards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (category === 'all' || cat === category) {
+        const cat = (card.getAttribute('data-category') || '').toLowerCase().trim();
+        const categories = cat.split(/\s+/);
+        if (category === 'all' || categories.includes(category.toLowerCase())) {
             card.style.display = 'flex';
         } else {
             card.style.display = 'none';

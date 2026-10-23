@@ -858,27 +858,32 @@ html, body {
 }
 
 .os-pill-btn {
-    background: var(--os-surface);
-    border: 1px solid var(--os-border-subtle);
-    padding: 6px 14px;
+    background: var(--os-surface-elevated);
+    border: 1px solid var(--os-border);
+    padding: 8px 18px;
     border-radius: 100px;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 500;
     color: var(--os-text-secondary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .os-pill-btn:hover {
     color: var(--os-text-primary);
-    border-color: var(--os-border);
+    border-color: var(--os-border-hover);
+    background: var(--os-surface);
+    transform: translateY(-1px);
 }
 
 .os-pill-btn.active {
-    background: var(--os-accent-violet);
-    color: #FFFFFF;
-    border-color: var(--os-accent-violet);
-    box-shadow: 0 2px 10px rgba(139, 124, 255, 0.3);
+    background: linear-gradient(135deg, var(--os-accent-violet), var(--os-accent-cyan)) !important;
+    color: #FFFFFF !important;
+    border-color: transparent !important;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(139, 124, 255, 0.4);
+    transform: translateY(-1px);
 }
 
 /* Projects & Lab Grid */
