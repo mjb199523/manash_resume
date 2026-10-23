@@ -956,6 +956,16 @@ html, body {
     margin-bottom: 14px;
 }
 
+#public-blogs-grid .os-card-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: calc(1.55 * 0.86rem * 3);
+}
+
+
 .os-card-bullets {
     list-style: none;
     display: flex;
