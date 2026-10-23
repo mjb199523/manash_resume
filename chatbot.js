@@ -61,7 +61,7 @@
     };
 
     const CONTENT_ANSWERS = {
-        profile: "Manashjyoti Barman is a seasoned Product Delivery Manager and Project Management Consultant. With over 6 years of experience, he excels at bridging the gap between complex policy requirements and scalable digital solutions.",
+        profile: "Manashjyoti Barman is a seasoned Product Delivery Manager and Project Management Consultant. With over 7 years of experience, he excels at bridging the gap between complex policy requirements and scalable digital solutions.",
         exp_conve: "Currently, Manashjyoti leads the Assam State Vidya Samiksha Kendra (VSK) operation at ConveGenius, focusing on data-driven educational delivery at scale.",
         exp_gt: "At Grant Thornton, he advised on digital governance and IT modernization policies, leading strategic consulting for large-scale public sector initiatives.",
         exp_wed: "During his time at Wednesday Solutions, he managed end-to-end Agile product streams, optimizing sprint velocity and release management via CI/CD pipelines.",
