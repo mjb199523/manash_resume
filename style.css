@@ -497,20 +497,13 @@ body:not(.loaded) {
     align-items: baseline;
     gap: 16px;
     flex-wrap: wrap;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 }
 
 .work-main-title {
     font-size: 2.3rem !important;
     margin-bottom: 0 !important;
     white-space: nowrap;
-}
-
-.work-subtitle {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    margin: 0;
 }
 
 .work-slider-container {
