@@ -265,6 +265,25 @@ html, body {
     display: none !important;
 }
 
+.os-sidebar.collapsed .os-sidebar-header {
+    padding: 16px 8px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.os-sidebar.collapsed .os-profile-badge {
+    justify-content: center;
+}
+
+.os-sidebar.collapsed .os-sidebar-collapse-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--os-surface-elevated);
+    border: 1px solid var(--os-border);
+    color: var(--os-accent-cyan);
+}
+
 .os-sidebar.collapsed .os-nav-btn {
     justify-content: center;
     padding: 12px 0;
