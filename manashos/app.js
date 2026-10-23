@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const preloader = document.getElementById('os-preloader');
         if (preloader) preloader.classList.add('fade-out');
         document.body.classList.add('loaded');
-    }, 200);
+    }, 400);
 });
 
 function initQuill() {

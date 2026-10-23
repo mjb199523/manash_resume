@@ -48,17 +48,20 @@
     <!-- Ambient futuristic backdrop grid -->
     <div class="os-ambient-background" aria-hidden="true"></div>
 
-    <!-- Operating System Preloader -->
+    <!-- Operating System Preloader (matching main landing page) -->
     <div id="os-preloader" class="os-preloader" aria-live="polite">
-        <div class="os-preloader-logo">
-            <img src="/profile.jpg.jpeg" alt="ManashOS">
+        <div class="loader-content">
+            <div class="profile-container">
+                <div class="loader-circle-bg">
+                    <img src="/profile.jpg.jpeg" alt="Manashjyoti Barman" class="loader-avatar">
+                </div>
+                <div class="loader-aura"></div>
+            </div>
+            <div class="loader-progress-container">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-text">LOADING MANASHOS</div>
         </div>
-        <div class="os-loader-bar">
-            <div class="os-loader-progress"></div>
-        </div>
-        <p style="margin-top: 14px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; color: var(--os-text-muted); font-family: var(--os-font-mono);">
-            BOOTING MANASHOS KERNEL v2.0
-        </p>
     </div>
 
     <!-- Hidden bridge elements to guarantee full legacy compatibility -->
