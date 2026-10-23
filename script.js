@@ -247,6 +247,75 @@ document.addEventListener('DOMContentLoaded', () => {
             durationElement.textContent = `${(totalMonths / 12).toFixed(1)} years`;
         }
     }
+
+    // How I Work, Idea to Impact - Stage Slider Controller
+    const sliderContainer = document.getElementById('workSlider');
+    if (sliderContainer) {
+        let currentStage = 0;
+        const totalStages = 4;
+        const tabs = sliderContainer.querySelectorAll('.work-tab-btn');
+        const slides = sliderContainer.querySelectorAll('.work-stage-slide');
+        const dots = sliderContainer.querySelectorAll('.slider-dot');
+        const counterEl = sliderContainer.querySelector('#workCounter .current-count');
+        const prevBtn = document.getElementById('workPrevBtn');
+        const nextBtn = document.getElementById('workNextBtn');
+
+        function setStage(index) {
+            currentStage = (index + totalStages) % totalStages;
+
+            // Update tab buttons
+            tabs.forEach((tab, i) => {
+                const isActive = i === currentStage;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            // Update slide visibility
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentStage);
+            });
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentStage);
+            });
+
+            // Update counter
+            if (counterEl) {
+                counterEl.textContent = (currentStage + 1);
+            }
+        }
+
+        // Tab click handlers
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const stageIdx = parseInt(tab.getAttribute('data-stage'), 10);
+                if (!isNaN(stageIdx)) setStage(stageIdx);
+            });
+        });
+
+        // Prev & Next handlers
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => setStage(currentStage - 1));
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => setStage(currentStage + 1));
+        }
+
+        // Dots click handlers
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const dotIdx = parseInt(dot.getAttribute('data-index'), 10);
+                if (!isNaN(dotIdx)) setStage(dotIdx);
+            });
+        });
+
+        // Keyboard navigation (ArrowLeft & ArrowRight) when interacting
+        sliderContainer.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') setStage(currentStage + 1);
+            if (e.key === 'ArrowLeft') setStage(currentStage - 1);
+        });
+    }
 });
 
 // Hide Loader when everything is loaded

@@ -108,7 +108,7 @@
             <nav class="nav-menu">
                 <a href="#home" class="nav-item active">Home</a>
                 <a href="#experience" class="nav-item">Experience</a>
-                <a href="#skills" class="nav-item">Skills</a>
+                <a href="#skills" class="nav-item">How I work</a>
                 <a href="#awards" class="nav-item">Awards</a>
                 <a href="#education" class="nav-item">Education</a>
                 <a href="#contact" class="nav-item">Contact</a>
@@ -421,58 +421,206 @@
             </section>
 
 
-            <!-- Skills Section -->
+            <!-- Skills / How I work Section -->
             <section id="skills" class="section">
                 <div class="section-badge">CORE COMPETENCIES</div>
-                <h2 class="section-title">Skills & <span class="text-gradient">Capabilities</span></h2>
+                <div class="work-slider-heading-row">
+                    <h2 class="section-title work-main-title">How I work, <span class="text-gradient">idea to impact</span></h2>
+                    <p class="work-subtitle">Skills grouped by the stage of the product lifecycle where I use them.</p>
+                </div>
 
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
-                            <i data-feather="layers"
-                                style="color: var(--gradient-start); width: 20px; height: 20px;"></i>
-                            <span class="project-meta" style="margin-bottom: 0;">PRODUCT & DELIVERY</span>
-                        </div>
-                        <ul class="exp-bullet-list" style="margin-top: 0;">
-                            <li>End-to-end Product Lifecycle Management (Discovery → MVP → Release → Scale)</li>
-                            <li>Agile Delivery (Scrum): Sprint Planning, Backlog Grooming, Estimation and Velocity Tracking</li>
-                            <li>Requirements Engineering: BRD, FRD, SRS, Use Cases and Wireframes</li>
-                            <li>System Design and Architecture: High-Level Design (HLD), Low-Level Design (LLD), API Design, System Integration, Data Flow Diagrams (DFDs), Scalability and Technical Documentation</li>
-                            <li>Prioritisation Frameworks: MoSCoW, RICE and Impact-Effort Analysis</li>
-                            <li>Release and UAT Management: CI/CD Coordination, Testing and Production Readiness</li>
-                        </ul>
+                <div class="work-slider-container" id="workSlider">
+                    <!-- Stage Tab Buttons -->
+                    <div class="work-tabs-bar" role="tablist">
+                        <button class="work-tab-btn active" data-stage="0" role="tab" aria-selected="true">
+                            <span class="tab-num">01</span> Discover
+                        </button>
+                        <button class="work-tab-btn" data-stage="1" role="tab" aria-selected="false">
+                            <span class="tab-num">02</span> Define
+                        </button>
+                        <button class="work-tab-btn" data-stage="2" role="tab" aria-selected="false">
+                            <span class="tab-num">03</span> Deliver
+                        </button>
+                        <button class="work-tab-btn" data-stage="3" role="tab" aria-selected="false">
+                            <span class="tab-num">04</span> Measure
+                        </button>
                     </div>
-                    <div class="project-card">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
-                            <i data-feather="trending-up"
-                                style="color: var(--gradient-start); width: 20px; height: 20px;"></i>
-                            <span class="project-meta" style="margin-bottom: 0;">STRATEGY & GROWTH</span>
+
+                    <!-- Slide Stages Track -->
+                    <div class="work-stages-wrapper">
+                        <!-- Stage 01: Discover -->
+                        <div class="work-stage-slide active" data-index="0">
+                            <div class="work-stage-header theme-discover">
+                                <div class="stage-tag-badge">01</div>
+                                <h3 class="stage-title">Discover</h3>
+                                <span class="stage-subtitle-pill">Find the real problem</span>
+                                <div class="stage-divider-line"></div>
+                            </div>
+                            <div class="work-stage-cards-grid four-cols">
+                                <div class="work-stage-card top-border-discover">
+                                    <h4 class="card-item-title">Product Discovery</h4>
+                                    <p class="card-item-desc">User Journey Mapping · Functional Decomposition · Requirements Validation</p>
+                                </div>
+                                <div class="work-stage-card top-border-discover">
+                                    <h4 class="card-item-title">Business Analysis</h4>
+                                    <p class="card-item-desc">SWOT · Gap Analysis · Impact Assessment · Feasibility Studies</p>
+                                </div>
+                                <div class="work-stage-card top-border-discover">
+                                    <h4 class="card-item-title">Digital Transformation</h4>
+                                    <p class="card-item-desc">Solution Architecture · System Modernisation · Technology Roadmapping</p>
+                                </div>
+                                <div class="work-stage-card top-border-discover">
+                                    <h4 class="card-item-title">Business Process Engineering</h4>
+                                    <p class="card-item-desc">As-Is / To-Be Modelling · Process Re-engineering · Workflow Optimisation</p>
+                                </div>
+                            </div>
                         </div>
-                        <ul class="exp-bullet-list" style="margin-top: 0;">
-                            <li>Digital Transformation: Solution Architecture, System Modernisation and Technology Roadmapping</li>
-                            <li>Business Analysis: SWOT, Gap Analysis, Impact Assessment and Feasibility Studies</li>
-                            <li>Business Process Engineering: As-Is / To-Be Modelling, Process Re-engineering and Workflow Optimisation</li>
-                            <li>Product Discovery: User Journey Mapping, Functional Decomposition and Requirements Validation</li>
-                            <li>KPI Frameworks: Metric Definition, Baseline Analysis, Adoption, Retention and ROI Tracking</li>
-                            <li>Data-Driven Decision Making: Trend Analysis, Performance Benchmarking and Root Cause Analysis</li>
-                            <li>Go-To-Market Execution: Rollout Strategy, Adoption Monitoring and Stakeholder Alignment</li>
-                        </ul>
+
+                        <!-- Stage 02: Define -->
+                        <div class="work-stage-slide" data-index="1">
+                            <div class="work-stage-header theme-define">
+                                <div class="stage-tag-badge">02</div>
+                                <h3 class="stage-title">Define</h3>
+                                <span class="stage-subtitle-pill">Turn it into a plan</span>
+                                <div class="stage-divider-line"></div>
+                            </div>
+                            <div class="work-stage-cards-grid five-cols">
+                                <div class="work-stage-card">
+                                    <h4 class="card-item-title">End-to-end Product Lifecycle Management</h4>
+                                    <p class="card-item-desc">Discovery → MVP → Release → Scale</p>
+                                </div>
+                                <div class="work-stage-card">
+                                    <h4 class="card-item-title">Requirements Engineering</h4>
+                                    <p class="card-item-desc">BRD · FRD · SRS · Use Cases · Wireframes</p>
+                                </div>
+                                <div class="work-stage-card">
+                                    <h4 class="card-item-title">System Design and Architecture</h4>
+                                    <p class="card-item-desc">HLD · LLD · API Design · System Integration · DFDs · Scalability · Technical Documentation</p>
+                                </div>
+                                <div class="work-stage-card">
+                                    <h4 class="card-item-title">Prioritisation Frameworks</h4>
+                                    <p class="card-item-desc">MoSCoW · RICE · Impact-Effort Analysis</p>
+                                </div>
+                                <div class="work-stage-card">
+                                    <h4 class="card-item-title">System Integration</h4>
+                                    <p class="card-item-desc">REST APIs · API Contracts · Schema Validation · Data Flows · UAT</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 03: Deliver -->
+                        <div class="work-stage-slide" data-index="2">
+                            <div class="work-stage-header theme-deliver">
+                                <div class="stage-tag-badge">03</div>
+                                <h3 class="stage-title">Deliver</h3>
+                                <span class="stage-subtitle-pill">Ship it reliably</span>
+                                <div class="stage-divider-line"></div>
+                            </div>
+                            <div class="work-stage-cards-grid six-cols">
+                                <div class="work-stage-card top-border-deliver">
+                                    <h4 class="card-item-title">Agile Delivery (Scrum)</h4>
+                                    <p class="card-item-desc">Sprint Planning · Backlog Grooming · Estimation · Velocity Tracking</p>
+                                </div>
+                                <div class="work-stage-card top-border-deliver">
+                                    <h4 class="card-item-title">Agile Engineering</h4>
+                                    <p class="card-item-desc">Sprint Metrics · Velocity Tracking · Burndown Analysis · Release Readiness</p>
+                                </div>
+                                <div class="work-stage-card top-border-deliver">
+                                    <h4 class="card-item-title">Release and UAT Management</h4>
+                                    <p class="card-item-desc">CI/CD Coordination · Testing · Production Readiness</p>
+                                </div>
+                                <div class="work-stage-card top-border-deliver">
+                                    <h4 class="card-item-title">Engineering Toolchain</h4>
+                                    <p class="card-item-desc">Jira Workflows · Confluence Knowledge Management · CI/CD Coordination</p>
+                                </div>
+                                <div class="work-stage-card top-border-deliver">
+                                    <h4 class="card-item-title">Delivery Governance</h4>
+                                    <p class="card-item-desc">RAID Logs · Dependency Mapping · Milestone Tracking · Escalation Management</p>
+                                </div>
+                                <div class="work-stage-card top-border-deliver">
+                                    <h4 class="card-item-title">Go-To-Market Execution</h4>
+                                    <p class="card-item-desc">Rollout Strategy · Adoption Monitoring · Stakeholder Alignment</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 04: Measure -->
+                        <div class="work-stage-slide" data-index="3">
+                            <div class="work-stage-header theme-measure">
+                                <div class="stage-tag-badge">04</div>
+                                <h3 class="stage-title">Measure</h3>
+                                <span class="stage-subtitle-pill">Prove it worked</span>
+                                <div class="stage-divider-line"></div>
+                            </div>
+                            <div class="work-stage-cards-grid four-cols">
+                                <div class="work-stage-card top-border-measure">
+                                    <h4 class="card-item-title">KPI Frameworks</h4>
+                                    <p class="card-item-desc">Metric Definition · Baseline Analysis · Adoption · Retention · ROI Tracking</p>
+                                </div>
+                                <div class="work-stage-card top-border-measure">
+                                    <h4 class="card-item-title">Data-Driven Decision Making</h4>
+                                    <p class="card-item-desc">Trend Analysis · Performance Benchmarking · Root Cause Analysis</p>
+                                </div>
+                                <div class="work-stage-card top-border-measure">
+                                    <h4 class="card-item-title">Data Analytics</h4>
+                                    <p class="card-item-desc">SQL · Advanced Excel · Pivot Tables · MIS Reporting · Dashboard Development</p>
+                                </div>
+                                <div class="work-stage-card top-border-measure">
+                                    <h4 class="card-item-title">Monitoring and Evaluation</h4>
+                                    <p class="card-item-desc">KPI Baselines · Variance Analysis · Risk Registers · Outcome Tracking</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project-card">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
-                            <i data-feather="users"
-                                style="color: var(--gradient-start); width: 20px; height: 20px;"></i>
-                            <span class="project-meta" style="margin-bottom: 0;">GOVERNANCE & TOOLS</span>
+
+                    <!-- Slider Controls & Pagination -->
+                    <div class="work-slider-footer">
+                        <div class="work-slider-nav-btns">
+                            <button class="slider-btn prev-btn" id="workPrevBtn" aria-label="Previous stage">
+                                <i data-feather="chevron-left"></i>
+                            </button>
+                            <button class="slider-btn next-btn" id="workNextBtn" aria-label="Next stage">
+                                <i data-feather="chevron-right"></i>
+                            </button>
                         </div>
-                        <ul class="exp-bullet-list" style="margin-top: 0;">
-                            <li>Delivery Governance: RAID Logs, Dependency Mapping, Milestone Tracking and Escalation Management</li>
-                            <li>Agile Engineering: Sprint Metrics, Velocity Tracking, Burndown Analysis and Release Readiness</li>
-                            <li>System Integration: REST APIs, API Contracts, Schema Validation, Data Flows and UAT</li>
-                            <li>Engineering Toolchain: Jira Workflows, Confluence Knowledge Management and CI/CD Coordination</li>
-                            <li>Data Analytics: SQL, Advanced Excel, Pivot Tables, MIS Reporting and Dashboard Development</li>
-                            <li>Monitoring and Evaluation: KPI Baselines, Variance Analysis, Risk Registers and Outcome Tracking</li>
-                            <li>AI Engineering Stack: Claude Code, Cursor, Codex, Gemini, Groq, RAG Pipelines, Prompt Engineering and Agentic Workflows</li>
-                        </ul>
+
+                        <div class="work-slider-dots">
+                            <span class="slider-dot active" data-index="0"></span>
+                            <span class="slider-dot" data-index="1"></span>
+                            <span class="slider-dot" data-index="2"></span>
+                            <span class="slider-dot" data-index="3"></span>
+                        </div>
+
+                        <div class="work-slider-counter" id="workCounter">
+                            <span class="current-count">1</span>/4
+                        </div>
+                    </div>
+
+                    <!-- Bottom Fixed Green Banner: AI Engineering Across every stage -->
+                    <div class="work-ai-stage-bar">
+                        <div class="ai-stage-title-col">
+                            <svg class="sparkle-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                                <path d="M5 3v4"/>
+                                <path d="M19 17v4"/>
+                                <path d="M3 5h4"/>
+                                <path d="M17 19h4"/>
+                            </svg>
+                            <div class="ai-stage-title-text">
+                                <span class="ai-main-label">AI Engineering</span>
+                                <span class="ai-sub-label">Across every stage</span>
+                            </div>
+                        </div>
+                        <div class="ai-stage-pills-row">
+                            <span class="ai-skill-pill">Claude Code</span>
+                            <span class="ai-skill-pill">Cursor</span>
+                            <span class="ai-skill-pill">Codex</span>
+                            <span class="ai-skill-pill">Gemini</span>
+                            <span class="ai-skill-pill">Groq</span>
+                            <span class="ai-skill-pill">RAG Pipelines</span>
+                            <span class="ai-skill-pill">Prompt Engineering</span>
+                            <span class="ai-skill-pill">Agentic Workflows</span>
+                        </div>
                     </div>
                 </div>
             </section>
