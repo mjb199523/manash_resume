@@ -102,7 +102,7 @@ async function checkAuth() {
     }
 
     // 3. Route to the correct view based on auth state and route
-    const guestViews = ['home', 'journey', 'projects', 'skills', 'achievements', 'arcade', 'login'];
+    const guestViews = ['home', 'journey', 'projects', 'arcade', 'login'];
     if (currentUser) {
         // Logged in: allow dashboard, blogs, notes, tasks or any public view
         if (targetRoute && ['dashboard', 'blogs', 'notes', 'tasks', ...guestViews].includes(targetRoute)) {
@@ -233,8 +233,6 @@ function switchView(view, push = true) {
             home: 'Home',
             journey: 'My Journey',
             projects: 'Project Lab',
-            skills: 'Skills Matrix',
-            achievements: 'Achievements',
             arcade: 'Games Arcade',
             login: 'Owner Console',
             dashboard: 'Dashboard',
@@ -282,6 +280,11 @@ function switchView(view, push = true) {
     }
 
     // View specific loads
+    if (view === 'journey') {
+        setTimeout(() => {
+            initJourneyCarousel();
+        }, 50);
+    }
     if (view === 'blogs') loadMyBlogs();
     if (view === 'notes') loadNotes();
     if (view === 'tasks') loadTasks();
@@ -2136,10 +2139,8 @@ function surpriseMe() {
 const OS_COMMANDS = [
     // Navigation Views
     { id: 'nav-home', category: 'Navigation', title: 'Go to Home Desktop', hint: 'Overview & Launcher', icon: 'grid', action: () => switchView('home') },
-    { id: 'nav-journey', category: 'Navigation', title: 'Explore My Journey', hint: 'Career Timeline', icon: 'compass', action: () => switchView('journey') },
+    { id: 'nav-journey', category: 'Navigation', title: 'Explore My Journey', hint: 'Evolution & Story', icon: 'compass', action: () => switchView('journey') },
     { id: 'nav-projects', category: 'Navigation', title: 'Open Project Lab', hint: '9 Live Products', icon: 'box', action: () => switchView('projects') },
-    { id: 'nav-skills', category: 'Navigation', title: 'Open Skills Matrix', hint: 'Technical & Product Skills', icon: 'cpu', action: () => switchView('skills') },
-    { id: 'nav-achievements', category: 'Navigation', title: 'View Achievements', hint: 'Awards & Challenges', icon: 'award', action: () => switchView('achievements') },
     { id: 'nav-arcade', category: 'Navigation', title: 'Launch Games Arcade', hint: '31 Games & Experiments', icon: 'play-circle', action: () => switchView('arcade') },
     { id: 'nav-login', category: 'Navigation', title: 'Owner Console Access', hint: 'Authenticate', icon: 'lock', action: () => switchView('login') },
     

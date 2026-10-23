@@ -28,9 +28,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/manashos/style.css?v=2.0">
+    <link rel="stylesheet" href="/manashos/style.css?v=2.1">
     <link rel="stylesheet" href="/chatbot.css">
 
     <!-- Quill Editor styles for blogs -->
@@ -115,16 +115,6 @@
                     <i data-feather="box" class="os-nav-icon"></i>
                     <span class="sidebar-hide-when-collapsed">Project Lab</span>
                     <span class="os-nav-pill-badge sidebar-hide-when-collapsed">9 Apps</span>
-                </button>
-
-                <button class="os-nav-btn" data-view="skills" aria-label="Skills Matrix">
-                    <i data-feather="cpu" class="os-nav-icon"></i>
-                    <span class="sidebar-hide-when-collapsed">Skills Matrix</span>
-                </button>
-
-                <button class="os-nav-btn" data-view="achievements" aria-label="Achievements">
-                    <i data-feather="award" class="os-nav-icon"></i>
-                    <span class="sidebar-hide-when-collapsed">Achievements</span>
                 </button>
 
                 <button class="os-nav-btn" data-view="arcade" aria-label="Games Arcade">
@@ -266,13 +256,6 @@
                                     <div class="os-metric-lbl">Games Challenge Done</div>
                                 </div>
                             </div>
-                            <div class="os-metric-card" onclick="switchView('achievements')" style="cursor:pointer;" title="View Recognitions">
-                                <div class="os-metric-icon-wrap"><i data-feather="star"></i></div>
-                                <div>
-                                    <div class="os-metric-val">5</div>
-                                    <div class="os-metric-lbl">Documented Awards</div>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Application Launcher Tiles -->
@@ -281,7 +264,7 @@
                                 <div class="os-section-label">SYSTEM SUITE</div>
                                 <h2 class="os-section-heading">Application Launcher</h2>
                             </div>
-                            <span style="font-size:0.8rem; color:var(--os-text-muted); font-family:var(--os-font-mono);">6 Modules Available</span>
+                            <span style="font-size:0.8rem; color:var(--os-text-muted); font-family:var(--os-font-mono);">4 Modules Available</span>
                         </div>
 
                         <div class="os-app-launcher-grid">
@@ -292,7 +275,7 @@
                                     <span class="os-tile-tag">CAREER</span>
                                 </div>
                                 <h3 class="os-tile-title">My Journey</h3>
-                                <p class="os-tile-desc">Explore professional roles, transformation projects, leadership timeline, and milestones.</p>
+                                <p class="os-tile-desc">Explore professional evolution, philosophy, career shifts, and milestones.</p>
                                 <div class="os-tile-footer">
                                     <span>Launch Module</span>
                                     <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
@@ -313,35 +296,7 @@
                                 </div>
                             </div>
 
-                            <!-- Tile 3: Skills Matrix -->
-                            <div class="os-app-tile" onclick="switchView('skills')" tabindex="0" role="button" aria-label="Open Skills Matrix">
-                                <div class="os-tile-top">
-                                    <div class="os-tile-icon-box"><i data-feather="cpu"></i></div>
-                                    <span class="os-tile-tag">COMPETENCIES</span>
-                                </div>
-                                <h3 class="os-tile-title">Skills Matrix</h3>
-                                <p class="os-tile-desc">System Design & Architecture, Product Delivery, Agile execution, and AI stack matrix.</p>
-                                <div class="os-tile-footer">
-                                    <span>Launch Module</span>
-                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
-                                </div>
-                            </div>
-
-                            <!-- Tile 4: Achievements -->
-                            <div class="os-app-tile" onclick="switchView('achievements')" tabindex="0" role="button" aria-label="Open Achievements">
-                                <div class="os-tile-top">
-                                    <div class="os-tile-icon-box"><i data-feather="award"></i></div>
-                                    <span class="os-tile-tag">HONORS</span>
-                                </div>
-                                <h3 class="os-tile-title">Achievements</h3>
-                                <p class="os-tile-desc">Verified industry spot awards, employee of the quarter recognitions, and completed milestones.</p>
-                                <div class="os-tile-footer">
-                                    <span>Launch Module</span>
-                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
-                                </div>
-                            </div>
-
-                            <!-- Tile 5: Games Arcade -->
+                            <!-- Tile 3: Games Arcade -->
                             <div class="os-app-tile" onclick="switchView('arcade')" tabindex="0" role="button" aria-label="Open Games Arcade">
                                 <div class="os-tile-top">
                                     <div class="os-tile-icon-box"><i data-feather="play-circle"></i></div>
@@ -442,145 +397,144 @@
                         <div class="os-grid-3" id="public-blogs-grid">
                             <div class="os-card"><p style="color:var(--os-text-muted);">Loading published insights...</p></div>
                         </div>
-                    </section>
-
-
-                    <!-- ==================== VIEW 2: MY JOURNEY ==================== -->
+                    <                    <!-- ==================== VIEW 2: MY JOURNEY ==================== -->
                     <section id="view-journey" class="os-view-section">
-                        <div class="os-section-header-row">
-                            <div>
-                                <div class="os-section-label">CAREER TIMELINE</div>
-                                <h2 class="os-section-heading">Professional Journey & Roles</h2>
+                        <!-- Upgraded Hero -->
+                        <div class="os-hero" style="text-align: center; margin-bottom: 25px;">
+                            <h1 class="os-hero-title">My <span class="text-gradient">Evolution</span></h1>
+                            <p class="os-hero-sub" style="margin: 0 auto; max-width: 680px;">
+                                From building systems in the public sector <span class="evolution-arrow">→</span> to
+                                designing AI-driven products and personal systems.
+                            </p>
+
+                            <!-- Narrative Insights Grid -->
+                            <div class="journey-insights-grid">
+                                <div class="thinking-pill">
+                                    <span class="thinking-label">🧠 Currently Thinking</span>
+                                    <span class="thinking-text">"Clarity of thought matters more than speed of execution."</span>
+                                </div>
+                                <div class="thinking-pill focus-pill">
+                                    <span class="thinking-label">🎯 Focused On</span>
+                                    <span class="thinking-text">Building AI-driven systems • Rapid experimentation • Product-led thinking</span>
+                                </div>
+                                <div class="thinking-pill direction-pill">
+                                    <span class="thinking-label">⚡ Current Direction</span>
+                                    <span class="thinking-text">Designing systems that reduce friction between idea and execution</span>
+                                </div>
                             </div>
-                            <span style="font-size:0.85rem; color:var(--os-text-muted);">Click any role to expand achievements</span>
                         </div>
 
-                        <div class="os-journey-timeline">
-                            <!-- ConveGenius -->
-                            <div class="os-timeline-node expanded">
-                                <div class="os-timeline-bullet"></div>
-                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="os-timeline-header">
-                                        <div>
-                                            <h3 class="os-timeline-role">Product Delivery Manager</h3>
-                                            <div class="os-timeline-company">ConveGenius</div>
-                                        </div>
-                                        <div class="os-timeline-date">Jan 2026 – Present (Current)</div>
-                                    </div>
-                                    <div class="os-timeline-details" style="display:block;">
-                                        <p style="color:var(--os-text-secondary); margin-bottom:10px;">
-                                            Leading the Assam State Vidya Samiksha Kendra (VSK) operations, public education data platforms, and state-level digital transformation initiatives.
-                                        </p>
-                                        <ul class="os-card-bullets">
-                                            <li><i data-feather="check"></i> Scaled complex government digital transformation and analytics operations.</li>
-                                            <li><i data-feather="check"></i> Led end-to-end Agile product delivery, release management, and cross-stakeholder governance.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Upgraded Progress Stepper (Navigation Bridge) -->
+                        <div class="journey-stepper">
+                            <button class="step-item active" data-index="0" onclick="jumpToJourneyStep(0, true)">
+                                Foundation <span class="step-dot">●</span>
+                            </button>
+                            <div class="step-line"></div>
+                            <button class="step-item" data-index="1" onclick="jumpToJourneyStep(1, true)">
+                                Exploration <span class="step-dot">○</span>
+                            </button>
+                            <div class="step-line"></div>
+                            <button class="step-item" data-index="2" onclick="jumpToJourneyStep(2, true)">
+                                Creation <span class="step-dot">○</span>
+                            </button>
+                            <div class="step-line"></div>
+                            <button class="step-item" data-index="3" onclick="jumpToJourneyStep(3, true)">
+                                Focus <span class="step-dot">○</span>
+                            </button>
+                        </div>
 
-                            <!-- Grant Thornton -->
-                            <div class="os-timeline-node">
-                                <div class="os-timeline-bullet"></div>
-                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="os-timeline-header">
-                                        <div>
-                                            <h3 class="os-timeline-role">Project Management Consultant</h3>
-                                            <div class="os-timeline-company">Grant Thornton Bharat LLP</div>
-                                        </div>
-                                        <div class="os-timeline-date">Aug 2024 – Dec 2025 (1.4 yrs)</div>
-                                    </div>
-                                    <div class="os-timeline-details">
-                                        <ul class="os-card-bullets">
-                                            <li><i data-feather="check"></i> Led strategic digital consulting engagements, advising clients on technology-driven transformation.</li>
-                                            <li><i data-feather="check"></i> Spearheaded preparation of DPRs, MSRs, gap analysis, and market intelligence reports.</li>
-                                            <li><i data-feather="check"></i> Managed multi-stakeholder engagements across government bodies, regulators, and private enterprise.</li>
-                                            <li><i data-feather="check"></i> Awarded Employee of the Q2 & Q3 Quarter (Spot Award) for outstanding contribution.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Horizontal 3D Journey Carousel -->
+                        <div class="journey-carousel-section" id="journey-carousel-section">
+                            <div class="journey-carousel-container">
+                                <button class="carousel-nav prev" id="journey-prev" aria-label="Previous step">
+                                    <i data-feather="chevron-left"></i>
+                                </button>
 
-                            <!-- ibentos -->
-                            <div class="os-timeline-node">
-                                <div class="os-timeline-bullet"></div>
-                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="os-timeline-header">
-                                        <div>
-                                            <h3 class="os-timeline-role">Delivery Manager (Part Time)</h3>
-                                            <div class="os-timeline-company">ibentos</div>
+                                <div class="journey-carousel-track-wrapper">
+                                    <div class="journey-carousel-track" id="journey-track">
+                                        <!-- Card 1: Foundation -->
+                                        <div class="journey-step-card active" data-index="0">
+                                            <div class="journey-card-label">THE START</div>
+                                            <h3 class="journey-card-title">Foundation</h3>
+                                            <p class="journey-card-identity">Built my foundation in structured thinking</p>
+                                            <ul class="journey-card-points">
+                                                <li>B.Tech + MBA</li>
+                                                <li>Combined technical systems with business perspective</li>
+                                            </ul>
+                                            <div class="journey-card-shift">
+                                                <span class="shift-icon">⚡</span>
+                                                <span class="shift-text"><strong>Key Shift:</strong> Learning concepts → Systems thinking</span>
+                                            </div>
+                                            <div class="journey-card-impact">
+                                                <span class="impact-icon">💡</span>
+                                                <span class="impact-text">Developed structured thinking across tech and business</span>
+                                            </div>
                                         </div>
-                                        <div class="os-timeline-date">Mar 2024 – Jul 2024 (5 mos)</div>
-                                    </div>
-                                    <div class="os-timeline-details">
-                                        <p style="color:var(--os-text-secondary);">
-                                            Spearheaded the delivery of scalable Metaverse and AR/VR platforms, driving end-to-end solution architecture, client engagement, and technical execution.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Wednesday Solutions -->
-                            <div class="os-timeline-node">
-                                <div class="os-timeline-bullet"></div>
-                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="os-timeline-header">
-                                        <div>
-                                            <h3 class="os-timeline-role">Technical Project Manager</h3>
-                                            <div class="os-timeline-company">Wednesday Solutions</div>
+                                        <!-- Card 2: Exploration -->
+                                        <div class="journey-step-card" data-index="1">
+                                            <div class="journey-card-label">THE CLIMB</div>
+                                            <h3 class="journey-card-title">Exploration</h3>
+                                            <p class="journey-card-identity">Explored systems, delivery, and large-scale problem solving</p>
+                                            <ul class="journey-card-points">
+                                                <li>Govt → built systems from ground up</li>
+                                                <li>Product → Agile delivery & execution</li>
+                                                <li>Consulting → policy, governance, scale</li>
+                                            </ul>
+                                            <div class="journey-card-shift">
+                                                <span class="shift-icon">⚡</span>
+                                                <span class="shift-text"><strong>Key Shift:</strong> Executing tasks → Managing complex systems</span>
+                                            </div>
+                                            <div class="journey-card-impact">
+                                                <span class="impact-icon">💡</span>
+                                                <span class="impact-text">Learned to operate across stakeholders, scale, and constraints</span>
+                                            </div>
                                         </div>
-                                        <div class="os-timeline-date">Aug 2022 – Jul 2024 (2.0 yrs)</div>
-                                    </div>
-                                    <div class="os-timeline-details">
-                                        <ul class="os-card-bullets">
-                                            <li><i data-feather="check"></i> Led end-to-end Agile delivery, facilitating Scrum ceremonies and driving roadmap alignment.</li>
-                                            <li><i data-feather="check"></i> Translated business requirements into PRDs, user stories, and technical acceptance criteria.</li>
-                                            <li><i data-feather="check"></i> Owned backlog prioritization, sprint planning, story estimation, and velocity tracking.</li>
-                                            <li><i data-feather="check"></i> Resolved blockers across Engineering, QA, and DevOps with CI/CD release coordination.</li>
-                                            <li><i data-feather="check"></i> Recognized as Employee of the Month (Odin's Torchholder).</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- SoulpageIT -->
-                            <div class="os-timeline-node">
-                                <div class="os-timeline-bullet"></div>
-                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="os-timeline-header">
-                                        <div>
-                                            <h3 class="os-timeline-role">Associate Business Analyst</h3>
-                                            <div class="os-timeline-company">SoulpageIT Solutions</div>
+                                        <!-- Card 3: Creation -->
+                                        <div class="journey-step-card" data-index="2">
+                                            <div class="journey-card-label">THE SHIFT</div>
+                                            <h3 class="journey-card-title">Creation</h3>
+                                            <p class="journey-card-identity">Started building my own systems and products</p>
+                                            <ul class="journey-card-points">
+                                                <li>ManashOS → personal system</li>
+                                                <li>AI products → PaathSohayok, AirDraw</li>
+                                                <li>Experiments → rapid prototyping</li>
+                                            </ul>
+                                            <div class="journey-card-shift">
+                                                <span class="shift-icon">⚡</span>
+                                                <span class="shift-text"><strong>Key Shift:</strong> Delivering solutions → Creating products</span>
+                                            </div>
+                                            <div class="journey-card-impact">
+                                                <span class="impact-icon">💡</span>
+                                                <span class="impact-text">Transitioned into a builder mindset</span>
+                                            </div>
                                         </div>
-                                        <div class="os-timeline-date">Jul 2021 – Jul 2022 (1.1 yrs)</div>
-                                    </div>
-                                    <div class="os-timeline-details">
-                                        <ul class="os-card-bullets">
-                                            <li><i data-feather="check"></i> Led sprint delivery and task accountability alongside Developers and Designers.</li>
-                                            <li><i data-feather="check"></i> Gathered requirements and authored BRDs, SRS, user stories, and wireframes in Balsamiq.</li>
-                                            <li><i data-feather="check"></i> Won the Above and Beyond Award (June 2022) for client delivery.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Govt of Assam -->
-                            <div class="os-timeline-node">
-                                <div class="os-timeline-bullet"></div>
-                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
-                                    <div class="os-timeline-header">
-                                        <div>
-                                            <h3 class="os-timeline-role">Program Manager</h3>
-                                            <div class="os-timeline-company">Govt of Assam</div>
+                                        <!-- Card 4: Current Focus -->
+                                        <div class="journey-step-card" data-index="3">
+                                            <div class="journey-card-label">THE HORIZON</div>
+                                            <h3 class="journey-card-title">Current Focus</h3>
+                                            <p class="journey-card-identity">Focused on building systems that combine thinking and execution</p>
+                                            <ul class="journey-card-points">
+                                                <li>AI + product + real-world use</li>
+                                                <li>Fast iteration and experimentation</li>
+                                            </ul>
+                                            <div class="journey-card-shift">
+                                                <span class="shift-icon">⚡</span>
+                                                <span class="shift-text"><strong>Key Shift:</strong> Building products → Designing systems</span>
+                                            </div>
+                                            <div class="journey-card-impact">
+                                                <span class="impact-icon">💡</span>
+                                                <span class="impact-text">Creating scalable, usable, and impactful solutions</span>
+                                            </div>
                                         </div>
-                                        <div class="os-timeline-date">Sep 2019 – Jun 2021 (1.8 yrs)</div>
-                                    </div>
-                                    <div class="os-timeline-details">
-                                        <p style="color:var(--os-text-secondary);">
-                                            Spearheaded the ground-up setup and operational launch of a specialized educational institution for visually impaired students in Assam, managing government regulatory engagements, staffing, and governance.
-                                        </p>
                                     </div>
                                 </div>
+
+                                <button class="carousel-nav next" id="journey-next" aria-label="Next step">
+                                    <i data-feather="chevron-right"></i>
+                                </button>
                             </div>
                         </div>
                     </section>
@@ -858,154 +812,7 @@
                     </section>
 
 
-                    <!-- ==================== VIEW 4: SKILLS MATRIX ==================== -->
-                    <section id="view-skills" class="os-view-section">
-                        <div class="os-section-header-row">
-                            <div>
-                                <div class="os-section-label">STRUCTURED CAPABILITIES</div>
-                                <h2 class="os-section-heading">Skills & Competencies Matrix</h2>
-                            </div>
-                        </div>
-
-                        <!-- Real-time Skill Filter Search Input -->
-                        <div class="os-skills-search-wrap">
-                            <input type="text" id="skill-search-input" class="os-search-input" placeholder="Search competencies, tools, frameworks or methodologies..." oninput="searchSkills(this.value)">
-                        </div>
-
-                        <div id="skills-matrix-container">
-                            <!-- Group 1: System Design & Architecture -->
-                            <div class="os-skill-group-card">
-                                <h3 class="os-skill-group-title">
-                                    <i data-feather="cpu" style="color:var(--os-accent-cyan);"></i>
-                                    <span>System Design & Technical Architecture</span>
-                                </h3>
-                                <div class="os-skill-tags-list">
-                                    <span class="os-skill-badge-tag">High-Level Design (HLD)</span>
-                                    <span class="os-skill-badge-tag">Low-Level Design (LLD)</span>
-                                    <span class="os-skill-badge-tag">API Design & REST</span>
-                                    <span class="os-skill-badge-tag">System Integration</span>
-                                    <span class="os-skill-badge-tag">Data Flow Diagrams (DFDs)</span>
-                                    <span class="os-skill-badge-tag">Scalability & Resilience</span>
-                                    <span class="os-skill-badge-tag">Technical Documentation & RFCs</span>
-                                    <span class="os-skill-badge-tag">Microservices Patterns</span>
-                                </div>
-                            </div>
-
-                            <!-- Group 2: Product & Delivery Management -->
-                            <div class="os-skill-group-card">
-                                <h3 class="os-skill-group-title">
-                                    <i data-feather="layers" style="color:var(--os-accent-violet);"></i>
-                                    <span>Product Management & Delivery</span>
-                                </h3>
-                                <div class="os-skill-tags-list">
-                                    <span class="os-skill-badge-tag">End-to-End Product Lifecycle (Discovery → MVP → Scale)</span>
-                                    <span class="os-skill-badge-tag">Agile & Scrum Facilitation</span>
-                                    <span class="os-skill-badge-tag">Sprint Planning & Backlog Grooming</span>
-                                    <span class="os-skill-badge-tag">Velocity Tracking & Estimation</span>
-                                    <span class="os-skill-badge-tag">Requirements Engineering (BRD, FRD, SRS)</span>
-                                    <span class="os-skill-badge-tag">Prioritization (MoSCoW, RICE)</span>
-                                    <span class="os-skill-badge-tag">Release & UAT Management</span>
-                                    <span class="os-skill-badge-tag">CI/CD Coordination</span>
-                                </div>
-                            </div>
-
-                            <!-- Group 3: Strategy & Transformation -->
-                            <div class="os-skill-group-card">
-                                <h3 class="os-skill-group-title">
-                                    <i data-feather="trending-up" style="color:var(--os-accent-mint);"></i>
-                                    <span>Strategy, Analytics & Transformation</span>
-                                </h3>
-                                <div class="os-skill-tags-list">
-                                    <span class="os-skill-badge-tag">Digital Transformation</span>
-                                    <span class="os-skill-badge-tag">Government & Public Sector Tech</span>
-                                    <span class="os-skill-badge-tag">Process Optimization (As-Is / To-Be)</span>
-                                    <span class="os-skill-badge-tag">User Journey Mapping</span>
-                                    <span class="os-skill-badge-tag">DORA Operational Metrics</span>
-                                    <span class="os-skill-badge-tag">KPI & Adoption Tracking</span>
-                                    <span class="os-skill-badge-tag">Go-To-Market Coordination</span>
-                                    <span class="os-skill-badge-tag">SQL & Data-Driven Decision Making</span>
-                                </div>
-                            </div>
-
-                            <!-- Group 4: AI & Modern Tooling -->
-                            <div class="os-skill-group-card">
-                                <h3 class="os-skill-group-title">
-                                    <i data-feather="terminal" style="color:var(--os-accent-amber);"></i>
-                                    <span>AI Engineering & Tooling Stack</span>
-                                </h3>
-                                <div class="os-skill-tags-list">
-                                    <span class="os-skill-badge-tag">Claude Code</span>
-                                    <span class="os-skill-badge-tag">Cursor</span>
-                                    <span class="os-skill-badge-tag">Codex</span>
-                                    <span class="os-skill-badge-tag">Groq</span>
-                                    <span class="os-skill-badge-tag">Gemini</span>
-                                    <span class="os-skill-badge-tag">RAG Architectures</span>
-                                    <span class="os-skill-badge-tag">Prompt Engineering</span>
-                                    <span class="os-skill-badge-tag">Agentic Systems</span>
-                                    <span class="os-skill-badge-tag">Jira & Confluence Automation</span>
-                                    <span class="os-skill-badge-tag">Balsamiq Wireframing</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-
-                    <!-- ==================== VIEW 5: ACHIEVEMENTS ==================== -->
-                    <section id="view-achievements" class="os-view-section">
-                        <div class="os-section-header-row">
-                            <div>
-                                <div class="os-section-label">MILESTONES & RECOGNITION</div>
-                                <h2 class="os-section-heading">Documented Honors & Awards</h2>
-                            </div>
-                        </div>
-
-                        <div class="os-award-grid">
-                            <div class="os-award-card">
-                                <div class="os-award-icon-box"><i data-feather="award"></i></div>
-                                <h3 class="os-award-title">Employee of the Q2 & Q3 Quarter</h3>
-                                <div class="os-award-org">Grant Thornton Bharat LLP • Spot Award</div>
-                                <p class="os-award-desc">Recognized with the Spot Award for high-impact client engagement and technological excellence in public digital governance projects.</p>
-                            </div>
-
-                            <div class="os-award-card">
-                                <div class="os-award-icon-box"><i data-feather="zap"></i></div>
-                                <h3 class="os-award-title">Employee of the Month</h3>
-                                <div class="os-award-org">Wednesday Solutions • Odin's Torchholder</div>
-                                <p class="os-award-desc">Honored with Odin's Torchholder award for exceptional technical delivery, sprint leadership, and cross-functional team enablement.</p>
-                            </div>
-
-                            <div class="os-award-card">
-                                <div class="os-award-icon-box"><i data-feather="star"></i></div>
-                                <h3 class="os-award-title">Above and Beyond Award</h3>
-                                <div class="os-award-org">Soulpage IT Solutions • Outstanding Work</div>
-                                <p class="os-award-desc">Awarded for extraordinary dedication to client outcomes, rapid root-cause resolution, and excellence in business analysis.</p>
-                            </div>
-
-                            <div class="os-award-card">
-                                <div class="os-award-icon-box"><i data-feather="check-circle"></i></div>
-                                <h3 class="os-award-title">Best College Coordinator</h3>
-                                <div class="os-award-org">Internshala ISP</div>
-                                <p class="os-award-desc">Recognized for top performance in coordinating state-level student programs, leadership, and university engagement.</p>
-                            </div>
-
-                            <div class="os-award-card">
-                                <div class="os-award-icon-box"><i data-feather="book-open"></i></div>
-                                <h3 class="os-award-title">Anandaram Baruah Award</h3>
-                                <div class="os-award-org">Govt. of Assam • Academic Excellence</div>
-                                <p class="os-award-desc">State recognition award presented by the Government of Assam for outstanding academic distinction.</p>
-                            </div>
-
-                            <div class="os-award-card">
-                                <div class="os-award-icon-box" style="color:var(--os-accent-mint); background:rgba(66, 230, 196, 0.1);"><i data-feather="play"></i></div>
-                                <h3 class="os-award-title">21 Days • 21 Games Completed</h3>
-                                <div class="os-award-org">Independent Engineering Challenge</div>
-                                <p class="os-award-desc">Designed, developed, and deployed 21 standalone browser games consecutively in 21 days using HTML, CSS, Canvas, and JavaScript.</p>
-                            </div>
-                        </div>
-                    </section>
-
-
-                    <!-- ==================== VIEW 6: GAMES ARCADE ==================== -->
+                    <!-- ==================== VIEW 4: GAMES ARCADE ==================== -->
                     <section id="view-arcade" class="os-view-section">
                         <!-- Challenge Highlight Banner -->
                         <div class="os-challenge-banner-card">
