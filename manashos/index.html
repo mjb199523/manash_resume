@@ -799,9 +799,9 @@
                                 <h3>🎮 21 Days • 21 Games Challenge</h3>
                                 <p>A 21-day continuous engineering challenge building one completed game every single day. Explore all 21 games with live play and source code links.</p>
                             </div>
-                            <a href="/21-days" class="btn btn-gradient">
+                            <button onclick="switchView('arcade/21-days')" class="btn btn-gradient">
                                 <i data-feather="play" class="btn-icon"></i> Open Full 21-Days Arcade
-                            </a>
+                            </button>
                         </div>
 
                         <div class="os-section-header-row">
@@ -922,6 +922,52 @@
                                     <i data-feather="play" class="btn-icon"></i> Play Now
                                 </button>
                             </div>
+                        </div>
+                    </section>
+
+                    <!-- ==================== VIEW 4B: 21 DAYS CHALLENGE ARCADE ==================== -->
+                    <section id="view-arcade-21-days" class="os-view-section">
+                        <!-- Navigation / Back bar -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                            <button class="btn btn-secondary" onclick="switchView('arcade')">
+                                <i data-feather="arrow-left" class="btn-icon"></i> Back to Games Arcade
+                            </button>
+                            <a href="https://github.com/mjb199523" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                <i data-feather="github" class="btn-icon"></i> View GitHub Repositories
+                            </a>
+                        </div>
+
+                        <!-- Hero Header -->
+                        <div class="os-hero" style="text-align: center; margin-bottom: 30px;">
+                            <span style="font-size: 3rem; display: block; margin-bottom: 12px; animation: challenge-float 3s ease-in-out infinite;">🎮</span>
+                            <h1 class="os-hero-title">21 Days • 21 Games <span class="text-gradient">Challenge</span></h1>
+                            <p class="os-hero-sub" style="margin: 0 auto 25px; max-width: 680px;">
+                                A personal engineering challenge building one completed game every single day using HTML5, Canvas, CSS3, and JavaScript. Explore, play live, or review source code.
+                            </p>
+
+                            <!-- Progress Track -->
+                            <div class="os-challenge-progress-box">
+                                <div class="os-challenge-progress-header">
+                                    <span class="os-challenge-progress-label" id="os-21days-progress-label">21/21 Completed</span>
+                                    <span class="os-challenge-progress-percent" id="os-21days-progress-percent">100%</span>
+                                </div>
+                                <div class="os-challenge-progress-track">
+                                    <div class="os-challenge-progress-fill" id="os-21days-progress-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 21 Games Grid -->
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">CHALLENGE ARCHIVE</div>
+                                <h2 class="os-section-heading">All 21 Games Catalog</h2>
+                            </div>
+                            <span style="font-size:0.85rem; color:var(--os-text-muted); font-family:var(--os-font-mono);">21 of 21 Finished</span>
+                        </div>
+
+                        <div class="os-21days-grid" id="os-21days-grid">
+                            <!-- Populated dynamically via app.js -->
                         </div>
                     </section>
 

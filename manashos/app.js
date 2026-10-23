@@ -84,9 +84,9 @@ async function checkAuth() {
 
     // 1. Read route before ANY state changes
     let route = window.location.hash.replace('#', '');
-    const pathParts = window.location.pathname.split('/');
-    if (pathParts.length > 2 && pathParts[1] === 'manashos') {
-        route = pathParts[2];
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    if (pathParts.length > 1 && pathParts[0] === 'manashos') {
+        route = pathParts.slice(1).join('/');
     }
     const targetRoute = route || 'home';
     
@@ -102,7 +102,7 @@ async function checkAuth() {
     }
 
     // 3. Route to the correct view based on auth state and route
-    const guestViews = ['home', 'journey', 'projects', 'arcade', 'login'];
+    const guestViews = ['home', 'journey', 'projects', 'arcade', 'arcade/21-days', '21-days', 'login'];
     if (currentUser) {
         // Logged in: allow dashboard, blogs, notes, tasks or any public view
         if (targetRoute && ['dashboard', 'blogs', 'notes', 'tasks', ...guestViews].includes(targetRoute)) {
@@ -221,7 +221,13 @@ function switchView(view, push = true) {
         v.classList.remove('active-view');
     });
     
-    const viewEl = document.getElementById(`view-${view}`);
+    // Support sub-views like arcade/21-days or 21-days
+    let targetViewElId = `view-${view}`;
+    if (view === 'arcade/21-days' || view === '21-days') {
+        targetViewElId = 'view-arcade-21-days';
+    }
+
+    const viewEl = document.getElementById(targetViewElId);
     if (viewEl) {
         viewEl.classList.add('active-view');
     }
@@ -234,6 +240,8 @@ function switchView(view, push = true) {
             journey: 'My Journey',
             projects: 'Project Lab',
             arcade: 'Games Arcade',
+            'arcade/21-days': 'Games Arcade / 21-Days Challenge',
+            '21-days': '21-Days Challenge',
             login: 'Owner Console',
             dashboard: 'Dashboard',
             blogs: 'Blogs Manager',
@@ -244,13 +252,14 @@ function switchView(view, push = true) {
     }
 
     // Update sidebar navigation active state
+    const activeNavKey = (view === 'arcade/21-days' || view === '21-days') ? 'arcade' : view;
     document.querySelectorAll('.os-nav-btn[data-view]').forEach(item => {
-        item.classList.toggle('active', item.getAttribute('data-view') === view);
+        item.classList.toggle('active', item.getAttribute('data-view') === activeNavKey);
     });
 
     // Update bottom dock active state
     document.querySelectorAll('.os-dock-item[data-dock]').forEach(dockItem => {
-        dockItem.classList.toggle('active', dockItem.getAttribute('data-dock') === view);
+        dockItem.classList.toggle('active', dockItem.getAttribute('data-dock') === activeNavKey);
     });
 
     // Update browser history
@@ -284,6 +293,9 @@ function switchView(view, push = true) {
         setTimeout(() => {
             initJourneyCarousel();
         }, 50);
+    }
+    if (view === 'arcade/21-days' || view === '21-days') {
+        init21DaysChallenge();
     }
     if (view === 'blogs') loadMyBlogs();
     if (view === 'notes') loadNotes();
@@ -329,10 +341,10 @@ window.onpopstate = function(event) {
         switchView(event.state.view, false);
     } else {
         // Default to home if no state
-        const pathParts = window.location.pathname.split('/');
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
         let route = 'home';
-        if (pathParts.length > 2 && pathParts[1] === 'manashos') {
-            route = pathParts[2] || 'home';
+        if (pathParts.length > 1 && pathParts[0] === 'manashos') {
+            route = pathParts.slice(1).join('/') || 'home';
         } else {
             const hash = window.location.hash.replace('#', '');
             if (hash) route = hash;
@@ -2308,5 +2320,72 @@ function executeCommand(command) {
         command.action();
     }
 }
+
+// ==================== 21 DAYS • 21 GAMES CHALLENGE ====================
+const CHALLENGE_GAMES = [
+    { day: 1, name: 'Guess the Number', status: 'completed', playUrl: 'https://mjb199523.github.io/Guess-the-number/', repoUrl: 'https://github.com/mjb199523/Guess-the-number' },
+    { day: 2, name: 'Stone Paper Blade', status: 'completed', playUrl: 'https://mjb199523.github.io/stone_paper_blade/', repoUrl: 'https://github.com/mjb199523/stone_paper_blade' },
+    { day: 3, name: 'Grid Wars', status: 'completed', playUrl: 'https://mjb199523.github.io/grid_wars/', repoUrl: 'https://github.com/mjb199523/grid_wars' },
+    { day: 4, name: 'Memory Matrix', status: 'completed', playUrl: 'https://mjb199523.github.io/memory_matrix/', repoUrl: 'https://github.com/mjb199523/memory_matrix' },
+    { day: 5, name: 'Neon Snake', status: 'completed', playUrl: 'https://mjb199523.github.io/neon_snake/', repoUrl: 'https://github.com/mjb199523/neon_snake' },
+    { day: 6, name: 'Velocity Pong', status: 'completed', playUrl: 'https://mjb199523.github.io/velocity_pong/', repoUrl: 'https://github.com/mjb199523/velocity_pong' },
+    { day: 7, name: 'Brick Storm', status: 'completed', playUrl: 'https://mjb199523.github.io/Brick_Storm/', repoUrl: 'https://github.com/mjb199523/Brick_Storm' },
+    { day: 8, name: 'Galaxy Defender', status: 'completed', playUrl: 'https://mjb199523.github.io/galaxy_defender/', repoUrl: 'https://github.com/mjb199523/galaxy_defender' },
+    { day: 9, name: 'Sling Shot', status: 'completed', playUrl: 'https://mjb199523.github.io/sling_shot/', repoUrl: 'https://github.com/mjb199523/sling_shot' },
+    { day: 10, name: 'Kingdom Defense', status: 'completed', playUrl: 'https://mjb199523.github.io/kingdom_defense/', repoUrl: 'https://github.com/mjb199523/Kingdom_Defense' },
+    { day: 11, name: 'Parking Master', status: 'completed', playUrl: 'https://mjb199523.github.io/parking_master/', repoUrl: 'https://github.com/mjb199523/parking_master' },
+    { day: 12, name: 'Burger Rush', status: 'completed', playUrl: 'https://mjb199523.github.io/burger_rush/', repoUrl: 'https://github.com/mjb199523/burger_rush' },
+    { day: 13, name: 'Pocket Golf', status: 'completed', playUrl: 'https://mjb199523.github.io/pocket_golf/', repoUrl: 'https://github.com/mjb199523/pocket_golf' },
+    { day: 14, name: 'Beat Drop', status: 'completed', playUrl: 'https://mjb199523.github.io/beat_drop/', repoUrl: 'https://github.com/mjb199523/beat_drop' },
+    { day: 15, name: 'Tiny City', status: 'completed', playUrl: 'https://mjb199523.github.io/tiny_city/', repoUrl: 'https://github.com/mjb199523/tiny_city' },
+    { day: 16, name: 'Neon Runner', status: 'completed', playUrl: 'https://mjb199523.github.io/neon_runner/', repoUrl: 'https://github.com/mjb199523/neon_runner' },
+    { day: 17, name: 'Card Quest', status: 'completed', playUrl: 'https://mjb199523.github.io/card_quest/', repoUrl: 'https://github.com/mjb199523/card_quest' },
+    { day: 18, name: 'Traffic Rush', status: 'completed', playUrl: 'https://mjb199523.github.io/traffic_rush/', repoUrl: 'https://github.com/mjb199523/traffic_rush' },
+    { day: 19, name: 'Last Clue', status: 'completed', playUrl: 'https://mjb199523.github.io/last_clue/', repoUrl: 'https://github.com/mjb199523/last_clue' },
+    { day: 20, name: 'Mind Grid', status: 'completed', playUrl: 'https://mjb199523.github.io/mind_grid/', repoUrl: 'https://github.com/mjb199523/mind_grid' },
+    { day: 21, name: 'Final Game', status: 'completed', playUrl: 'https://mjb199523.github.io/final_game/', repoUrl: 'https://github.com/mjb199523/final_game' }
+];
+
+function init21DaysChallenge() {
+    const grid = document.getElementById('os-21days-grid');
+    if (!grid) return;
+    
+    const completed = CHALLENGE_GAMES.filter(g => g.status === 'completed').length;
+    const total = CHALLENGE_GAMES.length;
+    const percent = Math.round((completed / total) * 100);
+    
+    const labelEl = document.getElementById('os-21days-progress-label');
+    const percentEl = document.getElementById('os-21days-progress-percent');
+    const fillEl = document.getElementById('os-21days-progress-fill');
+    
+    if (labelEl) labelEl.textContent = `${completed}/${total} Completed`;
+    if (percentEl) percentEl.textContent = `${percent}%`;
+    if (fillEl) fillEl.style.width = `${percent}%`;
+    
+    grid.innerHTML = CHALLENGE_GAMES.map(game => `
+        <div class="os-21game-card">
+            <div class="os-21game-header">
+                <span class="os-21game-day">DAY ${game.day}</span>
+                <span class="os-21game-badge completed">
+                    <i data-feather="check-circle" style="width:13px; height:13px;"></i> Completed
+                </span>
+            </div>
+            <h3 class="os-21game-title">${game.name}</h3>
+            <div class="os-21game-actions">
+                <a href="${game.playUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-gradient">
+                    <i data-feather="play" class="btn-icon"></i> Play Game
+                </a>
+                <a href="${game.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i data-feather="github" class="btn-icon"></i> Code
+                </a>
+            </div>
+        </div>
+    `).join('');
+    
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+}
+
 
 
