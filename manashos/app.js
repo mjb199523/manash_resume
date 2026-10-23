@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     feather.replace();
     initTheme();
     initNavigation();
+    initClock();
+    initDesktopShell();
+    initCommandPalette();
     initTaskFilters();
     if (typeof Quill !== 'undefined') {
         initQuill();
@@ -52,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const preloader = document.getElementById('os-preloader');
         if (preloader) preloader.classList.add('fade-out');
         document.body.classList.add('loaded');
-    }, 200); // Reduced from 600ms for faster feel
+    }, 200);
 });
 
 function initQuill() {
@@ -99,16 +102,17 @@ async function checkAuth() {
     }
 
     // 3. Route to the correct view based on auth state and route
+    const guestViews = ['home', 'journey', 'projects', 'skills', 'achievements', 'arcade', 'login'];
     if (currentUser) {
-        // Logged in: allow dashboard, blogs, notes, tasks
-        if (targetRoute && ['dashboard', 'blogs', 'notes', 'tasks'].includes(targetRoute)) {
+        // Logged in: allow dashboard, blogs, notes, tasks or any public view
+        if (targetRoute && ['dashboard', 'blogs', 'notes', 'tasks', ...guestViews].includes(targetRoute)) {
             switchView(targetRoute, 'replace');
         } else {
             switchView('dashboard', 'replace');
         }
     } else {
-        // Logged out: allow home, login
-        if (targetRoute && (targetRoute === 'home' || targetRoute === 'login')) {
+        // Logged out: allow all public views & login
+        if (targetRoute && guestViews.includes(targetRoute)) {
             switchView(targetRoute, 'replace');
         } else {
             switchView('home', 'replace');
@@ -151,49 +155,57 @@ function updateThemeIcon(isDark) {
     feather.replace();
 }
 
-// ==================== NAVIGATION ====================
-function initNavigation() {
-    document.querySelectorAll('.os-nav-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const view = btn.getAttribute('data-view');
-            if (view) switchView(view);
-            
-            // Close mobile menu if open
-            const nav = document.getElementById('os-nav');
-            if (nav && nav.classList.contains('open')) {
-                nav.classList.remove('open');
-                const icon = document.querySelector('#os-menu-toggle i');
-                if (icon) icon.setAttribute('data-feather', 'menu');
-                feather.replace();
-            }
-        });
-    });
+// ==================== SYSTEM CLOCK ====================
+function initClock() {
+    const clockEl = document.getElementById('os-clock');
+    if (!clockEl) return;
+    function update() {
+        const d = new Date();
+        clockEl.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+    update();
+    setInterval(update, 1000);
+}
 
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('os-menu-toggle');
-    const osNav = document.getElementById('os-nav');
-    
-    if (menuToggle && osNav) {
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            osNav.classList.toggle('open');
-            const icon = menuToggle.querySelector('i');
-            if (osNav.classList.contains('open')) {
-                icon.setAttribute('data-feather', 'x');
-            } else {
-                icon.setAttribute('data-feather', 'menu');
-            }
+// ==================== DESKTOP SHELL (SIDEBAR & DOCK) ====================
+function initDesktopShell() {
+    // Sidebar collapse / expand toggle
+    const collapseBtn = document.getElementById('os-sidebar-collapse');
+    const sidebar = document.getElementById('os-sidebar');
+    if (collapseBtn && sidebar) {
+        collapseBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            collapseBtn.innerHTML = isCollapsed ? '<i data-feather="chevron-right"></i>' : '<i data-feather="chevron-left"></i>';
             feather.replace();
         });
+    }
 
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('os-menu-toggle');
+    if (mobileMenuToggle && sidebar) {
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('mobile-open');
+        });
         document.addEventListener('click', (e) => {
-            if (osNav.classList.contains('open') && !osNav.contains(e.target) && e.target !== menuToggle) {
-                osNav.classList.remove('open');
-                menuToggle.querySelector('i').setAttribute('data-feather', 'menu');
-                feather.replace();
+            if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== mobileMenuToggle) {
+                sidebar.classList.remove('mobile-open');
             }
         });
     }
+}
+
+// ==================== NAVIGATION ====================
+function initNavigation() {
+    document.querySelectorAll('.os-nav-btn[data-view]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const view = btn.getAttribute('data-view');
+            if (view) switchView(view);
+            const sidebar = document.getElementById('os-sidebar');
+            if (sidebar) sidebar.classList.remove('mobile-open');
+        });
+    });
 }
 
 function switchView(view, push = true) {
@@ -205,35 +217,42 @@ function switchView(view, push = true) {
     currentView = view;
     
     // Hide all views and remove active state
-    document.querySelectorAll('.os-view').forEach(v => {
-        v.classList.remove('active');
-        v.style.display = 'none';
+    document.querySelectorAll('.os-view-section').forEach(v => {
+        v.classList.remove('active-view');
     });
     
     const viewEl = document.getElementById(`view-${view}`);
     if (viewEl) {
-        viewEl.style.display = 'block';
-        // Trigger animation next frame
-        requestAnimationFrame(() => {
-            viewEl.classList.add('active');
-        });
+        viewEl.classList.add('active-view');
     }
 
-    // Toggle Journey Mode button visibility
-    const journeyToggle = document.getElementById('journey-mode-toggle');
-    if (journeyToggle) {
-        journeyToggle.style.display = (view === 'home' && !currentUser) ? 'inline-flex' : 'none';
+    // Update Topbar Breadcrumb
+    const breadcrumbName = document.getElementById('os-current-view-name');
+    if (breadcrumbName) {
+        const viewLabels = {
+            home: 'Home',
+            journey: 'My Journey',
+            projects: 'Project Lab',
+            skills: 'Skills Matrix',
+            achievements: 'Achievements',
+            arcade: 'Games Arcade',
+            login: 'Owner Console',
+            dashboard: 'Dashboard',
+            blogs: 'Blogs Manager',
+            notes: 'Secure Notes',
+            tasks: 'Tasks Manager'
+        };
+        breadcrumbName.textContent = viewLabels[view] || view;
     }
 
-    // Hide Login/Back buttons on login page
-    const navLoginBtn = document.getElementById('nav-login-btn');
-    const backBtn = document.querySelector('.os-back-btn');
-    if (navLoginBtn) navLoginBtn.style.display = (view === 'login') ? 'none' : '';
-    if (backBtn) backBtn.style.display = (view === 'login') ? 'none' : '';
-
-    // Update nav active state
-    document.querySelectorAll('.os-nav-item').forEach(item => {
+    // Update sidebar navigation active state
+    document.querySelectorAll('.os-nav-btn[data-view]').forEach(item => {
         item.classList.toggle('active', item.getAttribute('data-view') === view);
+    });
+
+    // Update bottom dock active state
+    document.querySelectorAll('.os-dock-item[data-dock]').forEach(dockItem => {
+        dockItem.classList.toggle('active', dockItem.getAttribute('data-dock') === view);
     });
 
     // Update browser history
@@ -254,6 +273,12 @@ function switchView(view, push = true) {
         const btnLoader = loginBtn.querySelector('.btn-loader');
         if (btnContent) btnContent.style.display = 'flex';
         if (btnLoader) btnLoader.style.display = 'none';
+    }
+
+    // Scroll workspace back to top smoothly
+    const workspaceContent = document.getElementById('os-workspace-content');
+    if (workspaceContent) {
+        workspaceContent.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // View specific loads
@@ -361,13 +386,17 @@ async function handleLogout() {
 
 function onLoginSuccess() {
     document.body.classList.add('logged-in');
-    document.getElementById('nav-login-btn').style.display = 'none';
-    if (document.getElementById('journey-mode-toggle')) {
-        document.getElementById('journey-mode-toggle').style.display = 'none';
+    document.querySelectorAll('.guest-only').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'flex');
+    if (document.getElementById('nav-login-btn')) {
+        document.getElementById('nav-login-btn').style.display = 'none';
     }
-    document.getElementById('user-pill').style.display = 'inline-flex';
-    document.getElementById('logout-btn').style.display = 'inline-flex';
-    document.getElementById('user-name').textContent = currentUser.name || currentUser.email.split('@')[0];
+    const userPill = document.getElementById('user-pill');
+    if (userPill) userPill.style.display = 'inline-flex';
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) logoutBtn.style.display = 'inline-flex';
+    const userNameEl = document.getElementById('user-name');
+    if (userNameEl) userNameEl.textContent = currentUser.name || currentUser.email.split('@')[0];
     feather.replace();
 
     loadDashboardStats();
@@ -385,14 +414,18 @@ function onLoginSuccess() {
 
 function onLoggedOut() {
     document.body.classList.remove('logged-in');
-    document.getElementById('nav-login-btn').style.display = 'inline-flex';
-    if (document.getElementById('journey-mode-toggle') && currentView === 'home') {
-        document.getElementById('journey-mode-toggle').style.display = 'inline-flex';
-    }
-    document.getElementById('user-pill').style.display = 'none';
-    document.getElementById('logout-btn').style.display = 'none';
-    document.getElementById('login-email').value = '';
-    document.getElementById('login-password').value = '';
+    document.querySelectorAll('.auth-only').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.guest-only').forEach(el => el.style.display = '');
+    const navLoginBtn = document.getElementById('nav-login-btn');
+    if (navLoginBtn) navLoginBtn.style.display = 'flex';
+    const userPill = document.getElementById('user-pill');
+    if (userPill) userPill.style.display = 'none';
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) logoutBtn.style.display = 'none';
+    const emailInput = document.getElementById('login-email');
+    if (emailInput) emailInput.value = '';
+    const passInput = document.getElementById('login-password');
+    if (passInput) passInput.value = '';
 }
 
 // ==================== DASHBOARD STATS ====================
@@ -2009,4 +2042,265 @@ document.addEventListener('DOMContentLoaded', () => {
         initJourneyCarousel();
     }
 });
+
+// ==================== PROJECT LAB FILTERING ====================
+function filterProjects(category, btn) {
+    const filterButtons = document.querySelectorAll('#project-filters .os-pill-btn');
+    if (filterButtons.length) {
+        filterButtons.forEach(b => b.classList.remove('active'));
+    }
+    if (btn) btn.classList.add('active');
+
+    const cards = document.querySelectorAll('#projects-catalog-grid .os-card');
+    cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (category === 'all' || cat === category) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// ==================== SKILLS MATRIX REAL-TIME SEARCH ====================
+function searchSkills(query) {
+    const q = (query || '').toLowerCase().trim();
+    const groups = document.querySelectorAll('.os-skill-group-card');
+
+    groups.forEach(group => {
+        const badges = group.querySelectorAll('.os-skill-badge-tag');
+        let groupHasMatch = false;
+
+        badges.forEach(badge => {
+            const text = badge.textContent.toLowerCase();
+            if (!q || text.includes(q)) {
+                badge.style.display = 'inline-block';
+                groupHasMatch = true;
+            } else {
+                badge.style.display = 'none';
+            }
+        });
+
+        // Also check if group title itself matches
+        const groupTitle = group.querySelector('h3') ? group.querySelector('h3').textContent.toLowerCase() : '';
+        if (groupTitle.includes(q)) {
+            groupHasMatch = true;
+            badges.forEach(b => b.style.display = 'inline-block');
+        }
+
+        group.style.display = groupHasMatch ? 'block' : 'none';
+    });
+}
+
+// ==================== TOAST NOTIFICATION HELPER ====================
+function showToast(message) {
+    const toast = document.getElementById('os-toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.__osToastTimer);
+    window.__osToastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// ==================== SURPRISE ME (PROJECTS & GAMES) ====================
+function surpriseMe() {
+    // Pick randomly between a project or a game
+    const projectCards = document.querySelectorAll('#projects-catalog-grid .os-card');
+    const arcadeCards = document.querySelectorAll('#view-arcade .os-arcade-card');
+    const isGame = Math.random() > 0.5;
+
+    if (isGame && arcadeCards.length > 0) {
+        const randomGame = arcadeCards[Math.floor(Math.random() * arcadeCards.length)];
+        switchView('arcade');
+        setTimeout(() => {
+            randomGame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            randomGame.style.boxShadow = '0 0 35px var(--os-accent-cyan)';
+            setTimeout(() => randomGame.style.boxShadow = '', 2000);
+        }, 200);
+        showToast('Launching a surprise game adventure!');
+    } else if (projectCards.length > 0) {
+        const randomProject = projectCards[Math.floor(Math.random() * projectCards.length)];
+        switchView('projects');
+        setTimeout(() => {
+            randomProject.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            randomProject.style.boxShadow = '0 0 35px var(--os-accent-violet)';
+            setTimeout(() => randomProject.style.boxShadow = '', 2000);
+        }, 200);
+        showToast('Discovered a featured project!');
+    }
+}
+
+// ==================== COMMAND PALETTE (CTRL + K) ====================
+const OS_COMMANDS = [
+    // Navigation Views
+    { id: 'nav-home', category: 'Navigation', title: 'Go to Home Desktop', hint: 'Overview & Launcher', icon: 'grid', action: () => switchView('home') },
+    { id: 'nav-journey', category: 'Navigation', title: 'Explore My Journey', hint: 'Career Timeline', icon: 'compass', action: () => switchView('journey') },
+    { id: 'nav-projects', category: 'Navigation', title: 'Open Project Lab', hint: '9 Live Products', icon: 'box', action: () => switchView('projects') },
+    { id: 'nav-skills', category: 'Navigation', title: 'Open Skills Matrix', hint: 'Technical & Product Skills', icon: 'cpu', action: () => switchView('skills') },
+    { id: 'nav-achievements', category: 'Navigation', title: 'View Achievements', hint: 'Awards & Challenges', icon: 'award', action: () => switchView('achievements') },
+    { id: 'nav-arcade', category: 'Navigation', title: 'Launch Games Arcade', hint: '31 Games & Experiments', icon: 'play-circle', action: () => switchView('arcade') },
+    { id: 'nav-login', category: 'Navigation', title: 'Owner Console Access', hint: 'Authenticate', icon: 'lock', action: () => switchView('login') },
+    
+    // Quick Actions
+    { id: 'act-theme', category: 'System Action', title: 'Toggle Appearance Theme', hint: 'Dark / Light', icon: 'sun', action: () => document.getElementById('theme-toggle').click() },
+    { id: 'act-surprise', category: 'System Action', title: 'Surprise Me', hint: 'Discover Random Work', icon: 'zap', action: () => surpriseMe() },
+    { id: 'act-portfolio', category: 'System Action', title: 'Return to Main Portfolio', hint: 'manashjyoti.vercel.app', icon: 'external-link', action: () => window.location.href = '/' },
+    { id: 'act-games-21', category: 'System Action', title: '21 Days, 21 Games Challenge', hint: 'Published Arcade', icon: 'award', action: () => window.open('https://manashjyotibarman.github.io/21-days-21-games-challenge/', '_blank') },
+    
+    // Featured Projects
+    { id: 'prj-ai-pm', category: 'Projects', title: 'AI Product Management OS', hint: 'Project Lab', icon: 'box', action: () => { switchView('projects'); } },
+    { id: 'prj-sura', category: 'Projects', title: 'SURA: AI Healthcare Assistant', hint: 'Project Lab', icon: 'box', action: () => { switchView('projects'); } },
+    { id: 'prj-scrum', category: 'Projects', title: 'Scrum Pulse: Team Health Tracker', hint: 'Project Lab', icon: 'box', action: () => { switchView('projects'); } },
+    { id: 'prj-resumify', category: 'Projects', title: 'Resumify: AI Resume Optimizer', hint: 'Project Lab', icon: 'box', action: () => { switchView('projects'); } },
+    { id: 'prj-notes', category: 'Projects', title: 'Notes Flow: Minimal Markdown Editor', hint: 'Project Lab', icon: 'box', action: () => { switchView('projects'); } },
+    
+    // Micro Games
+    { id: 'gm-memory', category: 'Games Arcade', title: 'Play Cyber Memory Matrix', hint: 'Micro Game', icon: 'play-circle', action: () => { switchView('arcade'); launchGame('memory'); } },
+    { id: 'gm-speed', category: 'Games Arcade', title: 'Play Neon Speed Typer', hint: 'Micro Game', icon: 'play-circle', action: () => { switchView('arcade'); launchGame('typer'); } },
+    { id: 'gm-mines', category: 'Games Arcade', title: 'Play Grid Sweeper', hint: 'Micro Game', icon: 'play-circle', action: () => { switchView('arcade'); launchGame('mines'); } },
+    { id: 'gm-snake', category: 'Games Arcade', title: 'Play Cyber Snake', hint: 'Micro Game', icon: 'play-circle', action: () => { switchView('arcade'); launchGame('snake'); } }
+];
+
+let selectedCommandIndex = 0;
+let filteredCommands = [];
+
+function initCommandPalette() {
+    // Keyboard shortcut Ctrl+K or Cmd+K
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            const modal = document.getElementById('cmd-palette-modal');
+            if (modal && modal.style.display !== 'none') {
+                closeCommandPalette();
+            } else {
+                openCommandPalette();
+            }
+        }
+        if (e.key === 'Escape') {
+            closeCommandPalette();
+        }
+    });
+
+    const input = document.getElementById('cmd-palette-input');
+    if (input) {
+        input.addEventListener('input', (e) => {
+            renderCommandResults(e.target.value);
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (filteredCommands.length > 0) {
+                    selectedCommandIndex = (selectedCommandIndex + 1) % filteredCommands.length;
+                    highlightSelectedCommand();
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (filteredCommands.length > 0) {
+                    selectedCommandIndex = (selectedCommandIndex - 1 + filteredCommands.length) % filteredCommands.length;
+                    highlightSelectedCommand();
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (filteredCommands[selectedCommandIndex]) {
+                    executeCommand(filteredCommands[selectedCommandIndex]);
+                }
+            }
+        });
+    }
+}
+
+function openCommandPalette() {
+    const backdrop = document.getElementById('cmd-palette-backdrop');
+    const modal = document.getElementById('cmd-palette-modal');
+    const input = document.getElementById('cmd-palette-input');
+    if (backdrop) backdrop.style.display = 'block';
+    if (modal) modal.style.display = 'flex';
+    if (input) {
+        input.value = '';
+        input.focus();
+    }
+    renderCommandResults('');
+}
+
+function closeCommandPalette() {
+    const backdrop = document.getElementById('cmd-palette-backdrop');
+    const modal = document.getElementById('cmd-palette-modal');
+    if (backdrop) backdrop.style.display = 'none';
+    if (modal) modal.style.display = 'none';
+}
+
+function renderCommandResults(query) {
+    const resultsContainer = document.getElementById('cmd-palette-results');
+    if (!resultsContainer) return;
+
+    const q = (query || '').toLowerCase().trim();
+    if (!q) {
+        filteredCommands = OS_COMMANDS;
+    } else {
+        filteredCommands = OS_COMMANDS.filter(cmd => 
+            cmd.title.toLowerCase().includes(q) ||
+            cmd.category.toLowerCase().includes(q) ||
+            cmd.hint.toLowerCase().includes(q)
+        );
+    }
+
+    selectedCommandIndex = 0;
+
+    if (filteredCommands.length === 0) {
+        resultsContainer.innerHTML = `
+            <div class="os-cmd-empty">
+                No commands, projects, or applications found matching "${q}".
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+    let currentCategory = '';
+
+    filteredCommands.forEach((cmd, idx) => {
+        if (cmd.category !== currentCategory) {
+            currentCategory = cmd.category;
+            html += `<div class="os-cmd-category">${currentCategory}</div>`;
+        }
+        html += `
+            <button class="os-cmd-item ${idx === 0 ? 'selected' : ''}" data-idx="${idx}" onclick="executeCommandByIndex(${idx})">
+                <i data-feather="${cmd.icon}" class="os-cmd-item-icon"></i>
+                <span class="os-cmd-item-title">${cmd.title}</span>
+                <span class="os-cmd-item-hint">${cmd.hint}</span>
+            </button>
+        `;
+    });
+
+    resultsContainer.innerHTML = html;
+    feather.replace();
+    highlightSelectedCommand();
+}
+
+function highlightSelectedCommand() {
+    const items = document.querySelectorAll('.os-cmd-item');
+    items.forEach((item, idx) => {
+        item.classList.toggle('selected', idx === selectedCommandIndex);
+        if (idx === selectedCommandIndex) {
+            item.scrollIntoView({ block: 'nearest' });
+        }
+    });
+}
+
+function executeCommandByIndex(index) {
+    if (filteredCommands[index]) {
+        executeCommand(filteredCommands[index]);
+    }
+}
+
+function executeCommand(command) {
+    closeCommandPalette();
+    if (command && typeof command.action === 'function') {
+        command.action();
+    }
+}
+
 

@@ -1,876 +1,1328 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ManashOS — Your Personal Operating System</title>
+    <title>ManashOS — Personal Operating System | Manashjyoti Barman</title>
     <meta name="description"
-        content="ManashOS is a personal productivity system by Manashjyoti Barman. Blog, manage tasks, take notes — all in one place.">
+        content="ManashOS is a lightweight, futuristic personal operating system by Manashjyoti Barman. Explore career timeline, project lab, games arcade, skills matrix, and notes.">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manashjyoti.vercel.app/manashos">
-    <meta property="og:title" content="ManashOS — Your Personal Operating System">
+    <meta property="og:title" content="ManashOS — Personal Operating System | Manashjyoti Barman">
     <meta property="og:description"
-        content="A personal productivity system for blogging, task management, and note-taking. Built by Manashjyoti Barman.">
+        content="A futuristic personal digital workspace, career laboratory, and operating system by Manashjyoti Barman.">
     <meta property="og:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://manashjyoti.vercel.app/manashos">
-    <meta property="twitter:title" content="ManashOS - Your Personal Operating System">
+    <meta property="twitter:title" content="ManashOS - Personal Operating System">
     <meta property="twitter:description"
-        content="A personal productivity system for blogging, task management, and note-taking. Built by Manashjyoti Barman.">
+        content="A futuristic personal digital workspace, career laboratory, and operating system by Manashjyoti Barman.">
     <meta property="twitter:image" content="https://manashjyoti.vercel.app/profile.jpg.jpeg">
 
-    <!-- Fonts (same as portfolio) -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/manashos/style.css?v=1.1">
+    <link rel="stylesheet" href="/manashos/style.css?v=2.0">
     <link rel="stylesheet" href="/chatbot.css">
 
+    <!-- Quill Editor styles for blogs -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <!-- Feather Icons (same as portfolio) -->
+    
+    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons" defer></script>
     <!-- Appwrite SDK -->
     <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.2" defer></script>
     <script src="/chatbot.js" defer></script>
-    <link rel="icon" type="image/jpeg" href="profile.jpg.jpeg">
+    <link rel="icon" type="image/jpeg" href="/profile.jpg.jpeg">
 </head>
 
-<body class="loading">
-    <!-- Sophisticated Preloader -->
-    <div id="os-preloader" class="os-preloader">
+<body>
+    <!-- Ambient futuristic backdrop grid -->
+    <div class="os-ambient-background" aria-hidden="true"></div>
+
+    <!-- Operating System Preloader -->
+    <div id="os-preloader" class="os-preloader" aria-live="polite">
         <div class="os-preloader-logo">
             <img src="/profile.jpg.jpeg" alt="ManashOS">
         </div>
         <div class="os-loader-bar">
             <div class="os-loader-progress"></div>
         </div>
-        <p
-            style="margin-top: 15px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted);">
-            INITIALIZING SYSTEM</p>
+        <p style="margin-top: 14px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; color: var(--os-text-muted); font-family: var(--os-font-mono);">
+            BOOTING MANASHOS KERNEL v2.0
+        </p>
     </div>
 
-    <!-- Top Bar -->
-    <header class="os-topbar">
-        <button id="os-menu-toggle" class="os-menu-btn" aria-label="Toggle Menu">
-            <i data-feather="menu"></i>
-        </button>
+    <!-- Hidden bridge elements to guarantee full legacy compatibility -->
+    <div style="display:none;" aria-hidden="true">
+        <button id="journey-mode-toggle" class="os-nav-item guest-only" onclick="toggleJourneyMode()"><span id="journey-toggle-text">My Journey</span></button>
+        <div id="portfolio-mode-content"></div>
+        <div id="journey-mode-content"></div>
+        <span id="guest-stat-blogs">0</span>
+        <span id="guest-stat-projects">9</span>
+        <span id="guest-stat-games">31</span>
+        <span id="guest-stat-experiments">6</span>
+        <span id="journey-prev"></span>
+        <span id="journey-next"></span>
+        <div id="journey-track"></div>
+    </div>
 
-        <a href="/manashos" class="os-brand">
-            <div class="os-brand-avatar">
-                <img src="/profile.jpg.jpeg" alt="ManashOS Logo">
+    <!-- ==================== DESKTOP APPLICATION SHELL ==================== -->
+    <div class="os-shell">
+        <!-- A. Left Sidebar -->
+        <aside class="os-sidebar" id="os-sidebar" aria-label="Main System Navigation">
+            <div class="os-sidebar-header">
+                <a href="/manashos" class="os-profile-badge" title="ManashOS Home">
+                    <div class="os-profile-avatar">
+                        <img src="/profile.jpg.jpeg" alt="Manashjyoti Barman">
+                    </div>
+                    <div class="os-profile-meta sidebar-hide-when-collapsed">
+                        <div class="os-profile-name">
+                            <span>ManashOS</span>
+                            <span class="os-status-pulse" title="System Operational"></span>
+                        </div>
+                        <div class="os-profile-subtitle">Command Center</div>
+                    </div>
+                </a>
+                <button id="os-sidebar-collapse" class="os-sidebar-collapse-btn sidebar-hide-when-collapsed" aria-label="Collapse Sidebar" title="Collapse Sidebar">
+                    <i data-feather="chevron-left"></i>
+                </button>
             </div>
-            <div class="os-brand-text">
-                <span class="os-brand-name">ManashOS</span>
-                <span class="os-brand-sub">PERSONAL COMMAND CENTER</span>
+
+            <nav class="os-sidebar-nav" id="os-nav">
+                <div class="os-nav-category sidebar-hide-when-collapsed">Applications</div>
+
+                <button class="os-nav-btn active" data-view="home" aria-label="Home Dashboard">
+                    <i data-feather="grid" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Home</span>
+                </button>
+
+                <button class="os-nav-btn" data-view="journey" aria-label="Career Journey">
+                    <i data-feather="compass" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">My Journey</span>
+                    <span class="os-nav-pill-badge sidebar-hide-when-collapsed">6 Exp</span>
+                </button>
+
+                <button class="os-nav-btn" data-view="projects" aria-label="Project Lab">
+                    <i data-feather="box" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Project Lab</span>
+                    <span class="os-nav-pill-badge sidebar-hide-when-collapsed">9 Apps</span>
+                </button>
+
+                <button class="os-nav-btn" data-view="skills" aria-label="Skills Matrix">
+                    <i data-feather="cpu" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Skills Matrix</span>
+                </button>
+
+                <button class="os-nav-btn" data-view="achievements" aria-label="Achievements">
+                    <i data-feather="award" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Achievements</span>
+                </button>
+
+                <button class="os-nav-btn" data-view="arcade" aria-label="Games Arcade">
+                    <i data-feather="play-circle" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Games Arcade</span>
+                    <span class="os-nav-pill-badge sidebar-hide-when-collapsed">31</span>
+                </button>
+
+                <!-- Authenticated Area (Owner Mode) -->
+                <div class="os-nav-category auth-only sidebar-hide-when-collapsed" style="display:none;">Owner System</div>
+
+                <button class="os-nav-btn auth-only" data-view="dashboard" style="display:none;" aria-label="System Metrics">
+                    <i data-feather="activity" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Analytics</span>
+                </button>
+
+                <button class="os-nav-btn auth-only" data-view="blogs" style="display:none;" aria-label="Blog Management">
+                    <i data-feather="edit-3" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Blogs Manager</span>
+                </button>
+
+                <button class="os-nav-btn auth-only" data-view="notes" style="display:none;" aria-label="Private Notes">
+                    <i data-feather="file-text" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Secure Notes</span>
+                </button>
+
+                <button class="os-nav-btn auth-only" data-view="tasks" style="display:none;" aria-label="Tasks Manager">
+                    <i data-feather="check-square" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Tasks Manager</span>
+                </button>
+
+                <div class="os-nav-category sidebar-hide-when-collapsed">Access</div>
+
+                <button class="os-nav-btn guest-only" id="nav-login-btn" onclick="switchView('login')" aria-label="Owner Access">
+                    <i data-feather="lock" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Owner Console</span>
+                </button>
+            </nav>
+
+            <div class="os-sidebar-footer">
+                <div class="os-user-session-bar auth-only" id="user-pill" style="display:none;">
+                    <i data-feather="shield" style="width:14px; height:14px;"></i>
+                    <span id="user-name" class="sidebar-hide-when-collapsed">Owner</span>
+                </div>
+                <button class="os-nav-btn auth-only" id="logout-btn" style="display:none;" onclick="handleLogout()">
+                    <i data-feather="log-out" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Sign Out</span>
+                </button>
+                <a href="/" class="os-nav-btn" style="color: var(--os-accent-cyan);" title="Return to Portfolio">
+                    <i data-feather="arrow-left" class="os-nav-icon"></i>
+                    <span class="sidebar-hide-when-collapsed">Back to Portfolio</span>
+                </a>
             </div>
-        </a>
+        </aside>
 
-        <nav class="os-nav" id="os-nav">
-            <button class="os-nav-item auth-only" data-view="dashboard">Dashboard</button>
-            <button class="os-nav-item auth-only" data-view="blogs">Blogs</button>
-            <button class="os-nav-item auth-only" data-view="notes">Notes</button>
-            <button class="os-nav-item auth-only" data-view="tasks">Tasks</button>
-            <button class="os-nav-item guest-only" id="journey-mode-toggle" onclick="toggleJourneyMode()">
-                <span id="journey-toggle-text">My Journey</span>
-            </button>
-            <button class="os-nav-item guest-only" id="nav-login-btn" onclick="switchView('login')">Owner
-                Access</button>
-            <div class="os-user-pill auth-only" id="user-pill" style="display:none;">
-                <span class="os-user-dot"></span>
-                <span id="user-name">User</span>
-            </div>
-            <button class="os-nav-item auth-only" id="logout-btn" style="display:none;"
-                onclick="handleLogout()">Logout</button>
-            <a href="/" class="os-nav-item guest-only os-back-btn"
-                style="background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); color: white; font-weight: 600; text-decoration: none;">Back
-                to Portfolio</a>
-        </nav>
-
-        <div class="os-topbar-actions">
-            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
-                <i data-feather="sun" class="icon-sm"></i>
-            </button>
-        </div>
-    </header>
-
-    <main class="os-container" style="min-height: 80vh;">
-        <!-- ==================== HOME VIEW ==================== -->
-        <div id="view-home" class="os-view" style="display:none;">
-            <!-- Portfolio Mode Content (Default) -->
-            <div id="portfolio-mode-content">
-                <!-- Hero (guest only) -->
-                <section class="os-hero guest-only">
-                    <h1 class="os-hero-title">Welcome to <span class="text-gradient">ManashOS!</span></h1>
-                    <p class="os-hero-sub">
-                        A showcase of my projects, writings, and experiments.<br>
-                        Where ideas are built and shared.
-                    </p>
-
-                    <!-- Guest Stats Dashboard -->
-                    <div class="os-guest-stats" id="guest-stats-dashboard">
-                        <div class="os-guest-stat-item">
-                            <span class="os-guest-stat-value" id="guest-stat-projects">0</span>
-                            <span class="os-guest-stat-label">Projects Built</span>
-                        </div>
-                        <div class="os-guest-stat-item">
-                            <span class="os-guest-stat-value" id="guest-stat-blogs">0</span>
-                            <span class="os-guest-stat-label">Blogs Published</span>
-                        </div>
-                        <div class="os-guest-stat-item">
-                            <span class="os-guest-stat-value" id="guest-stat-games">31</span>
-                            <span class="os-guest-stat-label">Games Available</span>
-                        </div>
-                        <div class="os-guest-stat-item">
-                            <span class="os-guest-stat-value" id="guest-stat-experiments">6</span>
-                            <span class="os-guest-stat-label">Experiments</span>
-                        </div>
-                    </div>
-
-                    <!-- Surprise Me CTA -->
-                    <div
-                        style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <button class="btn btn-gradient btn-pill" id="surprise-btn" onclick="surpriseMe()">
-                            <i data-feather="shuffle" class="btn-icon"></i> 🎲 Surprise Me
-                        </button>
-                        <span class="surprise-label">Discover something random from my system</span>
-                    </div>
-                </section>
-
-                <!-- Guest Tabs -->
-                <div class="guest-only" style="margin-bottom: 40px; text-align: center;">
-                    <div class="os-tabs-container" id="guest-tabs">
-                        <button class="os-tab-btn active" onclick="toggleGuestTab('projects', this)">Featured Projects</button>
-                        <button class="os-tab-btn" onclick="toggleGuestTab('blogs', this)">Published
-                            Blogs</button>
-                        <button class="os-tab-btn" onclick="toggleGuestTab('games', this)">Play Games</button>
-                        <button class="os-tab-btn" onclick="toggleGuestTab('experiments', this)">Experiments</button>
+        <!-- Main Workspace Area -->
+        <div class="os-workspace-wrapper">
+            <!-- B. Top System Bar -->
+            <header class="os-topbar">
+                <div class="os-topbar-left">
+                    <button id="os-menu-toggle" class="os-mobile-menu-toggle" aria-label="Open Navigation Drawer">
+                        <i data-feather="menu"></i>
+                    </button>
+                    <div class="os-breadcrumb" aria-label="Breadcrumb">
+                        <span class="os-breadcrumb-sys">ManashOS</span>
+                        <span class="os-breadcrumb-sep">/</span>
+                        <span class="os-breadcrumb-current" id="os-current-view-name">Home</span>
                     </div>
                 </div>
 
-                <!-- Projects Tab Content -->
-                <div id="guest-tab-projects" class="guest-only">
-                    <div class="os-section-badge">WHAT I'VE BUILT</div>
-                    <h2 class="os-section-title">Featured <span class="text-gradient">Projects</span></h2>
-                    <div class="projects-grid">
-                        <a href="https://seoforensics.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="https://seoforensics.vercel.app/icon.svg" alt="SEO Forensics Logo" class="project-logo-mini" style="border-radius:6px; background-color: #f3f4f6; padding: 4px;">
-                                    <h3 class="project-title">SEO Forensics</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">SEO Tool • Utility</div>
-                            <p class="project-desc">A powerful tool for analyzing and forensically examining website SEO.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Deep SEO analysis</li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Actionable insights</li>
-                            </ul>
-                        </a>
+                <!-- Command Palette Trigger Search -->
+                <button class="os-cmd-trigger" id="cmd-palette-trigger" onclick="openCommandPalette()" aria-label="Open Command Palette (Ctrl+K)">
+                    <i data-feather="search" style="width:14px; height:14px;"></i>
+                    <span>Quick commands & search...</span>
+                    <span class="os-cmd-kbd">Ctrl K</span>
+                </button>
 
-                        <a href="https://githubprofile1.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="https://githubprofile1.vercel.app/icon.jpg" alt="README Studio Logo" class="project-logo-mini" style="border-radius:6px;">
-                                    <h3 class="project-title">README Studio</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">Developer Tool • Utility</div>
-                            <p class="project-desc">Build a GitHub Profile That Looks Like You Built It.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Customizable profile generator</li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Live preview capabilities</li>
-                            </ul>
-                        </a>
-
-                        <a href="https://sheetpulse1.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <div class="project-logo-mini" style="display:flex;align-items:center;justify-content:center;background:#f3f4f6;border-radius:6px;width:32px;height:32px;font-size:16px;">📊</div>
-                                    <h3 class="project-title">SheetPulse</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">Data • Utility</div>
-                            <p class="project-desc">A smart dashboard and utility tool for real-time spreadsheet analytics and management.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Real-time data sync</li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Advanced analytics processing</li>
-                            </ul>
-                        </a>
-
-                        <a href="https://question-bank-parser.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <div class="project-logo-mini" style="display:flex;align-items:center;justify-content:center;background:#f3f4f6;border-radius:6px;width:32px;height:32px;font-size:16px;">📝</div>
-                                    <h3 class="project-title">Question Bank Parser</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">EdTech • Parser</div>
-                            <p class="project-desc">An intelligent parsing engine that extracts, categorizes, and formats unstructured question banks.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Intelligent text parsing</li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Automated categorization</li>
-                            </ul>
-                        </a>
-
-                        <a href="https://paath-sohayok.vercel.app/" target="_blank" rel="noopener noreferrer"
-                            class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="/paath-logo.jpg.png" alt="Paath Sohayok Logo" class="project-logo-mini">
-                                    <h3 class="project-title">Paath Sohayok</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">GEN AI • EdTech</div>
-                            <p class="project-desc">Bilingual education portal generating lesson plans, PPTs,
-                                assessments, and classroom activities instantly via LLM integration.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Instant bilingual content generation
-                                </li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Automated classroom assessments via
-                                    LLM</li>
-                            </ul>
-                        </a>
-
-                        <a href="https://airdraw-taupe.vercel.app/" target="_blank" rel="noopener noreferrer"
-                            class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="/air-logo.jpg.png" alt="AirDraw Logo" class="project-logo-mini">
-                                    <h3 class="project-title">AirDraw</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">Deep Learning • CV</div>
-                            <p class="project-desc">Interactive virtual painting application utilizing real-time
-                                computer vision and spatial hand gesture tracking.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Real-time computer vision
-                                    integration</li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Spatial hand gesture tracking</li>
-                            </ul>
-                        </a>
-
-                        <a href="https://memorysearch.streamlit.app/" target="_blank" rel="noopener noreferrer"
-                            class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="/memory-logo.jpg.png" alt="Memory Search Logo" class="project-logo-mini">
-                                    <h3 class="project-title">Memory Search</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">NLP • Backend</div>
-                            <p class="project-desc">A semantic retrieval system enabling natural language queries to
-                                discover exact documents without rigid keyword reliance.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Natural language query processing
-                                </li>
-                                <li><i data-feather="play" class="bullet-icon"></i> High-accuracy semantic retrieval
-                                </li>
-                            </ul>
-                        </a>
-
-                        <a href="https://smartcomm.vercel.app/" target="_blank" class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="/smart-logo.jpg.png" alt="SmartComm Logo" class="project-logo-mini">
-                                    <h3 class="project-title">SmartComm</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">Productivity • Core</div>
-                            <p class="project-desc">A professional utility that transforms unrefined textual thoughts
-                                into polished, contextual, executive-ready communication.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> AI-powered communication refinement
-                                </li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Executive-ready format conversion
-                                </li>
-                            </ul>
-                        </a>
-
-                        <a href="https://offstumpwebsite.vercel.app/" target="_blank" class="project-card">
-                            <div class="project-top-row">
-                                <div class="project-title-group">
-                                    <img src="/offstump-logo.jpg.png" alt="OFFSTUMP Logo" class="project-logo-mini">
-                                    <h3 class="project-title">OFFSTUMP</h3>
-                                </div>
-                                <span class="project-date">2026</span>
-                            </div>
-                            <div class="project-meta">Web Platform • Local Business</div>
-                            <p class="project-desc">Full digital presence implementation for a premium indoor sports
-                                facility, successfully mapping physical footfall from online engagement.</p>
-                            <ul class="project-bullets">
-                                <li><i data-feather="play" class="bullet-icon"></i> Conversion of online traffic to
-                                    physical footfall</li>
-                                <li><i data-feather="play" class="bullet-icon"></i> Premium web presence integration
-                                </li>
-                            </ul>
-                        </a>
-                    </div>
+                <div class="os-topbar-right">
+                    <div class="os-sys-clock" id="os-clock" aria-label="System Time">--:--:--</div>
+                    <button id="theme-toggle" class="os-icon-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Appearance">
+                        <i data-feather="sun" class="icon-sm"></i>
+                    </button>
+                    <a href="/" class="os-topbar-portfolio-link">
+                        <i data-feather="external-link" style="width:13px; height:13px;"></i>
+                        <span>Main Portfolio</span>
+                    </a>
                 </div>
+            </header>
 
-                <div id="guest-tab-blogs" class="guest-only" style="display: none;">
-                    <div class="os-section-badge">Latest Insights</div>
-                    <h2 class="os-section-title">Published <span class="text-gradient">Thoughts</span></h2>
-                    <div class="os-cards-grid" id="public-blogs-grid">
-                        <div class="os-loading">
-                            <div class="os-spinner"></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- C. Scrollable Workspace Content Area -->
+            <main class="os-workspace-content" id="os-workspace-content">
+                <div class="os-view-container">
 
-                <!-- Games Tab Content -->
-                <div id="guest-tab-games" class="guest-only" style="display: none;">
-                    <div class="os-section-badge">COGNITIVE PLAYGROUND</div>
-                    <h2 class="os-section-title">Micro <span class="text-gradient">Challenges</span></h2>
-                    <div style="display: flex; justify-content: center; margin-bottom: 30px;">
-                        <a href="/21-days" class="btn btn-gradient btn-pill" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;">
-                            🎮 Play 21 Days Challenge
-                        </a>
-                    </div>
-                    <div class="os-cards-grid">
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">Classic</span>
-                                <span>Skill Test</span>
+                    <!-- ==================== VIEW 1: HOME DESKTOP ==================== -->
+                    <section id="view-home" class="os-view-section active-view">
+                        <!-- Welcome Panel -->
+                        <div class="os-hero-welcome">
+                            <div class="os-hero-eyebrow">
+                                <i data-feather="terminal" style="width:14px; height:14px;"></i>
+                                <span>PERSONAL COMMAND CENTER</span>
                             </div>
-                            <h3 class="os-card-title">Typing Speed Test</h3>
-                            <p class="os-card-desc">Test your typing speed and accuracy with random professional quotes.
+                            <h1 class="os-hero-title">Welcome to my world.</h1>
+                            <p class="os-hero-sub">
+                                Products I've built. Problems I've solved. Experiences that shaped me. A fast, interactive operating system running directly inside your browser.
                             </p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('typing')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                            <div class="os-hero-actions">
+                                <button class="btn btn-gradient" onclick="switchView('journey')">
+                                    <i data-feather="compass" class="btn-icon"></i> Explore My Journey
+                                </button>
+                                <button class="btn btn-secondary" onclick="switchView('projects')">
+                                    <i data-feather="box" class="btn-icon"></i> Open Project Lab
+                                </button>
+                                <button class="btn btn-secondary btn-pill" id="surprise-btn" onclick="surpriseMe()" title="Discover something random">
+                                    <i data-feather="shuffle" class="btn-icon"></i> Surprise Me
                                 </button>
                             </div>
                         </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">Classic</span>
-                                <span>Memory</span>
+                        <!-- Verified Information Metrics Bar -->
+                        <div class="os-metrics-bar">
+                            <div class="os-metric-card" onclick="switchView('journey')" style="cursor:pointer;" title="View Career Journey">
+                                <div class="os-metric-icon-wrap"><i data-feather="briefcase"></i></div>
+                                <div>
+                                    <div class="os-metric-val">6+</div>
+                                    <div class="os-metric-lbl">Years Experience</div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">Memory Match</h3>
-                            <p class="os-card-desc">Flip and match pairs of icons to test your short-term memory.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('memory')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
+                            <div class="os-metric-card" onclick="switchView('projects')" style="cursor:pointer;" title="View Project Lab">
+                                <div class="os-metric-icon-wrap"><i data-feather="layers"></i></div>
+                                <div>
+                                    <div class="os-metric-val">9</div>
+                                    <div class="os-metric-lbl">Documented Products</div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">Classic</span>
-                                <span>Strategy</span>
+                            <div class="os-metric-card" onclick="switchView('arcade')" style="cursor:pointer;" title="Explore 21-Days Challenge">
+                                <div class="os-metric-icon-wrap"><i data-feather="award"></i></div>
+                                <div>
+                                    <div class="os-metric-val">21/21</div>
+                                    <div class="os-metric-lbl">Games Challenge Done</div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">Tic Tac Toe</h3>
-                            <p class="os-card-desc">The classic game of X and O. Play against a friend locally.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('tictactoe')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Reaction</span>
-                            </div>
-                            <h3 class="os-card-title">Focus Click</h3>
-                            <p class="os-card-desc">Wait for the screen to turn green and click as fast as you can.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('reaction')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
+                            <div class="os-metric-card" onclick="switchView('achievements')" style="cursor:pointer;" title="View Recognitions">
+                                <div class="os-metric-icon-wrap"><i data-feather="star"></i></div>
+                                <div>
+                                    <div class="os-metric-val">5</div>
+                                    <div class="os-metric-lbl">Documented Awards</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Speed</span>
+                        <!-- Application Launcher Tiles -->
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">SYSTEM SUITE</div>
+                                <h2 class="os-section-heading">Application Launcher</h2>
                             </div>
-                            <h3 class="os-card-title">1–25 Grid</h3>
-                            <p class="os-card-desc">Click numbers 1 to 25 in order as fast as possible.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('grid25')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
+                            <span style="font-size:0.8rem; color:var(--os-text-muted); font-family:var(--os-font-mono);">6 Modules Available</span>
+                        </div>
+
+                        <div class="os-app-launcher-grid">
+                            <!-- Tile 1: My Journey -->
+                            <div class="os-app-tile" onclick="switchView('journey')" tabindex="0" role="button" aria-label="Open My Journey">
+                                <div class="os-tile-top">
+                                    <div class="os-tile-icon-box"><i data-feather="compass"></i></div>
+                                    <span class="os-tile-tag">CAREER</span>
+                                </div>
+                                <h3 class="os-tile-title">My Journey</h3>
+                                <p class="os-tile-desc">Explore professional roles, transformation projects, leadership timeline, and milestones.</p>
+                                <div class="os-tile-footer">
+                                    <span>Launch Module</span>
+                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
+                                </div>
+                            </div>
+
+                            <!-- Tile 2: Project Lab -->
+                            <div class="os-app-tile" onclick="switchView('projects')" tabindex="0" role="button" aria-label="Open Project Lab">
+                                <div class="os-tile-top">
+                                    <div class="os-tile-icon-box"><i data-feather="box"></i></div>
+                                    <span class="os-tile-tag">PORTFOLIO</span>
+                                </div>
+                                <h3 class="os-tile-title">Project Lab</h3>
+                                <p class="os-tile-desc">Live production applications, AI prototypes, and technical products with live URLs.</p>
+                                <div class="os-tile-footer">
+                                    <span>Launch Module</span>
+                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
+                                </div>
+                            </div>
+
+                            <!-- Tile 3: Skills Matrix -->
+                            <div class="os-app-tile" onclick="switchView('skills')" tabindex="0" role="button" aria-label="Open Skills Matrix">
+                                <div class="os-tile-top">
+                                    <div class="os-tile-icon-box"><i data-feather="cpu"></i></div>
+                                    <span class="os-tile-tag">COMPETENCIES</span>
+                                </div>
+                                <h3 class="os-tile-title">Skills Matrix</h3>
+                                <p class="os-tile-desc">System Design & Architecture, Product Delivery, Agile execution, and AI stack matrix.</p>
+                                <div class="os-tile-footer">
+                                    <span>Launch Module</span>
+                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
+                                </div>
+                            </div>
+
+                            <!-- Tile 4: Achievements -->
+                            <div class="os-app-tile" onclick="switchView('achievements')" tabindex="0" role="button" aria-label="Open Achievements">
+                                <div class="os-tile-top">
+                                    <div class="os-tile-icon-box"><i data-feather="award"></i></div>
+                                    <span class="os-tile-tag">HONORS</span>
+                                </div>
+                                <h3 class="os-tile-title">Achievements</h3>
+                                <p class="os-tile-desc">Verified industry spot awards, employee of the quarter recognitions, and completed milestones.</p>
+                                <div class="os-tile-footer">
+                                    <span>Launch Module</span>
+                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
+                                </div>
+                            </div>
+
+                            <!-- Tile 5: Games Arcade -->
+                            <div class="os-app-tile" onclick="switchView('arcade')" tabindex="0" role="button" aria-label="Open Games Arcade">
+                                <div class="os-tile-top">
+                                    <div class="os-tile-icon-box"><i data-feather="play-circle"></i></div>
+                                    <span class="os-tile-tag">INTERACTIVE</span>
+                                </div>
+                                <h3 class="os-tile-title">Games Arcade</h3>
+                                <p class="os-tile-desc">Play 10 integrated micro-games or launch all 21 games from the 21 Days Challenge.</p>
+                                <div class="os-tile-footer">
+                                    <span>Launch Module</span>
+                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
+                                </div>
+                            </div>
+
+                            <!-- Tile 6: Owner Console -->
+                            <div class="os-app-tile" onclick="switchView('login')" tabindex="0" role="button" aria-label="Open Owner Console">
+                                <div class="os-tile-top">
+                                    <div class="os-tile-icon-box"><i data-feather="shield"></i></div>
+                                    <span class="os-tile-tag">SECURE</span>
+                                </div>
+                                <h3 class="os-tile-title">Owner Console</h3>
+                                <p class="os-tile-desc">Secure Appwrite portal to create, edit and publish blogs, task lists, and private notes.</p>
+                                <div class="os-tile-footer">
+                                    <span>Authenticate</span>
+                                    <i data-feather="arrow-right" class="os-tile-arrow" style="width:16px; height:16px;"></i>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Accuracy</span>
+                        <!-- Featured Work Showcase -->
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">SHOWCASE</div>
+                                <h2 class="os-section-heading">Featured Work</h2>
                             </div>
-                            <h3 class="os-card-title">Aim Trainer</h3>
-                            <p class="os-card-desc">Click randomly appearing targets to test your precision.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('aim')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
+                            <button class="btn btn-secondary btn-sm" onclick="switchView('projects')">View All Projects (9) →</button>
+                        </div>
+
+                        <div class="os-grid-3" style="margin-bottom: 30px;">
+                            <div class="os-card">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="https://seoforensics.vercel.app/icon.svg" alt="SEO Forensics" class="os-card-icon-img" style="background:#f3f4f6; padding:3px;">
+                                        <h3 class="os-card-title">SEO Forensics</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">SEO Tool • Utility</div>
+                                <p class="os-card-desc">A forensic engine for analyzing and auditing website SEO health with deep technical metrics.</p>
+                                <div class="os-card-actions">
+                                    <a href="https://seoforensics.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Live App
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="os-card">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/paath-logo.jpg.png" alt="Paath Sohayok" class="os-card-icon-img">
+                                        <h3 class="os-card-title">Paath Sohayok</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">GenAI • EdTech</div>
+                                <p class="os-card-desc">Bilingual education portal generating lesson plans, PPTs, assessments, and classroom activities via LLMs.</p>
+                                <div class="os-card-actions">
+                                    <a href="https://paath-sohayok.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Live App
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="os-card">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/air-logo.jpg.png" alt="AirDraw" class="os-card-icon-img">
+                                        <h3 class="os-card-title">AirDraw</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">Computer Vision • AI</div>
+                                <p class="os-card-desc">Interactive virtual painting application utilizing real-time computer vision and spatial hand tracking.</p>
+                                <div class="os-card-actions">
+                                    <a href="https://airdraw-taupe.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Live App
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Pattern</span>
-                            </div>
-                            <h3 class="os-card-title">Pattern Memory</h3>
-                            <p class="os-card-desc">Watch a sequence of tiles light up and repeat it correctly.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('pattern')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
+                        <!-- Published Insights (Public Blogs) -->
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">THOUGHT LEADERSHIP</div>
+                                <h2 class="os-section-heading">Published Insights</h2>
                             </div>
                         </div>
+                        <div class="os-grid-3" id="public-blogs-grid">
+                            <div class="os-card"><p style="color:var(--os-text-muted);">Loading published insights...</p></div>
+                        </div>
+                    </section>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Language</span>
+
+                    <!-- ==================== VIEW 2: MY JOURNEY ==================== -->
+                    <section id="view-journey" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">CAREER TIMELINE</div>
+                                <h2 class="os-section-heading">Professional Journey & Roles</h2>
                             </div>
-                            <h3 class="os-card-title">Word Scramble</h3>
-                            <p class="os-card-desc">Unscramble the letters to find the hidden professional word.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('scramble')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
-                            </div>
+                            <span style="font-size:0.85rem; color:var(--os-text-muted);">Click any role to expand achievements</span>
                         </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Logic</span>
+                        <div class="os-journey-timeline">
+                            <!-- ConveGenius -->
+                            <div class="os-timeline-node expanded">
+                                <div class="os-timeline-bullet"></div>
+                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="os-timeline-header">
+                                        <div>
+                                            <h3 class="os-timeline-role">Product Delivery Manager</h3>
+                                            <div class="os-timeline-company">ConveGenius</div>
+                                        </div>
+                                        <div class="os-timeline-date">Jan 2026 – Present (Current)</div>
+                                    </div>
+                                    <div class="os-timeline-details" style="display:block;">
+                                        <p style="color:var(--os-text-secondary); margin-bottom:10px;">
+                                            Leading the Assam State Vidya Samiksha Kendra (VSK) operations, public education data platforms, and state-level digital transformation initiatives.
+                                        </p>
+                                        <ul class="os-card-bullets">
+                                            <li><i data-feather="check"></i> Scaled complex government digital transformation and analytics operations.</li>
+                                            <li><i data-feather="check"></i> Led end-to-end Agile product delivery, release management, and cross-stakeholder governance.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">Speed Decision</h3>
-                            <p class="os-card-desc">Rapidly decide if simple math/logic statements are true or false.
-                            </p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('decision')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
-                            </div>
-                        </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Puzzle</span>
+                            <!-- Grant Thornton -->
+                            <div class="os-timeline-node">
+                                <div class="os-timeline-bullet"></div>
+                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="os-timeline-header">
+                                        <div>
+                                            <h3 class="os-timeline-role">Project Management Consultant</h3>
+                                            <div class="os-timeline-company">Grant Thornton Bharat LLP</div>
+                                        </div>
+                                        <div class="os-timeline-date">Aug 2024 – Dec 2025 (1.4 yrs)</div>
+                                    </div>
+                                    <div class="os-timeline-details">
+                                        <ul class="os-card-bullets">
+                                            <li><i data-feather="check"></i> Led strategic digital consulting engagements, advising clients on technology-driven transformation.</li>
+                                            <li><i data-feather="check"></i> Spearheaded preparation of DPRs, MSRs, gap analysis, and market intelligence reports.</li>
+                                            <li><i data-feather="check"></i> Managed multi-stakeholder engagements across government bodies, regulators, and private enterprise.</li>
+                                            <li><i data-feather="check"></i> Awarded Employee of the Q2 & Q3 Quarter (Spot Award) for outstanding contribution.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">Binary Switch</h3>
-                            <p class="os-card-desc">Toggle switches to turn all of them ON. Simple yet tricky.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('binary')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
-                            </div>
-                        </div>
 
-                        <div class="os-card">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-published">New</span>
-                                <span>Prompt</span>
+                            <!-- ibentos -->
+                            <div class="os-timeline-node">
+                                <div class="os-timeline-bullet"></div>
+                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="os-timeline-header">
+                                        <div>
+                                            <h3 class="os-timeline-role">Delivery Manager (Part Time)</h3>
+                                            <div class="os-timeline-company">ibentos</div>
+                                        </div>
+                                        <div class="os-timeline-date">Mar 2024 – Jul 2024 (5 mos)</div>
+                                    </div>
+                                    <div class="os-timeline-details">
+                                        <p style="color:var(--os-text-secondary);">
+                                            Spearheaded the delivery of scalable Metaverse and AR/VR platforms, driving end-to-end solution architecture, client engagement, and technical execution.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">Challenge Gen</h3>
-                            <p class="os-card-desc">Get a random creative or professional challenge to think about.</p>
-                            <div class="os-card-footer">
-                                <button class="btn btn-sm btn-gradient btn-full" onclick="openGame('challenge')">
-                                    <i data-feather="play" class="btn-icon"></i> Play Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Experiments Tab Content -->
-                <div id="guest-tab-experiments" class="guest-only" style="display: none;">
-                    <div class="os-section-badge">LABS & IDEAS</div>
-                    <h2 class="os-section-title">Active <span class="text-gradient">Experiments</span></h2>
-                    <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px; font-style: italic;">
-                        Ideas currently being explored and built</p>
-                    <div class="os-cards-grid">
-                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-pending">In Progress</span>
-                                <span>Exp #01</span>
+                            <!-- Wednesday Solutions -->
+                            <div class="os-timeline-node">
+                                <div class="os-timeline-bullet"></div>
+                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="os-timeline-header">
+                                        <div>
+                                            <h3 class="os-timeline-role">Technical Project Manager</h3>
+                                            <div class="os-timeline-company">Wednesday Solutions</div>
+                                        </div>
+                                        <div class="os-timeline-date">Aug 2022 – Jul 2024 (2.0 yrs)</div>
+                                    </div>
+                                    <div class="os-timeline-details">
+                                        <ul class="os-card-bullets">
+                                            <li><i data-feather="check"></i> Led end-to-end Agile delivery, facilitating Scrum ceremonies and driving roadmap alignment.</li>
+                                            <li><i data-feather="check"></i> Translated business requirements into PRDs, user stories, and technical acceptance criteria.</li>
+                                            <li><i data-feather="check"></i> Owned backlog prioritization, sprint planning, story estimation, and velocity tracking.</li>
+                                            <li><i data-feather="check"></i> Resolved blockers across Engineering, QA, and DevOps with CI/CD release coordination.</li>
+                                            <li><i data-feather="check"></i> Recognized as Employee of the Month (Odin's Torchholder).</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">3D Resume Builder</h3>
-                            <p class="os-card-desc">Interactive resume experience in 3D using Three.js.</p>
-                            <div class="os-card-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
-                                        style="width:12px; height:12px;"></i> Work in progress</span>
-                            </div>
-                        </div>
 
-                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-pending">In Progress</span>
-                                <span>Exp #02</span>
+                            <!-- SoulpageIT -->
+                            <div class="os-timeline-node">
+                                <div class="os-timeline-bullet"></div>
+                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="os-timeline-header">
+                                        <div>
+                                            <h3 class="os-timeline-role">Associate Business Analyst</h3>
+                                            <div class="os-timeline-company">SoulpageIT Solutions</div>
+                                        </div>
+                                        <div class="os-timeline-date">Jul 2021 – Jul 2022 (1.1 yrs)</div>
+                                    </div>
+                                    <div class="os-timeline-details">
+                                        <ul class="os-card-bullets">
+                                            <li><i data-feather="check"></i> Led sprint delivery and task accountability alongside Developers and Designers.</li>
+                                            <li><i data-feather="check"></i> Gathered requirements and authored BRDs, SRS, user stories, and wireframes in Balsamiq.</li>
+                                            <li><i data-feather="check"></i> Won the Above and Beyond Award (June 2022) for client delivery.</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="os-card-title">AI Agent Instagram Handler</h3>
-                            <p class="os-card-desc">Automating Instagram interactions using AI agents.</p>
-                            <div class="os-card-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
-                                        style="width:12px; height:12px;"></i> Work in progress</span>
-                            </div>
-                        </div>
 
-                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-pending">In Progress</span>
-                                <span>Exp #03</span>
-                            </div>
-                            <h3 class="os-card-title">Assam Scheme Finder</h3>
-                            <p class="os-card-desc">Find relevant government schemes based on user needs.</p>
-                            <div class="os-card-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
-                                        style="width:12px; height:12px;"></i> Work in progress</span>
-                            </div>
-                        </div>
-
-                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-pending">In Progress</span>
-                                <span>Exp #04</span>
-                            </div>
-                            <h3 class="os-card-title">Electricity Calculator</h3>
-                            <p class="os-card-desc">Estimate electricity usage and cost for household appliances.</p>
-                            <div class="os-card-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
-                                        style="width:12px; height:12px;"></i> Work in progress</span>
-                            </div>
-                        </div>
-
-                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-pending">In Progress</span>
-                                <span>Exp #05</span>
-                            </div>
-                            <h3 class="os-card-title">CRM Tool</h3>
-                            <p class="os-card-desc">Lightweight system to manage leads and professional interactions.
-                            </p>
-                            <div class="os-card-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
-                                        style="width:12px; height:12px;"></i> Work in progress</span>
-                            </div>
-                        </div>
-
-                        <div class="os-card wip-card" onclick="showToast('Currently in progress')">
-                            <div class="os-card-meta">
-                                <span class="os-badge os-badge-pending">In Progress</span>
-                                <span>Exp #06</span>
-                            </div>
-                            <h3 class="os-card-title">BMI Calculator</h3>
-                            <p class="os-card-desc">Simple health metric calculator with personalized feedback.</p>
-                            <div class="os-card-footer">
-                                <span style="font-size: 0.75rem; color: var(--text-muted);"><i data-feather="lock"
-                                        style="width:12px; height:12px;"></i> Work in progress</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-            <!-- End of Portfolio Mode -->
-
-            <!-- Journey Mode Content -->
-            <div id="journey-mode-content" style="display: none;">
-                <div class="os-container">
-                    <!-- Upgraded Hero (ManashOS Size) -->
-                    <section class="os-hero">
-                        <h1 class="os-hero-title">My <span class="text-gradient">Evolution</span></h1>
-                        <p class="os-hero-sub">
-                            From building systems in the public sector <span class="evolution-arrow">→</span> to
-                            designing AI-driven products and personal systems.
-                        </p>
-
-                        <!-- Narrative Insights Grid -->
-                        <div class="journey-insights-grid">
-                            <div class="thinking-pill">
-                                <span class="thinking-label">🧠 Currently Thinking</span>
-                                <span class="thinking-text">"Clarity of thought matters more than speed of
-                                    execution."</span>
-                            </div>
-                            <div class="thinking-pill focus-pill">
-                                <span class="thinking-label">🎯 Focused On</span>
-                                <span class="thinking-text">Building AI-driven systems • Rapid experimentation •
-                                    Product-led thinking</span>
-                            </div>
-                            <div class="thinking-pill direction-pill">
-                                <span class="thinking-label">⚡ Current Direction</span>
-                                <span class="thinking-text">Designing systems that reduce friction between idea and
-                                    execution</span>
+                            <!-- Govt of Assam -->
+                            <div class="os-timeline-node">
+                                <div class="os-timeline-bullet"></div>
+                                <div class="os-timeline-card" onclick="this.parentElement.classList.toggle('expanded')">
+                                    <div class="os-timeline-header">
+                                        <div>
+                                            <h3 class="os-timeline-role">Program Manager</h3>
+                                            <div class="os-timeline-company">Govt of Assam</div>
+                                        </div>
+                                        <div class="os-timeline-date">Sep 2019 – Jun 2021 (1.8 yrs)</div>
+                                    </div>
+                                    <div class="os-timeline-details">
+                                        <p style="color:var(--os-text-secondary);">
+                                            Spearheaded the ground-up setup and operational launch of a specialized educational institution for visually impaired students in Assam, managing government regulatory engagements, staffing, and governance.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
 
-                    <!-- Upgraded Progress Stepper (Navigation Bridge) -->
-                    <div class="journey-stepper">
-                        <button class="step-item active" data-index="0" onclick="jumpToJourneyStep(0, true)">
-                            Foundation <span class="step-dot">●</span>
-                        </button>
-                        <div class="step-line"></div>
-                        <button class="step-item" data-index="1" onclick="jumpToJourneyStep(1, true)">
-                            Exploration <span class="step-dot">○</span>
-                        </button>
-                        <div class="step-line"></div>
-                        <button class="step-item" data-index="2" onclick="jumpToJourneyStep(2, true)">
-                            Creation <span class="step-dot">○</span>
-                        </button>
-                        <div class="step-line"></div>
-                        <button class="step-item" data-index="3" onclick="jumpToJourneyStep(3, true)">
-                            Focus <span class="step-dot">○</span>
-                        </button>
-                    </div>
 
-                    <!-- Horizontal 3D Journey Carousel -->
-                    <div class="journey-carousel-section" id="journey-carousel-section">
-                        <div class="journey-carousel-container">
-                            <button class="carousel-nav prev" id="journey-prev">
-                                <i data-feather="chevron-left"></i>
-                            </button>
+                    <!-- ==================== VIEW 3: PROJECT LAB ==================== -->
+                    <section id="view-projects" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">ENGINEERING & PROTOTYPES</div>
+                                <h2 class="os-section-heading">Project Laboratory</h2>
+                            </div>
+                        </div>
 
-                            <div class="journey-carousel-track-wrapper">
-                                <div class="journey-carousel-track" id="journey-track">
-                                    <!-- Card 1: Foundation -->
-                                    <div class="journey-step-card active" data-index="0">
-                                        <div class="journey-card-label">THE START</div>
-                                        <h3 class="journey-card-title">Foundation</h3>
-                                        <p class="journey-card-identity">Built my foundation in structured thinking</p>
-                                        <ul class="journey-card-points">
-                                            <li>B.Tech + MBA</li>
-                                            <li>Combined technical systems with business perspective</li>
-                                        </ul>
-                                        <div class="journey-card-shift">
-                                            <span class="shift-icon">⚡</span>
-                                            <span class="shift-text"><strong>Key Shift:</strong> Learning concepts →
-                                                Systems thinking</span>
-                                        </div>
-                                        <div class="journey-card-impact">
-                                            <span class="impact-icon">💡</span>
-                                            <span class="impact-text">Developed structured thinking across tech and
-                                                business</span>
-                                        </div>
+                        <!-- Category Filter Pills -->
+                        <div class="os-filter-pills" id="project-filter-pills">
+                            <button class="os-pill-btn active" data-filter="all" onclick="filterProjects('all', this)">All Projects (9)</button>
+                            <button class="os-pill-btn" data-filter="ai" onclick="filterProjects('ai', this)">AI & NLP</button>
+                            <button class="os-pill-btn" data-filter="edtech" onclick="filterProjects('edtech', this)">EdTech</button>
+                            <button class="os-pill-btn" data-filter="tool" onclick="filterProjects('tool', this)">Tools & Utilities</button>
+                            <button class="os-pill-btn" data-filter="web" onclick="filterProjects('web', this)">Web Platforms</button>
+                        </div>
+
+                        <div class="os-grid-3" id="projects-catalog-grid">
+                            <!-- 1. SEO Forensics -->
+                            <div class="os-card" data-category="tool" data-name="SEO Forensics">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="https://seoforensics.vercel.app/icon.svg" alt="SEO Forensics" class="os-card-icon-img" style="background:#f3f4f6; padding:3px;">
+                                        <h3 class="os-card-title">SEO Forensics</h3>
                                     </div>
-
-                                    <!-- Card 2: Exploration -->
-                                    <div class="journey-step-card" data-index="1">
-                                        <div class="journey-card-label">THE CLIMB</div>
-                                        <h3 class="journey-card-title">Exploration</h3>
-                                        <p class="journey-card-identity">Explored systems, delivery, and large-scale
-                                            problem solving</p>
-                                        <ul class="journey-card-points">
-                                            <li>Govt → built systems from ground up</li>
-                                            <li>Product → Agile delivery & execution</li>
-                                            <li>Consulting → policy, governance, scale</li>
-                                        </ul>
-                                        <div class="journey-card-shift">
-                                            <span class="shift-icon">⚡</span>
-                                            <span class="shift-text"><strong>Key Shift:</strong> Executing tasks →
-                                                Managing complex systems</span>
-                                        </div>
-                                        <div class="journey-card-impact">
-                                            <span class="impact-icon">💡</span>
-                                            <span class="impact-text">Learned to operate across stakeholders, scale, and
-                                                constraints</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Card 3: Creation -->
-                                    <div class="journey-step-card" data-index="2">
-                                        <div class="journey-card-label">THE SHIFT</div>
-                                        <h3 class="journey-card-title">Creation</h3>
-                                        <p class="journey-card-identity">Started building my own systems and products
-                                        </p>
-                                        <ul class="journey-card-points">
-                                            <li>ManashOS → personal system</li>
-                                            <li>AI products → PaathSohayok, AirDraw</li>
-                                            <li>Experiments → rapid prototyping</li>
-                                        </ul>
-                                        <div class="journey-card-shift">
-                                            <span class="shift-icon">⚡</span>
-                                            <span class="shift-text"><strong>Key Shift:</strong> Delivering solutions →
-                                                Creating products</span>
-                                        </div>
-                                        <div class="journey-card-impact">
-                                            <span class="impact-icon">💡</span>
-                                            <span class="impact-text">Transitioned into a builder mindset</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Card 4: Current Focus -->
-                                    <div class="journey-step-card" data-index="3">
-                                        <div class="journey-card-label">THE HORIZON</div>
-                                        <h3 class="journey-card-title">Current Focus</h3>
-                                        <p class="journey-card-identity">Focused on building systems that combine
-                                            thinking and execution</p>
-                                        <ul class="journey-card-points">
-                                            <li>AI + product + real-world use</li>
-                                            <li>Fast iteration and experimentation</li>
-                                        </ul>
-                                        <div class="journey-card-shift">
-                                            <span class="shift-icon">⚡</span>
-                                            <span class="shift-text"><strong>Key Shift:</strong> Building products →
-                                                Designing systems</span>
-                                        </div>
-                                        <div class="journey-card-impact">
-                                            <span class="impact-icon">💡</span>
-                                            <span class="impact-text">Creating scalable, usable, and impactful
-                                                solutions</span>
-                                        </div>
-                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">SEO Tool • Utility</div>
+                                <p class="os-card-desc">A powerful tool for analyzing and forensically examining website SEO, headings, metadata, and performance.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Deep forensic SEO analysis</li>
+                                    <li><i data-feather="check"></i> Actionable audits & recommendations</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://seoforensics.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
                                 </div>
                             </div>
 
-                            <button class="carousel-nav next" id="journey-next">
-                                <i data-feather="chevron-right"></i>
+                            <!-- 2. README Studio -->
+                            <div class="os-card" data-category="tool" data-name="README Studio">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="https://githubprofile1.vercel.app/icon.jpg" alt="README Studio" class="os-card-icon-img">
+                                        <h3 class="os-card-title">README Studio</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">Developer Tool • Utility</div>
+                                <p class="os-card-desc">Build a GitHub profile README that looks like you built it. Live preview and instant markdown generation.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Modular profile section generator</li>
+                                    <li><i data-feather="check"></i> Live markdown preview sync</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://githubprofile1.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 3. SheetPulse -->
+                            <div class="os-card" data-category="tool" data-name="SheetPulse">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <div class="os-card-icon-img" style="display:flex;align-items:center;justify-content:center;background:#1e293b;font-size:16px;">📊</div>
+                                        <h3 class="os-card-title">SheetPulse</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">Data • Utility</div>
+                                <p class="os-card-desc">A smart dashboard and utility tool for real-time spreadsheet analytics and management workflows.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Real-time spreadsheet data sync</li>
+                                    <li><i data-feather="check"></i> Advanced analytics processing</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://sheetpulse1.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 4. Question Bank Parser -->
+                            <div class="os-card" data-category="edtech tool" data-name="Question Bank Parser">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <div class="os-card-icon-img" style="display:flex;align-items:center;justify-content:center;background:#1e293b;font-size:16px;">📝</div>
+                                        <h3 class="os-card-title">Question Bank Parser</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">EdTech • Parser</div>
+                                <p class="os-card-desc">An intelligent parsing engine that extracts, categorizes, and formats unstructured question banks.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Intelligent text parsing</li>
+                                    <li><i data-feather="check"></i> Automated categorization & export</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://question-bank-parser.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 5. Paath Sohayok -->
+                            <div class="os-card" data-category="ai edtech" data-name="Paath Sohayok">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/paath-logo.jpg.png" alt="Paath Sohayok" class="os-card-icon-img">
+                                        <h3 class="os-card-title">Paath Sohayok</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">GenAI • EdTech</div>
+                                <p class="os-card-desc">Bilingual education portal generating lesson plans, PPTs, assessments, and classroom activities via LLMs.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Instant bilingual content generation</li>
+                                    <li><i data-feather="check"></i> Automated classroom assessments</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://paath-sohayok.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 6. AirDraw -->
+                            <div class="os-card" data-category="ai" data-name="AirDraw">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/air-logo.jpg.png" alt="AirDraw" class="os-card-icon-img">
+                                        <h3 class="os-card-title">AirDraw</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">Deep Learning • CV</div>
+                                <p class="os-card-desc">Interactive virtual painting application utilizing real-time computer vision and spatial hand gesture tracking.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Real-time computer vision integration</li>
+                                    <li><i data-feather="check"></i> Spatial hand gesture canvas tracking</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://airdraw-taupe.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 7. Memory Search -->
+                            <div class="os-card" data-category="ai" data-name="Memory Search">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/memory-logo.jpg.png" alt="Memory Search" class="os-card-icon-img">
+                                        <h3 class="os-card-title">Memory Search</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">NLP • Semantic Retrieval</div>
+                                <p class="os-card-desc">A semantic retrieval system enabling natural language queries to discover exact documents without rigid keyword reliance.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Natural language query processing</li>
+                                    <li><i data-feather="check"></i> High-accuracy semantic retrieval</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://memorysearch.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 8. SmartComm -->
+                            <div class="os-card" data-category="ai tool" data-name="SmartComm">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/smart-logo.jpg.png" alt="SmartComm" class="os-card-icon-img">
+                                        <h3 class="os-card-title">SmartComm</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">Productivity • AI</div>
+                                <p class="os-card-desc">A professional utility that transforms unrefined textual thoughts into polished, contextual, executive-ready communication.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> AI-powered communication refinement</li>
+                                    <li><i data-feather="check"></i> Executive-ready format conversion</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://smartcomm.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- 9. OFFSTUMP -->
+                            <div class="os-card" data-category="web" data-name="OFFSTUMP">
+                                <div class="os-card-header">
+                                    <div class="os-card-title-group">
+                                        <img src="/offstump-logo.jpg.png" alt="OFFSTUMP" class="os-card-icon-img">
+                                        <h3 class="os-card-title">OFFSTUMP</h3>
+                                    </div>
+                                    <span class="os-tile-tag">2026</span>
+                                </div>
+                                <div class="os-card-category">Web Platform • Local Business</div>
+                                <p class="os-card-desc">Full digital presence implementation for a premium indoor sports facility, mapping footfall from online engagement.</p>
+                                <ul class="os-card-bullets">
+                                    <li><i data-feather="check"></i> Online engagement to footfall conversion</li>
+                                    <li><i data-feather="check"></i> Premium interactive web presence</li>
+                                </ul>
+                                <div class="os-card-actions">
+                                    <a href="https://offstumpwebsite.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-gradient btn-sm btn-full">
+                                        <i data-feather="external-link" class="btn-icon"></i> Open Application
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Experiments Sub-section -->
+                        <div class="os-section-header-row" style="margin-top:40px;">
+                            <div>
+                                <div class="os-section-label">ACTIVE PROTOTYPES</div>
+                                <h3 class="os-section-heading">Laboratory Experiments (6)</h3>
+                            </div>
+                        </div>
+                        <div class="os-grid-3">
+                            <div class="os-card" onclick="showToast('Experiment in progress: 3D Three.js Resume')">
+                                <div class="os-card-header">
+                                    <h4 class="os-card-title">3D Resume Builder</h4>
+                                    <span class="os-tile-tag">In Progress</span>
+                                </div>
+                                <p class="os-card-desc">Interactive resume experience in 3D using Three.js and spatial lighting.</p>
+                            </div>
+                            <div class="os-card" onclick="showToast('Experiment in progress: Autonomous Instagram agent')">
+                                <div class="os-card-header">
+                                    <h4 class="os-card-title">AI Agent Instagram Handler</h4>
+                                    <span class="os-tile-tag">In Progress</span>
+                                </div>
+                                <p class="os-card-desc">Automating social media interactions and content drafting using autonomous AI agents.</p>
+                            </div>
+                            <div class="os-card" onclick="showToast('Experiment in progress: Government welfare scheme finder')">
+                                <div class="os-card-header">
+                                    <h4 class="os-card-title">Assam Scheme Finder</h4>
+                                    <span class="os-tile-tag">In Progress</span>
+                                </div>
+                                <p class="os-card-desc">Intelligent citizen utility mapping citizen profile criteria directly to state welfare schemes.</p>
+                            </div>
+                            <div class="os-card" onclick="showToast('Experiment in progress: Appliance energy calculator')">
+                                <div class="os-card-header">
+                                    <h4 class="os-card-title">Electricity Calculator</h4>
+                                    <span class="os-tile-tag">In Progress</span>
+                                </div>
+                                <p class="os-card-desc">Estimate electricity usage, tariff breakdown, and cost optimization for appliances.</p>
+                            </div>
+                            <div class="os-card" onclick="showToast('Experiment in progress: Lightweight CRM')">
+                                <div class="os-card-header">
+                                    <h4 class="os-card-title">CRM Tool</h4>
+                                    <span class="os-tile-tag">In Progress</span>
+                                </div>
+                                <p class="os-card-desc">Lightweight pipeline to manage leads, follow-ups, and professional interactions.</p>
+                            </div>
+                            <div class="os-card" onclick="showToast('Experiment in progress: Personalized BMI metric calculator')">
+                                <div class="os-card-header">
+                                    <h4 class="os-card-title">BMI Calculator</h4>
+                                    <span class="os-tile-tag">In Progress</span>
+                                </div>
+                                <p class="os-card-desc">Health metric calculator with personalized recommendations and progress tracking.</p>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 4: SKILLS MATRIX ==================== -->
+                    <section id="view-skills" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">STRUCTURED CAPABILITIES</div>
+                                <h2 class="os-section-heading">Skills & Competencies Matrix</h2>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Skill Filter Search Input -->
+                        <div class="os-skills-search-wrap">
+                            <input type="text" id="skill-search-input" class="os-search-input" placeholder="Search competencies, tools, frameworks or methodologies..." oninput="searchSkills(this.value)">
+                        </div>
+
+                        <div id="skills-matrix-container">
+                            <!-- Group 1: System Design & Architecture -->
+                            <div class="os-skill-group-card">
+                                <h3 class="os-skill-group-title">
+                                    <i data-feather="cpu" style="color:var(--os-accent-cyan);"></i>
+                                    <span>System Design & Technical Architecture</span>
+                                </h3>
+                                <div class="os-skill-tags-list">
+                                    <span class="os-skill-badge-tag">High-Level Design (HLD)</span>
+                                    <span class="os-skill-badge-tag">Low-Level Design (LLD)</span>
+                                    <span class="os-skill-badge-tag">API Design & REST</span>
+                                    <span class="os-skill-badge-tag">System Integration</span>
+                                    <span class="os-skill-badge-tag">Data Flow Diagrams (DFDs)</span>
+                                    <span class="os-skill-badge-tag">Scalability & Resilience</span>
+                                    <span class="os-skill-badge-tag">Technical Documentation & RFCs</span>
+                                    <span class="os-skill-badge-tag">Microservices Patterns</span>
+                                </div>
+                            </div>
+
+                            <!-- Group 2: Product & Delivery Management -->
+                            <div class="os-skill-group-card">
+                                <h3 class="os-skill-group-title">
+                                    <i data-feather="layers" style="color:var(--os-accent-violet);"></i>
+                                    <span>Product Management & Delivery</span>
+                                </h3>
+                                <div class="os-skill-tags-list">
+                                    <span class="os-skill-badge-tag">End-to-End Product Lifecycle (Discovery → MVP → Scale)</span>
+                                    <span class="os-skill-badge-tag">Agile & Scrum Facilitation</span>
+                                    <span class="os-skill-badge-tag">Sprint Planning & Backlog Grooming</span>
+                                    <span class="os-skill-badge-tag">Velocity Tracking & Estimation</span>
+                                    <span class="os-skill-badge-tag">Requirements Engineering (BRD, FRD, SRS)</span>
+                                    <span class="os-skill-badge-tag">Prioritization (MoSCoW, RICE)</span>
+                                    <span class="os-skill-badge-tag">Release & UAT Management</span>
+                                    <span class="os-skill-badge-tag">CI/CD Coordination</span>
+                                </div>
+                            </div>
+
+                            <!-- Group 3: Strategy & Transformation -->
+                            <div class="os-skill-group-card">
+                                <h3 class="os-skill-group-title">
+                                    <i data-feather="trending-up" style="color:var(--os-accent-mint);"></i>
+                                    <span>Strategy, Analytics & Transformation</span>
+                                </h3>
+                                <div class="os-skill-tags-list">
+                                    <span class="os-skill-badge-tag">Digital Transformation</span>
+                                    <span class="os-skill-badge-tag">Government & Public Sector Tech</span>
+                                    <span class="os-skill-badge-tag">Process Optimization (As-Is / To-Be)</span>
+                                    <span class="os-skill-badge-tag">User Journey Mapping</span>
+                                    <span class="os-skill-badge-tag">DORA Operational Metrics</span>
+                                    <span class="os-skill-badge-tag">KPI & Adoption Tracking</span>
+                                    <span class="os-skill-badge-tag">Go-To-Market Coordination</span>
+                                    <span class="os-skill-badge-tag">SQL & Data-Driven Decision Making</span>
+                                </div>
+                            </div>
+
+                            <!-- Group 4: AI & Modern Tooling -->
+                            <div class="os-skill-group-card">
+                                <h3 class="os-skill-group-title">
+                                    <i data-feather="terminal" style="color:var(--os-accent-amber);"></i>
+                                    <span>AI Engineering & Tooling Stack</span>
+                                </h3>
+                                <div class="os-skill-tags-list">
+                                    <span class="os-skill-badge-tag">Claude Code</span>
+                                    <span class="os-skill-badge-tag">Cursor</span>
+                                    <span class="os-skill-badge-tag">Codex</span>
+                                    <span class="os-skill-badge-tag">Groq</span>
+                                    <span class="os-skill-badge-tag">Gemini</span>
+                                    <span class="os-skill-badge-tag">RAG Architectures</span>
+                                    <span class="os-skill-badge-tag">Prompt Engineering</span>
+                                    <span class="os-skill-badge-tag">Agentic Systems</span>
+                                    <span class="os-skill-badge-tag">Jira & Confluence Automation</span>
+                                    <span class="os-skill-badge-tag">Balsamiq Wireframing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 5: ACHIEVEMENTS ==================== -->
+                    <section id="view-achievements" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">MILESTONES & RECOGNITION</div>
+                                <h2 class="os-section-heading">Documented Honors & Awards</h2>
+                            </div>
+                        </div>
+
+                        <div class="os-award-grid">
+                            <div class="os-award-card">
+                                <div class="os-award-icon-box"><i data-feather="award"></i></div>
+                                <h3 class="os-award-title">Employee of the Q2 & Q3 Quarter</h3>
+                                <div class="os-award-org">Grant Thornton Bharat LLP • Spot Award</div>
+                                <p class="os-award-desc">Recognized with the Spot Award for high-impact client engagement and technological excellence in public digital governance projects.</p>
+                            </div>
+
+                            <div class="os-award-card">
+                                <div class="os-award-icon-box"><i data-feather="zap"></i></div>
+                                <h3 class="os-award-title">Employee of the Month</h3>
+                                <div class="os-award-org">Wednesday Solutions • Odin's Torchholder</div>
+                                <p class="os-award-desc">Honored with Odin's Torchholder award for exceptional technical delivery, sprint leadership, and cross-functional team enablement.</p>
+                            </div>
+
+                            <div class="os-award-card">
+                                <div class="os-award-icon-box"><i data-feather="star"></i></div>
+                                <h3 class="os-award-title">Above and Beyond Award</h3>
+                                <div class="os-award-org">Soulpage IT Solutions • Outstanding Work</div>
+                                <p class="os-award-desc">Awarded for extraordinary dedication to client outcomes, rapid root-cause resolution, and excellence in business analysis.</p>
+                            </div>
+
+                            <div class="os-award-card">
+                                <div class="os-award-icon-box"><i data-feather="check-circle"></i></div>
+                                <h3 class="os-award-title">Best College Coordinator</h3>
+                                <div class="os-award-org">Internshala ISP</div>
+                                <p class="os-award-desc">Recognized for top performance in coordinating state-level student programs, leadership, and university engagement.</p>
+                            </div>
+
+                            <div class="os-award-card">
+                                <div class="os-award-icon-box"><i data-feather="book-open"></i></div>
+                                <h3 class="os-award-title">Anandaram Baruah Award</h3>
+                                <div class="os-award-org">Govt. of Assam • Academic Excellence</div>
+                                <p class="os-award-desc">State recognition award presented by the Government of Assam for outstanding academic distinction.</p>
+                            </div>
+
+                            <div class="os-award-card">
+                                <div class="os-award-icon-box" style="color:var(--os-accent-mint); background:rgba(66, 230, 196, 0.1);"><i data-feather="play"></i></div>
+                                <h3 class="os-award-title">21 Days • 21 Games Completed</h3>
+                                <div class="os-award-org">Independent Engineering Challenge</div>
+                                <p class="os-award-desc">Designed, developed, and deployed 21 standalone browser games consecutively in 21 days using HTML, CSS, Canvas, and JavaScript.</p>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 6: GAMES ARCADE ==================== -->
+                    <section id="view-arcade" class="os-view-section">
+                        <!-- Challenge Highlight Banner -->
+                        <div class="os-challenge-banner-card">
+                            <div class="os-challenge-banner-info">
+                                <h3>🎮 21 Days • 21 Games Challenge</h3>
+                                <p>A 21-day continuous engineering challenge building one completed game every single day. Explore all 21 games with live play and source code links.</p>
+                            </div>
+                            <a href="/21-days" class="btn btn-gradient">
+                                <i data-feather="play" class="btn-icon"></i> Open Full 21-Days Arcade
+                            </a>
+                        </div>
+
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">COGNITIVE PLAYGROUND</div>
+                                <h2 class="os-section-heading">Micro Challenges & Logic Games</h2>
+                            </div>
+                            <span style="font-size:0.85rem; color:var(--os-text-muted);">10 Integrated Games</span>
+                        </div>
+
+                        <div class="os-arcade-grid">
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Skill Test</span>
+                                    <h4 class="os-arcade-card-title">Typing Speed Test</h4>
+                                    <p class="os-arcade-card-desc">Test your words-per-minute typing speed and accuracy with curated professional quotes.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('typing')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Memory</span>
+                                    <h4 class="os-arcade-card-title">Memory Match</h4>
+                                    <p class="os-arcade-card-desc">Flip and match pairs of icons to test and sharpen your visual short-term memory.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('memory')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Strategy</span>
+                                    <h4 class="os-arcade-card-title">Tic Tac Toe</h4>
+                                    <p class="os-arcade-card-desc">The timeless game of X and O. Challenge your strategy locally in real time.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('tictactoe')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Reaction</span>
+                                    <h4 class="os-arcade-card-title">Focus Click</h4>
+                                    <p class="os-arcade-card-desc">Wait for the screen trigger to turn green and test your neural reaction speed in milliseconds.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('reaction')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Speed</span>
+                                    <h4 class="os-arcade-card-title">1–25 Grid</h4>
+                                    <p class="os-arcade-card-desc">Click numbers 1 to 25 sequentially in rapid order as fast as your reflexes allow.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('grid25')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Accuracy</span>
+                                    <h4 class="os-arcade-card-title">Aim Trainer</h4>
+                                    <p class="os-arcade-card-desc">Click randomly appearing precision targets to measure your mouse accuracy.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('aim')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Pattern</span>
+                                    <h4 class="os-arcade-card-title">Pattern Memory</h4>
+                                    <p class="os-arcade-card-desc">Watch an illuminated sequence of tiles and reproduce the exact pattern.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('pattern')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Language</span>
+                                    <h4 class="os-arcade-card-title">Word Scramble</h4>
+                                    <p class="os-arcade-card-desc">Unscramble letters to discover hidden professional tech and product terms.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('scramble')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Logic</span>
+                                    <h4 class="os-arcade-card-title">Speed Decision</h4>
+                                    <p class="os-arcade-card-desc">Rapidly decide whether mathematical and logical statements are true or false under pressure.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('decision')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+
+                            <div class="os-arcade-card">
+                                <div>
+                                    <span class="os-tile-tag" style="margin-bottom:8px; display:inline-block;">Puzzle</span>
+                                    <h4 class="os-arcade-card-title">Binary Switch</h4>
+                                    <p class="os-arcade-card-desc">Toggle interdependent logic switches to turn every state to ON.</p>
+                                </div>
+                                <button class="btn btn-gradient btn-sm btn-full" onclick="openGame('binary')">
+                                    <i data-feather="play" class="btn-icon"></i> Play Now
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 7: LOGIN VIEW ==================== -->
+                    <section id="view-login" class="os-view-section">
+                        <div class="os-login-card">
+                            <div style="text-align:center; margin-bottom:20px;">
+                                <div style="width:50px; height:50px; border-radius:12px; background:linear-gradient(135deg, var(--os-accent-violet), var(--os-accent-mint)); margin:0 auto 12px; display:flex; align-items:center; justify-content:center; color:#fff;">
+                                    <i data-feather="lock"></i>
+                                </div>
+                                <h3 style="font-family:var(--os-font-heading); font-size:1.4rem;">Owner Console</h3>
+                                <p style="color:var(--os-text-muted); font-size:0.85rem; margin-top:4px;">Authenticate with Appwrite credentials</p>
+                            </div>
+                            <input type="email" class="os-input" id="login-email" placeholder="Email address" autocomplete="username">
+                            <input type="password" class="os-input" id="login-password" placeholder="Password" autocomplete="current-password">
+                            <div id="login-error" style="color:var(--os-accent-rose); font-size:0.82rem; margin-bottom:12px; display:none;"></div>
+                            <button class="btn btn-gradient btn-full" id="login-submit-btn" onclick="handleLogin()">
+                                <span class="btn-content">
+                                    <i data-feather="log-in" class="btn-icon"></i> Authenticate & Enter
+                                </span>
+                                <div class="btn-loader" style="display:none;">
+                                    <div class="os-spinner os-spinner-sm"></div>
+                                </div>
+                            </button>
+                            <div style="text-align: center; margin-top: 16px;">
+                                <button class="btn btn-sm btn-secondary" onclick="switchView('home')">Return to Desktop</button>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 8: DASHBOARD (OWNER) ==================== -->
+                    <section id="view-dashboard" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">SYSTEM TELEMETRY</div>
+                                <h2 class="os-section-heading">Owner Analytics & Overview</h2>
+                            </div>
+                        </div>
+                        <div class="os-metrics-bar" id="stats-grid">
+                            <div class="os-metric-card">
+                                <div class="os-metric-icon-wrap"><i data-feather="edit-3"></i></div>
+                                <div>
+                                    <div class="os-metric-val" id="stat-blogs-total">0</div>
+                                    <div class="os-metric-lbl">Total Blogs</div>
+                                </div>
+                            </div>
+                            <div class="os-metric-card">
+                                <div class="os-metric-icon-wrap"><i data-feather="globe"></i></div>
+                                <div>
+                                    <div class="os-metric-val" id="stat-blogs-published">0</div>
+                                    <div class="os-metric-lbl">Published Blogs</div>
+                                </div>
+                            </div>
+                            <div class="os-metric-card">
+                                <div class="os-metric-icon-wrap"><i data-feather="check-square"></i></div>
+                                <div>
+                                    <div class="os-metric-val" id="stat-tasks-total">0</div>
+                                    <div class="os-metric-lbl">Total Tasks</div>
+                                </div>
+                            </div>
+                            <div class="os-metric-card">
+                                <div class="os-metric-icon-wrap"><i data-feather="check-circle"></i></div>
+                                <div>
+                                    <div class="os-metric-val" id="stat-tasks-completed">0</div>
+                                    <div class="os-metric-lbl">Tasks Completed</div>
+                                </div>
+                            </div>
+                            <div class="os-metric-card">
+                                <div class="os-metric-icon-wrap"><i data-feather="eye"></i></div>
+                                <div>
+                                    <div class="os-metric-val" id="stat-visitors-total">0</div>
+                                    <div class="os-metric-lbl">Total Visitors</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 9: BLOGS (OWNER) ==================== -->
+                    <section id="view-blogs" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">CONTENT SYSTEM</div>
+                                <h2 class="os-section-heading">My Blogs Management</h2>
+                            </div>
+                            <button class="btn btn-gradient btn-sm" onclick="openBlogModal()">
+                                <i data-feather="plus" class="btn-icon"></i> New Blog
                             </button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="os-grid-3" id="blogs-grid">
+                            <div class="os-loading"><div class="os-spinner"></div></div>
+                        </div>
+                    </section>
 
+
+                    <!-- ==================== VIEW 10: NOTES (OWNER) ==================== -->
+                    <section id="view-notes" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">PRIVATE ENCRYPTED STORAGE</div>
+                                <h2 class="os-section-heading">Secure Notes</h2>
+                            </div>
+                            <button class="btn btn-gradient btn-sm" onclick="openNoteModal()">
+                                <i data-feather="plus" class="btn-icon"></i> New Note
+                            </button>
+                        </div>
+                        <div class="os-notes-list" id="notes-list">
+                            <div class="os-loading"><div class="os-spinner"></div></div>
+                        </div>
+                    </section>
+
+
+                    <!-- ==================== VIEW 11: TASKS (OWNER) ==================== -->
+                    <section id="view-tasks" class="os-view-section">
+                        <div class="os-section-header-row">
+                            <div>
+                                <div class="os-section-label">EXECUTION ENGINE</div>
+                                <h2 class="os-section-heading">Productivity & Tasks</h2>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn btn-secondary btn-sm" onclick="openExportModal()">
+                                    <i data-feather="download" class="btn-icon"></i> Export Report
+                                </button>
+                                <button class="btn btn-gradient btn-sm" onclick="openTaskModal()">
+                                    <i data-feather="plus" class="btn-icon"></i> New Task
+                                </button>
+                            </div>
+                        </div>
+                        <div class="os-filter-pills" id="task-filters">
+                            <button class="os-pill-btn active" data-filter="all">All</button>
+                            <button class="os-pill-btn" data-filter="pending">Pending</button>
+                            <button class="os-pill-btn" data-filter="completed">Completed</button>
+                        </div>
+                        <div class="os-task-list" id="tasks-list">
+                            <div class="os-loading"><div class="os-spinner"></div></div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
         </div>
+    </div>
 
-        <!-- ==================== DASHBOARD VIEW ==================== -->
-        <div id="view-dashboard" class="os-view" style="display:none;">
-            <div class="os-section-badge">OVERVIEW</div>
-            <h2 class="os-section-title">Dashboard</h2>
-            <div class="os-stats-grid" id="stats-grid">
-                <div class="os-stat-card">
-                    <i data-feather="edit-3" class="os-stat-icon"></i>
-                    <div class="os-stat-label">Total Blogs</div>
-                    <div class="os-stat-value" id="stat-blogs-total">0</div>
-                </div>
-                <div class="os-stat-card">
-                    <i data-feather="globe" class="os-stat-icon"></i>
-                    <div class="os-stat-label">Published</div>
-                    <div class="os-stat-value" id="stat-blogs-published">0</div>
-                </div>
-                <div class="os-stat-card">
-                    <i data-feather="check-square" class="os-stat-icon"></i>
-                    <div class="os-stat-label">Total Tasks</div>
-                    <div class="os-stat-value" id="stat-tasks-total">0</div>
-                </div>
-                <div class="os-stat-card">
-                    <i data-feather="award" class="os-stat-icon"></i>
-                    <div class="os-stat-label">Tasks Completed</div>
-                    <div class="os-stat-value" id="stat-tasks-completed">0</div>
-                </div>
-                <div class="os-stat-card">
-                    <i data-feather="eye" class="os-stat-icon"></i>
-                    <div class="os-stat-label">Total Visitors</div>
-                    <div class="os-stat-value" id="stat-visitors-total">0</div>
-                </div>
-            </div>
-        </div>
+    <!-- ==================== DOCK (FREQUENTLY USED APPS) ==================== -->
+    <nav class="os-dock" aria-label="System Dock">
+        <button class="os-dock-item active" data-dock="home" data-tooltip="Home Desktop" onclick="switchView('home')">
+            <i data-feather="grid"></i>
+        </button>
+        <button class="os-dock-item" data-dock="journey" data-tooltip="My Journey" onclick="switchView('journey')">
+            <i data-feather="compass"></i>
+        </button>
+        <button class="os-dock-item" data-dock="projects" data-tooltip="Project Lab" onclick="switchView('projects')">
+            <i data-feather="box"></i>
+        </button>
+        <button class="os-dock-item" data-dock="skills" data-tooltip="Skills Matrix" onclick="switchView('skills')">
+            <i data-feather="cpu"></i>
+        </button>
+        <button class="os-dock-item" data-dock="arcade" data-tooltip="Games Arcade" onclick="switchView('arcade')">
+            <i data-feather="play-circle"></i>
+        </button>
+        <button class="os-dock-item" data-dock="login" data-tooltip="Owner Console" onclick="switchView('login')">
+            <i data-feather="shield"></i>
+        </button>
+    </nav>
 
-        <!-- ==================== LOGIN VIEW ==================== -->
-        <div id="view-login" class="os-view" style="display:none;">
-            <div class="os-hero">
-                <h1 class="os-hero-title">Welcome <span class="text-gradient">Back</span></h1>
-                <p class="os-hero-sub">Enter your credentials to manage your OS</p>
-            </div>
-            <div class="os-login-card" style="margin-top: 0;">
-                <h3>Enter ManashOS</h3>
-                <input type="email" class="os-input" id="login-email" placeholder="Email address">
-                <input type="password" class="os-input" id="login-password" placeholder="Password">
-                <div id="login-error" style="color:#ef4444; font-size:0.8rem; margin-bottom:12px; display:none;"></div>
-                <button class="btn btn-gradient btn-full" id="login-submit-btn" onclick="handleLogin()">
-                    <span class="btn-content">
-                        <i data-feather="log-in" class="btn-icon"></i> Enter ManashOS
-                    </span>
-                    <div class="btn-loader" style="display:none;">
-                        <div class="os-spinner os-spinner-sm"></div>
-                    </div>
-                </button>
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-sm btn-secondary" onclick="switchView('home')">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== BLOGS VIEW ==================== -->
-        <div id="view-blogs" class="os-view" style="display:none;">
-            <div class="os-section-header">
-                <div>
-                    <div class="os-section-badge">CONTENT</div>
-                    <h2 class="os-section-title">My <span class="text-gradient">Blogs</span></h2>
-                </div>
-                <button class="btn btn-gradient btn-sm" onclick="openBlogModal()">
-                    <i data-feather="plus" class="btn-icon"></i> New Blog
-                </button>
-            </div>
-            <div class="os-cards-grid" id="blogs-grid">
-                <div class="os-loading">
-                    <div class="os-spinner"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== NOTES VIEW ==================== -->
-        <div id="view-notes" class="os-view" style="display:none;">
-            <div class="os-section-header">
-                <div>
-                    <div class="os-section-badge">PRIVATE</div>
-                    <h2 class="os-section-title">My <span class="text-gradient">Notes</span></h2>
-                </div>
-                <button class="btn btn-gradient btn-sm" onclick="openNoteModal()">
-                    <i data-feather="plus" class="btn-icon"></i> New Note
+    <!-- ==================== COMMAND PALETTE (CTRL+K) ==================== -->
+    <div class="os-cmd-palette-backdrop" id="cmd-palette" onclick="if(event.target === this) closeCommandPalette();" role="dialog" aria-modal="true" aria-label="Command Palette">
+        <div class="os-cmd-palette-modal">
+            <div class="os-cmd-input-row">
+                <i data-feather="search" style="color:var(--os-accent-cyan); width:18px; height:18px;"></i>
+                <input type="text" id="cmd-palette-input" class="os-cmd-input" placeholder="Type a command or search sections, projects, skills..." autocomplete="off">
+                <button class="os-sidebar-collapse-btn" onclick="closeCommandPalette()" aria-label="Close Command Palette">
+                    <i data-feather="x"></i>
                 </button>
             </div>
-            <div class="os-notes-list" id="notes-list">
-                <div class="os-loading">
-                    <div class="os-spinner"></div>
-                </div>
+            <div class="os-cmd-results" id="cmd-palette-results">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="os-cmd-footer">
+                <span>Navigate: <kbd>↑</kbd> <kbd>↓</kbd></span>
+                <span>Select: <kbd>Enter</kbd></span>
+                <span>Close: <kbd>Esc</kbd></span>
             </div>
         </div>
-
-        <!-- ==================== TASKS VIEW ==================== -->
-        <div id="view-tasks" class="os-view" style="display:none;">
-            <div class="os-section-header">
-                <div>
-                    <div class="os-section-badge">PRODUCTIVITY</div>
-                    <h2 class="os-section-title">My <span class="text-gradient">Tasks</span></h2>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-secondary btn-sm" onclick="openExportModal()">
-                        <i data-feather="download" class="btn-icon"></i> Export
-                    </button>
-                    <button class="btn btn-gradient btn-sm" onclick="openTaskModal()">
-                        <i data-feather="plus" class="btn-icon"></i> New Task
-                    </button>
-                </div>
-            </div>
-            <div class="os-filter-bar" id="task-filters">
-                <button class="os-filter-btn active" data-filter="all">All</button>
-                <button class="os-filter-btn" data-filter="pending">Pending</button>
-                <button class="os-filter-btn" data-filter="completed">Completed</button>
-            </div>
-            <div class="os-task-list" id="tasks-list">
-                <div class="os-loading">
-                    <div class="os-spinner"></div>
-                </div>
-            </div>
-        </div>
-    </main>
-
+    </div>
 
     <!-- ==================== MODALS ==================== -->
     <!-- Blog Modal -->
@@ -878,17 +1330,13 @@
         <div class="os-modal">
             <div class="os-modal-header">
                 <h3 class="os-modal-title" id="blog-modal-title">New Blog</h3>
-                <button class="os-modal-close" onclick="closeBlogModal()">
-                    <i data-feather="x"></i>
-                </button>
+                <button class="os-modal-close" onclick="closeBlogModal()"><i data-feather="x"></i></button>
             </div>
             <input type="hidden" id="blog-edit-id">
-            <div id="blog-title-container"
-                style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
+            <div id="blog-title-container" style="margin-bottom: 20px; background: var(--os-surface-elevated); color: var(--os-text-primary); border-radius: 10px; border: 1px solid var(--os-border);">
                 <div id="blog-title-editor"></div>
             </div>
-            <div id="blog-editor-container"
-                style="margin-bottom: 20px; background: var(--bg-primary); color: var(--text-primary); border-radius: 10px; border: 1px solid var(--card-border);">
+            <div id="blog-editor-container" style="margin-bottom: 20px; background: var(--os-surface-elevated); color: var(--os-text-primary); border-radius: 10px; border: 1px solid var(--os-border);">
                 <div id="blog-editor"></div>
             </div>
             <select class="os-select" id="blog-status">
@@ -908,9 +1356,7 @@
         <div class="os-modal">
             <div class="os-modal-header">
                 <h3 class="os-modal-title" id="note-modal-title">New Note</h3>
-                <button class="os-modal-close" onclick="closeNoteModal()">
-                    <i data-feather="x"></i>
-                </button>
+                <button class="os-modal-close" onclick="closeNoteModal()"><i data-feather="x"></i></button>
             </div>
             <input type="hidden" id="note-edit-id">
             <input type="text" class="os-input" id="note-title" placeholder="Note title">
@@ -928,14 +1374,11 @@
         <div class="os-modal">
             <div class="os-modal-header">
                 <h3 class="os-modal-title" id="task-modal-title">New Task</h3>
-                <button class="os-modal-close" onclick="closeTaskModal()">
-                    <i data-feather="x"></i>
-                </button>
+                <button class="os-modal-close" onclick="closeTaskModal()"><i data-feather="x"></i></button>
             </div>
             <input type="hidden" id="task-edit-id">
             <input type="text" class="os-input" id="task-title" placeholder="Task title">
-            <textarea class="os-textarea" id="task-desc" placeholder="Description (optional)"
-                style="min-height:80px;"></textarea>
+            <textarea class="os-textarea" id="task-desc" placeholder="Description (optional)" style="min-height:80px;"></textarea>
             <input type="date" class="os-input" id="task-due" placeholder="Due date (optional)">
             <div class="os-modal-actions">
                 <button class="btn btn-gradient btn-full" onclick="saveTask()">
@@ -945,46 +1388,39 @@
         </div>
     </div>
 
-    <!-- Blog Viewer Modal (for guests and owners to read full content) -->
+    <!-- Blog Viewer Modal -->
     <div class="os-modal-overlay" id="blog-viewer-modal" data-no-backdrop-close="true">
         <div class="os-modal blog-viewer-modal">
             <div class="os-modal-header" style="flex-direction: column; align-items: flex-start; gap: 8px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                     <div class="viewer-meta" style="margin-bottom: 0; display: flex; align-items: center; gap: 12px;">
-                        <span id="viewer-date">Date</span>
-                        <button id="viewer-share-btn" class="btn btn-sm btn-secondary"
-                            onclick="shareBlog(currentViewingBlogId)" title="Copy share link"
-                            style="padding: 4px 10px; font-size: 0.75rem;">
+                        <span id="viewer-date" style="font-family:var(--os-font-mono); font-size:0.8rem; color:var(--os-text-muted);">Date</span>
+                        <button id="viewer-share-btn" class="btn btn-sm btn-secondary" onclick="shareBlog(currentViewingBlogId)" title="Copy share link">
                             <i data-feather="share-2" class="btn-icon"></i> Share
                         </button>
                     </div>
-                    <button class="os-modal-close" style="position: static; padding: 4px;"
-                        onclick="closeBlogViewer()"><i data-feather="x"></i></button>
+                    <button class="os-modal-close" onclick="closeBlogViewer()"><i data-feather="x"></i></button>
                 </div>
-                <h3 id="viewer-title" style="margin: 0; padding-right: 0;">Blog Title</h3>
+                <h3 id="viewer-title" style="margin: 0; font-family:var(--os-font-heading);">Blog Title</h3>
             </div>
             <div class="os-modal-body">
-                <div id="viewer-content" class="viewer-content ql-viewer">
-                    <!-- Content will be injected here -->
-                </div>
+                <div id="viewer-content" class="viewer-content ql-viewer"></div>
             </div>
-            <div class="os-modal-footer">
-                <button class="btn btn-secondary btn-full" onclick="closeBlogViewer()">Close</button>
+            <div class="os-modal-footer" style="margin-top:20px;">
+                <button class="btn btn-secondary btn-full" onclick="closeBlogViewer()">Close Reader</button>
             </div>
         </div>
     </div>
+
     <!-- Export Tasks Modal -->
     <div class="os-modal-overlay" id="export-tasks-modal" data-no-backdrop-close="true">
         <div class="os-modal">
             <div class="os-modal-header">
                 <h3 class="os-modal-title">Export Tasks</h3>
-                <button class="os-modal-close" onclick="closeExportModal()">
-                    <i data-feather="x"></i>
-                </button>
+                <button class="os-modal-close" onclick="closeExportModal()"><i data-feather="x"></i></button>
             </div>
             <div style="margin-bottom: 15px;">
-                <label style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Date
-                    Range</label>
+                <label style="display:block; margin-bottom: 5px; color: var(--os-text-secondary); font-size: 0.85rem;">Date Range</label>
                 <select class="os-select" id="export-date-range" onchange="toggleCustomDates()">
                     <option value="today">Today</option>
                     <option value="month">This Month</option>
@@ -993,21 +1429,17 @@
             </div>
             <div id="custom-date-fields" style="display: none; gap: 10px; margin-bottom: 15px;">
                 <div style="flex: 1;">
-                    <label
-                        style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">Start
-                        Date</label>
+                    <label style="display:block; margin-bottom: 5px; color: var(--os-text-secondary); font-size: 0.85rem;">Start Date</label>
                     <input type="date" class="os-input" id="export-start-date">
                 </div>
                 <div style="flex: 1;">
-                    <label
-                        style="display:block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.85rem;">End
-                        Date</label>
+                    <label style="display:block; margin-bottom: 5px; color: var(--os-text-secondary); font-size: 0.85rem;">End Date</label>
                     <input type="date" class="os-input" id="export-end-date">
                 </div>
             </div>
             <div class="os-modal-actions" style="display: flex; gap: 10px; margin-top: 20px;">
                 <button class="btn btn-secondary btn-full" onclick="exportTasks('csv')">
-                    <i data-feather="file-text" class="btn-icon"></i> Download Excel (CSV)
+                    <i data-feather="file-text" class="btn-icon"></i> Download CSV
                 </button>
                 <button class="btn btn-gradient btn-full" onclick="exportTasks('pdf')">
                     <i data-feather="file" class="btn-icon"></i> Download PDF
@@ -1015,38 +1447,48 @@
             </div>
         </div>
     </div>
+
     <!-- Game Modal -->
     <div class="os-modal-overlay" id="game-modal" data-no-backdrop-close="true">
         <div class="os-modal">
             <div class="os-modal-header">
                 <h3 class="os-modal-title" id="game-modal-title">Game Title</h3>
-                <button class="os-modal-close" onclick="closeGame()">
-                    <i data-feather="x"></i>
-                </button>
+                <button class="os-modal-close" onclick="closeGame()"><i data-feather="x"></i></button>
             </div>
-            <div id="game-container" class="os-modal-body" style="padding: 20px; text-align: center;">
+            <div id="game-container" class="os-modal-body" style="padding: 10px 0; text-align: center;">
                 <!-- Game UI will be injected here -->
             </div>
-            <div class="os-modal-footer">
+            <div class="os-modal-footer" style="margin-top:20px;">
                 <button class="btn btn-secondary btn-full" onclick="closeGame()">Quit Game</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer (Same as main portfolio) -->
-    <footer class="footer">
-        <div class="footer-left">
-            © 2026 <span class="text-gradient" style="font-weight: 700; margin-left: 4px;">Manashjyoti Barman</span>
-        </div>
-        <div class="footer-right">
-            Product Delivery Manager · Product • AI • Data • Technology
-        </div>
-    </footer>
+    <!-- Toast Notification Container -->
+    <div id="os-toast" class="os-toast" role="status" aria-live="polite"></div>
 
+    <!-- Command Palette (Ctrl+K) -->
+    <div class="os-cmd-backdrop" id="cmd-palette-backdrop" onclick="closeCommandPalette()" aria-hidden="true" style="display:none;"></div>
+    <div class="os-cmd-modal" id="cmd-palette-modal" role="dialog" aria-modal="true" aria-label="Command Palette" style="display:none;">
+        <div class="os-cmd-header">
+            <i data-feather="search" class="os-cmd-search-icon"></i>
+            <input type="text" id="cmd-palette-input" class="os-cmd-input" placeholder="Type a command, project, skill, or view..." autocomplete="off" spellcheck="false">
+            <button class="os-cmd-close-btn" onclick="closeCommandPalette()" aria-label="Close command palette">ESC</button>
+        </div>
+        <div class="os-cmd-results" id="cmd-palette-results" role="listbox">
+            <!-- Dynamically populated commands and results -->
+        </div>
+        <div class="os-cmd-footer">
+            <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+            <span><kbd>Enter</kbd> to select</span>
+            <span><kbd>Esc</kbd> to dismiss</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"
-        defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
     <script src="/manashos/app.js" defer></script>
 </body>
 
