@@ -477,6 +477,23 @@ body:not(.loaded) {
     scroll-margin-top: 80px;
 }
 
+#skills {
+    scroll-margin-top: 65px;
+}
+
+#skills .section-title {
+    margin-bottom: 24px;
+}
+
+#skills .project-card {
+    padding: 24px 26px;
+}
+
+#skills .exp-bullet-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
 #contact {
     margin-top: 40px;
     scroll-margin-top: 0; /* Ensures it scrolls all the way up so footer is visible */
