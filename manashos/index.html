@@ -65,14 +65,11 @@
     <div style="display:none;" aria-hidden="true">
         <button id="journey-mode-toggle" class="os-nav-item guest-only" onclick="toggleJourneyMode()"><span id="journey-toggle-text">My Journey</span></button>
         <div id="portfolio-mode-content"></div>
-        <div id="journey-mode-content"></div>
+        <div id="legacy-journey-mode-content"></div>
         <span id="guest-stat-blogs">0</span>
         <span id="guest-stat-projects">9</span>
         <span id="guest-stat-games">31</span>
         <span id="guest-stat-experiments">6</span>
-        <span id="journey-prev"></span>
-        <span id="journey-next"></span>
-        <div id="journey-track"></div>
     </div>
 
     <!-- ==================== DESKTOP APPLICATION SHELL ==================== -->
@@ -108,7 +105,7 @@
                 <button class="os-nav-btn" data-view="journey" aria-label="Career Journey">
                     <i data-feather="compass" class="os-nav-icon"></i>
                     <span class="sidebar-hide-when-collapsed">My Journey</span>
-                    <span class="os-nav-pill-badge sidebar-hide-when-collapsed">6 Exp</span>
+                    <span class="os-nav-pill-badge sidebar-hide-when-collapsed">Evolution</span>
                 </button>
 
                 <button class="os-nav-btn" data-view="projects" aria-label="Project Lab">
@@ -397,7 +394,9 @@
                         <div class="os-grid-3" id="public-blogs-grid">
                             <div class="os-card"><p style="color:var(--os-text-muted);">Loading published insights...</p></div>
                         </div>
-                    <                    <!-- ==================== VIEW 2: MY JOURNEY ==================== -->
+                    </section>
+
+                    <!-- ==================== VIEW 2: MY JOURNEY ==================== -->
                     <section id="view-journey" class="os-view-section">
                         <!-- Upgraded Hero -->
                         <div class="os-hero" style="text-align: center; margin-bottom: 25px;">
@@ -1099,37 +1098,13 @@
         <button class="os-dock-item" data-dock="projects" data-tooltip="Project Lab" onclick="switchView('projects')">
             <i data-feather="box"></i>
         </button>
-        <button class="os-dock-item" data-dock="skills" data-tooltip="Skills Matrix" onclick="switchView('skills')">
-            <i data-feather="cpu"></i>
-        </button>
         <button class="os-dock-item" data-dock="arcade" data-tooltip="Games Arcade" onclick="switchView('arcade')">
             <i data-feather="play-circle"></i>
         </button>
         <button class="os-dock-item" data-dock="login" data-tooltip="Owner Console" onclick="switchView('login')">
-            <i data-feather="shield"></i>
+            <i data-feather="lock"></i>
         </button>
     </nav>
-
-    <!-- ==================== COMMAND PALETTE (CTRL+K) ==================== -->
-    <div class="os-cmd-palette-backdrop" id="cmd-palette" onclick="if(event.target === this) closeCommandPalette();" role="dialog" aria-modal="true" aria-label="Command Palette">
-        <div class="os-cmd-palette-modal">
-            <div class="os-cmd-input-row">
-                <i data-feather="search" style="color:var(--os-accent-cyan); width:18px; height:18px;"></i>
-                <input type="text" id="cmd-palette-input" class="os-cmd-input" placeholder="Type a command or search sections, projects, skills..." autocomplete="off">
-                <button class="os-sidebar-collapse-btn" onclick="closeCommandPalette()" aria-label="Close Command Palette">
-                    <i data-feather="x"></i>
-                </button>
-            </div>
-            <div class="os-cmd-results" id="cmd-palette-results">
-                <!-- Dynamically populated -->
-            </div>
-            <div class="os-cmd-footer">
-                <span>Navigate: <kbd>↑</kbd> <kbd>↓</kbd></span>
-                <span>Select: <kbd>Enter</kbd></span>
-                <span>Close: <kbd>Esc</kbd></span>
-            </div>
-        </div>
-    </div>
 
     <!-- ==================== MODALS ==================== -->
     <!-- Blog Modal -->

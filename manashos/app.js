@@ -1884,7 +1884,7 @@ function initJourneyCarousel() {
     const prevBtn = document.getElementById('journey-prev');
     const nextBtn = document.getElementById('journey-next');
     const container = document.querySelector('.journey-carousel-container');
-    const content = document.getElementById('journey-mode-content');
+    const content = document.getElementById('view-journey') || document.getElementById('journey-mode-content');
     
     if (!track || !cards.length) return;
 
