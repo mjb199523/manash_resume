@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Scroll to section accurately
-                const offset = targetId === 'skills' ? 75 : 100;
+                const offset = targetId === 'skills' ? 55 : 100;
                 const bodyRect = document.body.getBoundingClientRect().top;
                 const elementRect = targetElement.getBoundingClientRect().top;
                 const elementPosition = elementRect - bodyRect;
