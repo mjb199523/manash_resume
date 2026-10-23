@@ -603,6 +603,7 @@ body:not(.loaded) {
 .work-stages-wrapper {
     position: relative;
     width: 100%;
+    min-height: 270px; /* Keeps the controls/arrows locked in fixed vertical position */
 }
 
 .work-stage-slide {
@@ -977,6 +978,9 @@ body:not(.loaded) {
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
+    .work-stages-wrapper {
+        min-height: 440px;
+    }
     .work-stage-cards-grid.four-cols,
     .work-stage-cards-grid.five-cols,
     .work-stage-cards-grid.six-cols {
@@ -985,6 +989,9 @@ body:not(.loaded) {
 }
 
 @media (max-width: 640px) {
+    .work-stages-wrapper {
+        min-height: auto; /* natural flow on small mobile screens */
+    }
     .work-stage-cards-grid.four-cols,
     .work-stage-cards-grid.five-cols,
     .work-stage-cards-grid.six-cols {
