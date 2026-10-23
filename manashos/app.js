@@ -161,7 +161,9 @@ function initClock() {
     if (!clockEl) return;
     function update() {
         const d = new Date();
-        clockEl.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const day = d.toLocaleDateString([], { weekday: 'long' });
+        const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        clockEl.textContent = `${day}, ${time}`;
     }
     update();
     setInterval(update, 1000);
