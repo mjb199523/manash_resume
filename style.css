@@ -478,8 +478,8 @@ body:not(.loaded) {
 }
 
 #skills {
-    scroll-margin-top: 90px;
-    margin-top: 35px;
+    scroll-margin-top: 75px;
+    margin-top: 24px;
 }
 
 #skills .section-badge {
@@ -487,33 +487,36 @@ body:not(.loaded) {
 }
 
 #skills .section-title {
-    font-size: 2.1rem;
-    margin-bottom: 14px;
+    font-size: 1.95rem;
+    margin-bottom: 12px;
 }
 
 #skills .projects-grid {
-    gap: 16px;
+    gap: 14px;
 }
 
 #skills .project-card {
-    padding: 14px 18px;
-    border-radius: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
 }
 
 #skills .project-card > div:first-child {
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
 }
 
 #skills .exp-bullet-list {
     margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
 }
 
 #skills .exp-bullet-list li {
-    font-size: 0.85rem;
-    line-height: 1.35;
-    margin-bottom: 5px;
-    padding-left: 14px;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    padding-left: 12px;
 }
+
 
 #contact {
     margin-top: 40px;
